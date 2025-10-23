@@ -1,0 +1,671 @@
+/* Frame 1000001126 */
+
+position: absolute;
+width: 383px;
+height: 554px;
+left: 528px;
+top: 260px;
+
+
+
+/* Add New Job Popup */
+
+position: absolute;
+width: 383px;
+height: 554px;
+left: 0px;
+top: 0px;
+
+/* White-500 */
+background: #FFFFFF;
+border-radius: 20px;
+
+
+/* Select Type */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+position: absolute;
+width: 343px;
+height: 64px;
+left: 20px;
+top: 390px;
+
+
+
+/* ✏️ Text */
+
+width: 343px;
+height: 24px;
+
+/* Body-1 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Frame 1000001008 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+width: 261px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 1000001006 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+width: 81px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Huge-icon/interface/outline/radio */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Gray/Gray-20% */
+border: 1.5px solid rgba(162, 161, 168, 0.2);
+border-radius: 20px;
+
+
+/* ✏️ Text */
+
+width: 47px;
+height: 24px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 1000001007 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+width: 164px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Huge-icon/interface/outline/radio */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Gray/Gray-20% */
+border: 1.5px solid rgba(162, 161, 168, 0.2);
+border-radius: 20px;
+
+
+/* ✏️ Text */
+
+width: 130px;
+height: 24px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Button */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 20px;
+gap: 10px;
+
+position: absolute;
+width: 166px;
+height: 50px;
+left: 20px;
+top: 484px;
+
+/* Gray/Gray-20% */
+border: 1px solid rgba(162, 161, 168, 0.2);
+border-radius: 10px;
+
+
+/* Button */
+
+width: 57px;
+height: 24px;
+
+/* Body-1 Regular */
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height */
+
+/* Dark-500 */
+color: #16151C;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 20px;
+gap: 10px;
+
+position: absolute;
+width: 166px;
+height: 50px;
+left: 197px;
+top: 484px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 10px;
+
+
+/* Button */
+
+width: 33px;
+height: 24px;
+
+/* Body-1 Regular */
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Add New Job */
+
+position: absolute;
+width: 134px;
+height: 30px;
+left: 20px;
+top: 20px;
+
+/* Header-6 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 30px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Line 2 */
+
+position: absolute;
+width: 343px;
+height: 0px;
+left: 20px;
+top: 66px;
+
+/* Gray/Gray-10% */
+border: 1px solid rgba(162, 161, 168, 0.1);
+
+
+/* Input */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 16px;
+gap: 10px;
+
+position: absolute;
+width: 343px;
+height: 56px;
+left: 20px;
+top: 86px;
+
+/* Gray/Gray-20% */
+border: 1px solid rgba(162, 161, 168, 0.2);
+border-radius: 10px;
+
+
+/* Frame 31 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 10px;
+
+width: 311px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* ✏️ Text */
+
+width: 277px;
+height: 24px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Gray/Gray-80% */
+color: rgba(162, 161, 168, 0.8);
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* 🔽 Icon */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vector 175 */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 41.67%;
+bottom: 41.67%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Input */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 16px;
+gap: 10px;
+
+position: absolute;
+width: 343px;
+height: 56px;
+left: 20px;
+top: 162px;
+
+/* Gray/Gray-20% */
+border: 1px solid rgba(162, 161, 168, 0.2);
+border-radius: 10px;
+
+
+/* Frame 31 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 10px;
+
+width: 311px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* ✏️ Text */
+
+width: 311px;
+height: 24px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Gray/Gray-80% */
+color: rgba(162, 161, 168, 0.8);
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* 🔽 Icon */
+
+display: none;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Input */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 16px;
+gap: 10px;
+
+position: absolute;
+width: 343px;
+height: 56px;
+left: 20px;
+top: 238px;
+
+/* Gray/Gray-20% */
+border: 1px solid rgba(162, 161, 168, 0.2);
+border-radius: 10px;
+
+
+/* Frame 31 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 10px;
+
+width: 311px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* ✏️ Text */
+
+width: 277px;
+height: 24px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Gray/Gray-80% */
+color: rgba(162, 161, 168, 0.8);
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* 🔽 Icon */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vector 175 */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 41.67%;
+bottom: 41.67%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Input */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 16px;
+gap: 10px;
+
+position: absolute;
+width: 343px;
+height: 56px;
+left: 20px;
+top: 314px;
+
+/* Gray/Gray-20% */
+border: 1px solid rgba(162, 161, 168, 0.2);
+border-radius: 10px;
+
+
+/* Frame 31 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 10px;
+
+width: 311px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* ✏️ Text */
+
+width: 311px;
+height: 24px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Gray/Gray-80% */
+color: rgba(162, 161, 168, 0.8);
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* 🔽 Icon */
+
+display: none;
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;

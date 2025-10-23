@@ -1,0 +1,64 @@
+{
+  "name": "VillaSaya - Villa Management System",
+  "short_name": "VillaSaya",
+  "description": "Comprehensive villa management application for landlords, agents, tenants, and staff",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F8F8",
+  "theme_color": "#7B5FEB",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/villasaya.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "business",
+    "productivity",
+    "utilities"
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Home",
+      "description": "View your dashboard",
+      "url": "/?view=dashboard",
+      "icons": [
+        {
+          "src": "/villasaya.svg",
+          "sizes": "any"
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "short_name": "Tasks",
+      "description": "Manage your tasks",
+      "url": "/?view=tasks",
+      "icons": [
+        {
+          "src": "/villasaya.svg",
+          "sizes": "any"
+        }
+      ]
+    },
+    {
+      "name": "Expenses",
+      "short_name": "Expenses",
+      "description": "Track expenses",
+      "url": "/?view=expenses",
+      "icons": [
+        {
+          "src": "/villasaya.svg",
+          "sizes": "any"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false
+}

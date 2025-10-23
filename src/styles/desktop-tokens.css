@@ -1,0 +1,61 @@
+/* Desktop Design Tokens - HR Management Admin UI Kit */
+
+:root {
+  /* Desktop Primary Colors */
+  --desktop-primary-500: #7152F3;
+  --desktop-primary-400: #8D75F5;
+  --desktop-primary-5: rgba(113, 82, 243, 0.05);
+  --desktop-primary-10: rgba(113, 82, 243, 0.1);
+  
+  /* Desktop Neutral Colors */
+  --desktop-dark-500: #16151C;
+  --desktop-dark-20: rgba(22, 21, 28, 0.2);
+  --desktop-gray-500: #A2A1A8;
+  --desktop-gray-5: rgba(162, 161, 168, 0.05);
+  --desktop-gray-10: rgba(162, 161, 168, 0.1);
+  --desktop-gray-20: rgba(162, 161, 168, 0.2);
+  --desktop-white-500: #FFFFFF;
+  
+  /* Desktop Layout */
+  --desktop-sidebar-width: 280px;
+  --desktop-header-height: 64px;
+  --desktop-content-padding: 12px;
+  --desktop-min-width: 1280px;
+  
+  /* Desktop 24-Column Grid System */
+  --desktop-grid-columns: 24;
+  --desktop-grid-gap: 12px;
+  --desktop-grid-container: 1440px;
+  
+  /* Desktop Typography - Lexend font family */
+  --desktop-font-family: 'Lexend', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  /* Desktop Font Sizes - Reduced for enterprise-grade density */
+  --desktop-header-6: 16px;
+  --desktop-body-1: 14px;
+  --desktop-body-2: 13px;
+  --desktop-caption: 11px;
+  
+  /* Desktop Font Weights */
+  --desktop-weight-light: 300;
+  --desktop-weight-regular: 400;
+  --desktop-weight-semibold: 600;
+  
+  /* Desktop Spacing - Reduced for enterprise-grade density */
+  --desktop-gap-xs: 4px;
+  --desktop-gap-sm: 6px;
+  --desktop-gap-md: 8px;
+  --desktop-gap-lg: 12px;
+  --desktop-gap-xl: 16px;
+  --desktop-gap-2xl: 24px;
+  
+  /* Desktop Border Radius */
+  --desktop-radius-sm: 4px;
+  --desktop-radius-md: 8px;
+  --desktop-radius-lg: 10px;
+  --desktop-radius-xl: 20px;
+  
+  /* Desktop Shadows */
+  --desktop-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --desktop-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,5506 @@
+/* Frame 1000001129 */
+
+position: relative;
+width: 1440px;
+height: 1074px;
+
+
+
+/* Frame 1000001128 */
+
+position: absolute;
+width: 1440px;
+height: 1074px;
+left: 0px;
+top: 0px;
+
+
+
+/* Frame 1000001127 */
+
+position: absolute;
+width: 1440px;
+height: 1074px;
+left: 0px;
+top: 0px;
+
+
+
+/* 23 Jobs */
+
+position: absolute;
+width: 1440px;
+height: 1074px;
+left: 0px;
+top: 0px;
+
+background: #FFFFFF;
+
+
+/* Background */
+
+position: absolute;
+width: 1440px;
+height: 1074px;
+left: 0px;
+top: 0px;
+
+/* White-500 */
+background: #FFFFFF;
+
+
+/* Side Menu */
+
+position: absolute;
+width: 280px;
+height: 1034px;
+left: 20px;
+top: 20px;
+
+
+
+/* Rectangle 41 */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 20px;
+
+
+/* Logo + Text */
+
+position: absolute;
+width: 123.06px;
+height: 50px;
+left: 30px;
+top: 30px;
+
+
+
+/* Group 52 */
+
+position: absolute;
+width: 122.82px;
+height: 36.41px;
+left: calc(50% - 122.82px/2 + 0.12px);
+top: calc(50% - 36.41px/2 - 0px);
+
+
+
+/* Frame 37 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 1.53px;
+isolation: isolate;
+
+position: absolute;
+left: 0.2%;
+right: 70.22%;
+top: 13.59%;
+bottom: 13.59%;
+
+
+
+/* Rectangle 1142 */
+
+width: 36.41px;
+height: 36.41px;
+
+background: #8D75F5;
+border-radius: 21.8753px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* ph:meta-logo-bold */
+
+position: absolute;
+width: 19.58px;
+height: 19.58px;
+left: 8.41px;
+top: 8.41px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Vector */
+
+position: absolute;
+left: 4.69%;
+right: 4.69%;
+top: 17.19%;
+bottom: 17.19%;
+
+/* White-500 */
+background: #FFFFFF;
+
+
+/* HRMS */
+
+position: absolute;
+width: 77.75px;
+height: 20.05px;
+left: 45.31px;
+top: 15.55px;
+
+/* Dark-500 */
+background: #16151C;
+
+
+/* Frame 427320604 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 220px;
+height: 590px;
+left: 30px;
+top: 110px;
+
+
+
+/* Dashboard */
+
+width: 220px;
+height: 50px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Rectangle 42 */
+
+position: absolute;
+width: 220px;
+height: 50px;
+left: 0px;
+top: 0px;
+
+border-radius: 0px 10px 10px 0px;
+
+
+/* Huge-icon/interface/outline/apps */
+
+position: absolute;
+left: 8.64%;
+right: 80.45%;
+top: 2.2%;
+bottom: 93.73%;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Dashboard */
+
+position: absolute;
+width: 151px;
+height: 24px;
+left: 59px;
+top: 13px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Rectangle 7 */
+
+position: absolute;
+width: 3px;
+height: 50px;
+left: 0px;
+top: 0px;
+
+/* Primary-500 */
+background: #7152F3;
+opacity: 0;
+border-radius: 10px;
+
+
+/* All Employees */
+
+width: 220px;
+height: 50px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Rectangle 42 */
+
+position: absolute;
+width: 220px;
+height: 50px;
+left: 0px;
+top: 60px;
+
+/* Primary/Primary-5% */
+background: rgba(113, 82, 243, 0.05);
+opacity: 0;
+border-radius: 0px 10px 10px 0px;
+
+
+/* Huge-icon/user/outline/users 02 */
+
+position: absolute;
+left: 8.64%;
+right: 80.45%;
+top: 12.37%;
+bottom: 83.56%;
+
+
+
+/* Ellipse 295 */
+
+position: absolute;
+left: 25%;
+right: 25%;
+top: 58.33%;
+bottom: 20.83%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 296 */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 20.83%;
+bottom: 54.17%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Subtract */
+
+position: absolute;
+width: 5.2px;
+height: 5.32px;
+left: 1.25px;
+top: 13.26px;
+
+/* Dark-500 */
+background: #16151C;
+
+
+/* Ellipse 299 */
+
+position: absolute;
+left: 8.33%;
+right: 50%;
+top: 58.33%;
+bottom: 25%;
+
+border: 1.5px solid #000000;
+
+
+/* Ellipse 300 */
+
+position: absolute;
+left: 16.67%;
+right: 16.67%;
+top: 50%;
+bottom: 12.5%;
+
+background: #000000;
+
+
+/* Subtract */
+
+position: absolute;
+width: 5.2px;
+height: 5.32px;
+left: 17.55px;
+top: 13.26px;
+
+/* Dark-500 */
+background: #16151C;
+
+
+/* Ellipse 297 */
+
+position: absolute;
+left: 50%;
+right: 8.33%;
+top: 58.33%;
+bottom: 25%;
+
+border: 1.5px solid #000000;
+
+
+/* Ellipse 301 */
+
+position: absolute;
+left: 16.67%;
+right: 16.67%;
+top: 50%;
+bottom: 12.5%;
+
+background: #000000;
+
+
+/* Subtract */
+
+position: absolute;
+width: 4.09px;
+height: 5.5px;
+left: 15.66px;
+top: 6.25px;
+
+/* Dark-500 */
+background: #16151C;
+
+
+/* Ellipse 297 */
+
+position: absolute;
+left: 62.5%;
+right: 20.83%;
+top: 29.17%;
+bottom: 54.17%;
+
+border: 1.5px solid #000000;
+
+
+/* Ellipse 298 */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 12.5%;
+bottom: 45.83%;
+
+background: #000000;
+
+
+/* Subtract */
+
+position: absolute;
+width: 4.09px;
+height: 5.5px;
+left: 4.25px;
+top: 6.25px;
+
+/* Dark-500 */
+background: #16151C;
+
+
+/* Ellipse 297 */
+
+position: absolute;
+left: 20.83%;
+right: 62.5%;
+top: 29.17%;
+bottom: 54.17%;
+
+border: 1.5px solid #000000;
+
+
+/* Ellipse 298 */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 12.5%;
+bottom: 45.83%;
+
+background: #000000;
+
+
+/* All Employees */
+
+position: absolute;
+width: 151px;
+height: 24px;
+left: 59px;
+top: 73px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Rectangle 7 */
+
+position: absolute;
+width: 3px;
+height: 50px;
+left: 0px;
+top: 60px;
+
+/* Primary-500 */
+background: #7152F3;
+opacity: 0;
+border-radius: 10px;
+
+
+/* All Departments */
+
+width: 220px;
+height: 50px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Rectangle 42 */
+
+position: absolute;
+width: 220px;
+height: 50px;
+left: 0px;
+top: 120px;
+
+/* Primary/Primary-5% */
+background: rgba(113, 82, 243, 0.05);
+opacity: 0;
+border-radius: 0px 10px 10px 0px;
+
+
+/* Huge-icon/user/outline/community */
+
+position: absolute;
+left: 8.64%;
+right: 80.45%;
+top: 22.54%;
+bottom: 73.39%;
+
+
+
+/* Ellipse 1184 */
+
+position: absolute;
+left: 16.67%;
+right: 66.67%;
+top: 8.33%;
+bottom: 75%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 1185 */
+
+position: absolute;
+left: 12.5%;
+right: 62.5%;
+top: 25%;
+bottom: 58.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 1186 */
+
+position: absolute;
+left: 66.67%;
+right: 16.67%;
+top: 58.33%;
+bottom: 25%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 1191 */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 1187 */
+
+position: absolute;
+left: 62.5%;
+right: 12.5%;
+top: 75%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* All Departments */
+
+position: absolute;
+width: 151px;
+height: 24px;
+left: 59px;
+top: 133px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Rectangle 7 */
+
+position: absolute;
+width: 3px;
+height: 50px;
+left: 0px;
+top: 120px;
+
+/* Primary-500 */
+background: #7152F3;
+opacity: 0;
+border-radius: 10px;
+
+
+/* Attendance */
+
+width: 220px;
+height: 50px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Rectangle 42 */
+
+position: absolute;
+width: 220px;
+height: 50px;
+left: 0px;
+top: 180px;
+
+/* Primary/Primary-5% */
+background: rgba(113, 82, 243, 0.05);
+opacity: 0;
+border-radius: 0px 10px 10px 0px;
+
+
+/* Huge-icon/time and date/outline/calendar-check */
+
+position: absolute;
+left: 8.64%;
+right: 80.45%;
+top: 32.71%;
+bottom: 63.22%;
+
+
+
+/* Vector 1106 */
+
+position: absolute;
+left: 33.33%;
+right: 66.67%;
+top: 8.33%;
+bottom: 79.17%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+border-radius: 2px;
+
+
+/* Vector 1107 */
+
+position: absolute;
+left: 66.67%;
+right: 33.33%;
+top: 8.33%;
+bottom: 79.17%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+border-radius: 2px;
+
+
+/* Rectangle 421 */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 14.58%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+border-radius: 4px;
+
+
+/* Vector 1089 */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 54.17%;
+bottom: 29.17%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Vector 2526 */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 37.5%;
+bottom: 62.5%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+border-radius: 4px;
+
+
+/* Attendance */
+
+position: absolute;
+width: 151px;
+height: 24px;
+left: 59px;
+top: 193px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Rectangle 7 */
+
+position: absolute;
+width: 3px;
+height: 50px;
+left: 0px;
+top: 180px;
+
+/* Primary-500 */
+background: #7152F3;
+opacity: 0;
+border-radius: 10px;
+
+
+/* All Employees */
+
+width: 220px;
+height: 50px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 0;
+
+
+/* Rectangle 42 */
+
+position: absolute;
+width: 220px;
+height: 50px;
+left: 0px;
+top: 240px;
+
+/* Primary/Primary-5% */
+background: rgba(113, 82, 243, 0.05);
+opacity: 0;
+border-radius: 0px 10px 10px 0px;
+
+
+/* Huge-icon/finance and payment/outline/coin-dollar */
+
+position: absolute;
+left: 8.64%;
+right: 80.45%;
+top: 42.88%;
+bottom: 53.05%;
+
+
+
+/* Ellipse 714 */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 715 */
+
+position: absolute;
+left: 41.67%;
+right: 41.67%;
+top: 33.33%;
+bottom: 50%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Ellipse 716 */
+
+position: absolute;
+left: 41.67%;
+right: 41.67%;
+top: 50%;
+bottom: 33.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* Vector 2082 */
+
+position: absolute;
+left: 50%;
+right: 50%;
+top: 27.08%;
+bottom: 66.67%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Vector 2083 */
+
+position: absolute;
+left: 50%;
+right: 50%;
+top: 66.67%;
+bottom: 27.08%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Payroll */
+
+position: absolute;
+width: 151px;
+height: 24px;
+left: 59px;
+top: 253px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Rectangle 7 */
+
+position: absolute;
+width: 3px;
+height: 50px;
+left: 0px;
+top: 240px;
+
+/* Primary-500 */
+background: #7152F3;
+opacity: 0;
+border-radius: 10px;
+
+
+/* Candidates */
+
+width: 220px;
+height: 50px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+flex-grow: 0;
+
+
+/* Rectangle 42 */
+
+position: absolute;
+width: 220px;
+height: 50px;
+left: 0px;
+top: 300px;
+
+/* Primary/Primary-5% */
+background: rgba(113, 82, 243, 0.05);
+border-radius: 0px 10px 10px 0px;
+
+
+/* Huge-icon/business/solid/briefcase 04 */
+
+position: absolute;
+left: 8.64%;
+right: 80.45%;
+top: 53.05%;
+bottom: 42.88%;
+
+
+
+/* briefcase */
+
+position: absolute;
+width: 20px;
+height: 20.75px;
+left: 2px;
+top: 1.62px;
+
+
+
+/* Subtract */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 51.03%;
+bottom: 6.77%;
+
+/* Primary-500 */
+background: #7152F3;
+
+
+/* Subtract */
+
+position: absolute;
+width: 20px;
+height: 9.31px;
+left: 2px;
+top: 6.38px;
+
+/* Primary-500 */
+background: #7152F3;
+
+
+/* Union */
+
+position: absolute;
+width: 20px;
+height: 9.31px;
+left: 2px;
+top: 6.38px;
+
+/* #28303F */
+background: #28303F;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 26.56%;
+bottom: 44.64%;
+
+background: #C4C4C4;
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Rectangle 1124 */
+
+position: absolute;
+left: 39.58%;
+right: 39.58%;
+top: 42.34%;
+bottom: 34.63%;
+
+background: #C4C4C4;
+border-radius: 2px;
+
+
+/* Rectangle 1124 */
+
+position: absolute;
+left: 45.31%;
+right: 45.31%;
+top: 51.96%;
+bottom: 39.76%;
+
+background: #FFFFFF;
+
+
+/* Vector 994 (Stroke) */
+
+position: absolute;
+left: 30.21%;
+right: 30.21%;
+top: 6.77%;
+bottom: 70.31%;
+
+/* Primary-500 */
+background: #7152F3;
+
+
+/* Jobs */
+
+position: absolute;
+width: 151px;
+height: 24px;
+left: 59px;
+top: 313px;
+
+/* Body-1 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Primary-500 */
+color: #7152F3;
+
+
+
+/* Rectangle 7 */
+
+position: absolute;
+width: 3px;
+height: 50px;
+left: 0px;
+top: 300px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 10px;
+
+
+/* Candidates */
+
+width: 220px;
+height: 50px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 6;
+flex-grow: 0;
+
+
+/* Rectangle 42 */
+
+position: absolute;
+width: 220px;
+height: 50px;
+left: 0px;
+top: 360px;
+
+/* Primary/Primary-5% */
+background: rgba(113, 82, 243, 0.05);
+opacity: 0;
+border-radius: 0px 10px 10px 0px;
+
+
+/* Huge-icon/user/outline/users 01 */
+
+position: absolute;
+left: 8.64%;
+right: 80.45%;
+top: 63.22%;
+bottom: 32.71%;
+
+
+
+/* Ellipse 293 */
+
+position: absolute;
+left: 12.5%;
+right: 29.17%;
+top: 58.33%;
+bottom: 12.5%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 294 */
+
+position: absolute;
+left: 25%;
+right: 41.67%;
+top: 12.5%;
+bottom: 54.17%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Subtract */
+
+position: absolute;
+width: 4.87px;
+height: 7.48px;
+left: 13.88px;
+top: 4.27px;
+
+/* Dark-500 */
+background: #16151C;
+
+
+/* Ellipse 296 */
+
+position: absolute;
+left: 50%;
+right: 25%;
+top: 20.83%;
+bottom: 54.17%;
+
+border: 1.5px solid #000000;
+
+
+/* Ellipse 297 */
+
+position: absolute;
+left: 16.67%;
+right: 33.33%;
+top: 4.17%;
+bottom: 45.83%;
+
+background: #000000;
+
+
+/* Subtract */
+
+position: absolute;
+width: 6px;
+height: 6.04px;
+left: 15.75px;
+top: 13.27px;
+
+/* Dark-500 */
+background: #16151C;
+
+
+/* Ellipse 295 */
+
+position: absolute;
+left: 37.5%;
+right: 12.5%;
+top: 58.33%;
+bottom: 20.83%;
+
+border: 1.5px solid #000000;
+
+
+/* Ellipse 296 */
+
+position: absolute;
+left: 4.17%;
+right: 20.83%;
+top: 50%;
+bottom: 4.17%;
+
+background: #000000;
+
+
+/* Candidates */
+
+position: absolute;
+width: 151px;
+height: 24px;
+left: 59px;
+top: 373px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Rectangle 7 */
+
+position: absolute;
+width: 3px;
+height: 50px;
+left: 0px;
+top: 360px;
+
+/* Primary-500 */
+background: #7152F3;
+opacity: 0;
+border-radius: 10px;
+
+
+/* Leaves */
+
+width: 220px;
+height: 50px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 7;
+flex-grow: 0;
+
+
+/* Rectangle 42 */
+
+position: absolute;
+width: 220px;
+height: 50px;
+left: 0px;
+top: 420px;
+
+/* Primary/Primary-5% */
+background: rgba(113, 82, 243, 0.05);
+opacity: 0;
+border-radius: 0px 10px 10px 0px;
+
+
+/* Huge-icon/interface/outline/notepad */
+
+position: absolute;
+left: 8.64%;
+right: 80.45%;
+top: 73.39%;
+bottom: 22.54%;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Leaves */
+
+position: absolute;
+width: 151px;
+height: 24px;
+left: 59px;
+top: 433px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Rectangle 7 */
+
+position: absolute;
+width: 3px;
+height: 50px;
+left: 0px;
+top: 420px;
+
+/* Primary-500 */
+background: #7152F3;
+opacity: 0;
+border-radius: 10px;
+
+
+/* Holiday */
+
+width: 220px;
+height: 50px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 8;
+flex-grow: 0;
+
+
+/* Rectangle 42 */
+
+position: absolute;
+width: 220px;
+height: 50px;
+left: 0px;
+top: 480px;
+
+/* Primary/Primary-5% */
+background: rgba(113, 82, 243, 0.05);
+opacity: 0;
+border-radius: 0px 10px 10px 0px;
+
+
+/* Huge-icon/notes and task/outline/notes 01 */
+
+position: absolute;
+left: 8.64%;
+right: 80.45%;
+top: 83.56%;
+bottom: 12.37%;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 1096 */
+
+position: absolute;
+left: 27.08%;
+right: 64.58%;
+top: 33.33%;
+bottom: 58.33%;
+
+/* Dark-500 */
+background: #16151C;
+
+
+/* Ellipse 1097 */
+
+position: absolute;
+left: 27.08%;
+right: 64.58%;
+top: 50%;
+bottom: 41.67%;
+
+/* Dark-500 */
+background: #16151C;
+
+
+/* Ellipse 1098 */
+
+position: absolute;
+left: 27.08%;
+right: 64.58%;
+top: 66.67%;
+bottom: 25%;
+
+/* Dark-500 */
+background: #16151C;
+
+
+/* Holidays */
+
+position: absolute;
+width: 151px;
+height: 24px;
+left: 59px;
+top: 493px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Rectangle 7 */
+
+position: absolute;
+width: 3px;
+height: 50px;
+left: 0px;
+top: 480px;
+
+/* Primary-500 */
+background: #7152F3;
+opacity: 0;
+border-radius: 10px;
+
+
+/* Settings */
+
+width: 220px;
+height: 50px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 9;
+flex-grow: 0;
+
+
+/* Rectangle 42 */
+
+position: absolute;
+width: 220px;
+height: 50px;
+left: 0px;
+top: 540px;
+
+/* Primary/Primary-5% */
+background: rgba(113, 82, 243, 0.05);
+opacity: 0;
+border-radius: 0px 10px 10px 0px;
+
+
+/* Huge-icon/interface/outline/setting */
+
+position: absolute;
+left: 8.64%;
+right: 80.45%;
+top: 93.73%;
+bottom: 2.2%;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 12.5%;
+bottom: 12.5%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Settings */
+
+position: absolute;
+width: 151px;
+height: 24px;
+left: 59px;
+top: 553px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Rectangle 7 */
+
+position: absolute;
+width: 3px;
+height: 50px;
+left: 0px;
+top: 540px;
+
+/* Primary-500 */
+background: #7152F3;
+opacity: 0;
+border-radius: 10px;
+
+
+/* Mode */
+
+position: absolute;
+width: 220px;
+height: 50px;
+left: 30px;
+top: 954px;
+
+
+
+/* Rectangle 3463283 */
+
+position: absolute;
+width: 220px;
+height: 50px;
+left: 30px;
+bottom: 30px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 10px;
+
+
+/* Rectangle 3463284 */
+
+position: absolute;
+width: 110px;
+height: 50px;
+left: 30px;
+bottom: 30px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 10px;
+
+
+/* Frame 1000000969 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 73px;
+height: 24px;
+left: 48px;
+bottom: 43px;
+
+
+
+/* Huge-icon/weather/outline/sun */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* White-500 */
+border: 1.5px solid #FFFFFF;
+
+
+/* Light */
+
+width: 39px;
+height: 24px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 1000000971 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 71px;
+height: 24px;
+left: 159px;
+bottom: 43px;
+
+
+
+/* Huge-icon/weather/outline/half moon */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 12.5%;
+bottom: 12.5%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Dark */
+
+width: 37px;
+height: 24px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Header */
+
+position: absolute;
+width: 1140px;
+height: 82px;
+right: 0px;
+top: 20px;
+
+
+
+/* Rectangle 3463279 */
+
+position: absolute;
+width: 1140px;
+height: 82px;
+left: 300px;
+top: 20px;
+
+
+
+/* Frame 1000000968 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+
+position: absolute;
+width: 92px;
+height: 52px;
+left: 330px;
+top: 35px;
+
+
+
+/* ✏️ Text */
+
+width: 48px;
+height: 30px;
+
+/* Header-6 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 30px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* ✏️ Text */
+
+width: 92px;
+height: 22px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+
+/* Gray-500 */
+color: #A2A1A8;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Input */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 13px 16px;
+gap: 10px;
+
+position: absolute;
+width: 261px;
+height: 50px;
+left: 875px;
+top: 36px;
+
+/* Gray/Gray-10% */
+border: 1px solid rgba(162, 161, 168, 0.1);
+border-radius: 10px;
+
+
+/* Frame 34 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+width: 229px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* 🔽 Icon */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Union */
+
+position: absolute;
+left: 5.21%;
+right: 5.21%;
+top: 5.21%;
+bottom: 5.21%;
+
+/* Dark-500 */
+background: #16151C;
+
+
+/* ✏️ Text */
+
+width: 195px;
+height: 24px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark/Dark-20% */
+color: rgba(22, 21, 28, 0.2);
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Notification */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 20px;
+gap: 10px;
+
+position: absolute;
+width: 50px;
+height: 50px;
+left: 1156px;
+top: 36px;
+
+/* Gray/Gray-10% */
+background: rgba(162, 161, 168, 0.1);
+border-radius: 10px;
+
+
+/* Huge-icon/device/outline/notification */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Rectangle 136 */
+
+position: absolute;
+left: 16.67%;
+right: 16.67%;
+top: 12.5%;
+bottom: 29.17%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 219 */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 79.17%;
+bottom: 12.5%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* My Profile */
+
+position: absolute;
+width: 184px;
+height: 50px;
+left: 1226px;
+top: 36px;
+
+
+
+/* Rectangle 3463281 */
+
+position: absolute;
+width: 40px;
+height: 40px;
+left: 1231px;
+top: 41px;
+
+background: url(.png);
+border-radius: 8px;
+
+
+/* Rectangle 3463282 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 184px;
+height: 50px;
+left: 1226px;
+top: 36px;
+
+/* Gray/Gray-20% */
+border: 1px solid rgba(162, 161, 168, 0.2);
+border-radius: 8px;
+
+
+/* Frame 1000000968 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+
+position: absolute;
+width: 99px;
+height: 40px;
+left: 1276px;
+top: 41px;
+
+
+
+/* ✏️ Text */
+
+width: 99px;
+height: 24px;
+
+/* Body-1 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark-500 */
+color: #16151C;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+margin: -2px 0px;
+
+
+/* ✏️ Text */
+
+width: 72px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* Gray-500 */
+color: #A2A1A8;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Huge-icon/arrows/outline/direction-down 01 */
+
+position: absolute;
+width: 20px;
+height: 20px;
+left: 1385px;
+top: 51px;
+
+
+
+/* Vector 175 */
+
+position: absolute;
+left: 29.17%;
+right: 29.17%;
+top: 41.67%;
+bottom: 41.67%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* BG */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 1080px;
+height: 922px;
+left: 330px;
+top: 132px;
+
+/* Gray/Gray-20% */
+border: 1px solid rgba(162, 161, 168, 0.2);
+border-radius: 10px;
+
+
+/* Input */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 13px 16px;
+gap: 10px;
+
+position: absolute;
+width: 330px;
+height: 50px;
+left: 350px;
+top: 152px;
+
+/* Gray/Gray-10% */
+border: 1px solid rgba(162, 161, 168, 0.1);
+border-radius: 10px;
+
+
+/* Frame 34 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+width: 298px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* 🔽 Icon */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Union */
+
+position: absolute;
+left: 5.21%;
+right: 5.21%;
+top: 5.21%;
+bottom: 5.21%;
+
+/* Dark-500 */
+background: #16151C;
+
+
+/* ✏️ Text */
+
+width: 264px;
+height: 24px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* Dark/Dark-20% */
+color: rgba(22, 21, 28, 0.2);
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 20px;
+gap: 10px;
+
+position: absolute;
+width: 176px;
+height: 50px;
+left: 1214px;
+top: 152px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 10px;
+
+
+/* Huge-icon/interface/outline/add-circle */
+
+width: 24px;
+height: 24px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* White-500 */
+border: 1.5px solid #FFFFFF;
+
+
+/* Button */
+
+width: 102px;
+height: 24px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Inactive Jobs */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+isolation: isolate;
+
+position: absolute;
+width: 333px;
+height: 802px;
+left: 703px;
+top: 232px;
+
+
+
+/* BG */
+
+box-sizing: border-box;
+
+width: 333px;
+height: 802px;
+
+/* Gray/Gray-20% */
+border: 1px solid rgba(162, 161, 168, 0.2);
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* Frame 1000001119 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+position: absolute;
+width: 301px;
+height: 396px;
+left: 16px;
+top: 16px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Frame 1000001114 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 8px;
+
+width: 115px;
+height: 22px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Ellipse 1193 */
+
+width: 10px;
+height: 10px;
+
+background: #F45B69;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Already have an account? Sign in */
+
+width: 97px;
+height: 22px;
+
+/* Body-2 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 1000001118 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+width: 301px;
+height: 358px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 5 */
+
+width: 301px;
+height: 171px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Rectangle 3463276 */
+
+position: absolute;
+width: 301px;
+height: 171px;
+left: 0px;
+top: 0px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 10px;
+
+
+/* Rectangle 3463324 */
+
+position: absolute;
+width: 45px;
+height: 45px;
+left: 16px;
+top: 16px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 5px;
+
+
+/* Huge-icon/business/outline/briefcase 04 */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 26px;
+top: 27px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Vector */
+
+position: absolute;
+left: 41.67%;
+right: 41.67%;
+top: 46.5%;
+bottom: 36.83%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 24px;
+left: 73px;
+top: 15px;
+
+/* Body-1 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 100px;
+height: 22px;
+left: 45px;
+top: 132px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 113px;
+height: 26px;
+left: 172px;
+top: 129px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 26px;
+/* identical to box height, or 144% */
+display: flex;
+align-items: center;
+text-align: right;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 22px;
+left: 73px;
+top: 41px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Gray-500 */
+color: #A2A1A8;
+
+
+
+/* Frame 427320642 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 191px;
+height: 34px;
+left: 16px;
+top: 77px;
+
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 37px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 17px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 70px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 50px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 64px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 44px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Huge-icon/device/outline/location */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 16px;
+top: 131px;
+
+
+
+/* Ellipse 885 */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 33.33%;
+bottom: 41.67%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 884 */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* 6 */
+
+width: 301px;
+height: 171px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Rectangle 3463276 */
+
+position: absolute;
+width: 301px;
+height: 171px;
+left: 0px;
+top: 187px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 10px;
+
+
+/* Rectangle 3463324 */
+
+position: absolute;
+width: 45px;
+height: 45px;
+left: 16px;
+top: 203px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 5px;
+
+
+/* Huge-icon/business/outline/briefcase 04 */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 26px;
+top: 214px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Vector */
+
+position: absolute;
+left: 41.67%;
+right: 41.67%;
+top: 46.5%;
+bottom: 36.83%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 24px;
+left: 73px;
+top: 202px;
+
+/* Body-1 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 99px;
+height: 22px;
+left: 45px;
+top: 319px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 112px;
+height: 26px;
+left: 174px;
+top: 316px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 26px;
+/* identical to box height, or 144% */
+display: flex;
+align-items: center;
+text-align: right;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 22px;
+left: 73px;
+top: 228px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Gray-500 */
+color: #A2A1A8;
+
+
+
+/* Frame 427320642 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 158px;
+height: 34px;
+left: 16px;
+top: 264px;
+
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 78px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 58px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 70px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 50px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Huge-icon/device/outline/location */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 16px;
+top: 318px;
+
+
+
+/* Ellipse 885 */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 33.33%;
+bottom: 41.67%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 884 */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Completed Jobs */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+isolation: isolate;
+
+position: absolute;
+width: 333px;
+height: 802px;
+left: 1057px;
+top: 232px;
+
+
+
+/* BG */
+
+box-sizing: border-box;
+
+width: 333px;
+height: 802px;
+
+/* Gray/Gray-20% */
+border: 1px solid rgba(162, 161, 168, 0.2);
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* Frame 1000001121 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+position: absolute;
+width: 301px;
+height: 583px;
+left: 16px;
+top: 16px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Frame 1000001115 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 8px;
+
+width: 132px;
+height: 22px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Ellipse 1193 */
+
+width: 10px;
+height: 10px;
+
+background: #3FC28A;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Already have an account? Sign in */
+
+width: 114px;
+height: 22px;
+
+/* Body-2 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 1000001120 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+width: 301px;
+height: 545px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 7 */
+
+width: 301px;
+height: 171px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Rectangle 3463276 */
+
+position: absolute;
+width: 301px;
+height: 171px;
+left: 0px;
+top: 0px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 10px;
+
+
+/* Rectangle 3463324 */
+
+position: absolute;
+width: 45px;
+height: 45px;
+left: 16px;
+top: 16px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 5px;
+
+
+/* Huge-icon/business/outline/briefcase 04 */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 26px;
+top: 27px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Vector */
+
+position: absolute;
+left: 41.67%;
+right: 41.67%;
+top: 46.5%;
+bottom: 36.83%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 24px;
+left: 73px;
+top: 15px;
+
+/* Body-1 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 100px;
+height: 22px;
+left: 45px;
+top: 132px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 113px;
+height: 26px;
+left: 172px;
+top: 129px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 26px;
+/* identical to box height, or 144% */
+display: flex;
+align-items: center;
+text-align: right;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 22px;
+left: 73px;
+top: 41px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Gray-500 */
+color: #A2A1A8;
+
+
+
+/* Frame 427320642 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 213px;
+height: 34px;
+left: 16px;
+top: 77px;
+
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 59px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 39px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 70px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 50px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 64px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 44px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Huge-icon/device/outline/location */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 16px;
+top: 131px;
+
+
+
+/* Ellipse 885 */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 33.33%;
+bottom: 41.67%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 884 */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* 8 */
+
+width: 301px;
+height: 171px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Rectangle 3463276 */
+
+position: absolute;
+width: 301px;
+height: 171px;
+left: 0px;
+top: 187px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 10px;
+
+
+/* Rectangle 3463324 */
+
+position: absolute;
+width: 45px;
+height: 45px;
+left: 16px;
+top: 203px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 5px;
+
+
+/* Huge-icon/business/outline/briefcase 04 */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 26px;
+top: 214px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Vector */
+
+position: absolute;
+left: 41.67%;
+right: 41.67%;
+top: 46.5%;
+bottom: 36.83%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 24px;
+left: 73px;
+top: 202px;
+
+/* Body-1 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 99px;
+height: 22px;
+left: 45px;
+top: 319px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 112px;
+height: 26px;
+left: 174px;
+top: 316px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 26px;
+/* identical to box height, or 144% */
+display: flex;
+align-items: center;
+text-align: right;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 22px;
+left: 73px;
+top: 228px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Gray-500 */
+color: #A2A1A8;
+
+
+
+/* Frame 427320642 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 139px;
+height: 34px;
+left: 16px;
+top: 264px;
+
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 59px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 39px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 70px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 50px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Huge-icon/device/outline/location */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 16px;
+top: 318px;
+
+
+
+/* Ellipse 885 */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 33.33%;
+bottom: 41.67%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 884 */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* 9 */
+
+width: 301px;
+height: 171px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Rectangle 3463276 */
+
+position: absolute;
+width: 301px;
+height: 171px;
+left: 0px;
+top: 374px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 10px;
+
+
+/* Rectangle 3463324 */
+
+position: absolute;
+width: 45px;
+height: 45px;
+left: 16px;
+top: 390px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 5px;
+
+
+/* Huge-icon/business/outline/briefcase 04 */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 26px;
+top: 401px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Vector */
+
+position: absolute;
+left: 41.67%;
+right: 41.67%;
+top: 46.5%;
+bottom: 36.83%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 24px;
+left: 73px;
+top: 389px;
+
+/* Body-1 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 99px;
+height: 22px;
+left: 45px;
+top: 506px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 114px;
+height: 26px;
+left: 172px;
+top: 503px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 26px;
+/* identical to box height, or 144% */
+display: flex;
+align-items: center;
+text-align: right;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 22px;
+left: 73px;
+top: 415px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Gray-500 */
+color: #A2A1A8;
+
+
+
+/* Frame 427320642 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 130px;
+height: 34px;
+left: 16px;
+top: 451px;
+
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 50px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 30px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 70px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 50px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Huge-icon/device/outline/location */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 16px;
+top: 505px;
+
+
+
+/* Ellipse 885 */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 33.33%;
+bottom: 41.67%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 884 */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Active Jobs */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+isolation: isolate;
+
+position: absolute;
+width: 333px;
+height: 802px;
+left: 350px;
+top: 232px;
+
+
+
+/* BG */
+
+box-sizing: border-box;
+
+width: 333px;
+height: 802px;
+
+/* Gray/Gray-20% */
+border: 1px solid rgba(162, 161, 168, 0.2);
+border-radius: 10px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* Frame 1000001117 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+position: absolute;
+width: 301px;
+height: 770px;
+left: 16px;
+top: 16px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Frame 1000001113 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 8px;
+
+width: 99px;
+height: 22px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Ellipse 1193 */
+
+width: 10px;
+height: 10px;
+
+background: #EFBE12;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Already have an account? Sign in */
+
+width: 81px;
+height: 22px;
+
+/* Body-2 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 1000001116 */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+width: 301px;
+height: 732px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 1 */
+
+width: 301px;
+height: 171px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Rectangle 3463276 */
+
+position: absolute;
+width: 301px;
+height: 171px;
+left: 0px;
+top: 0px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 10px;
+
+
+/* Rectangle 3463324 */
+
+position: absolute;
+width: 45px;
+height: 45px;
+left: 16px;
+top: 16px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 5px;
+
+
+/* Huge-icon/business/outline/briefcase 04 */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 26px;
+top: 27px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Vector */
+
+position: absolute;
+left: 41.67%;
+right: 41.67%;
+top: 46.5%;
+bottom: 36.83%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 24px;
+left: 73px;
+top: 15px;
+
+/* Body-1 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 100px;
+height: 22px;
+left: 45px;
+top: 132px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 113px;
+height: 26px;
+left: 172px;
+top: 129px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 26px;
+/* identical to box height, or 144% */
+display: flex;
+align-items: center;
+text-align: right;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 22px;
+left: 73px;
+top: 41px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Gray-500 */
+color: #A2A1A8;
+
+
+
+/* Frame 427320642 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 213px;
+height: 34px;
+left: 16px;
+top: 77px;
+
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 59px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 39px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 70px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 50px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 64px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 44px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Huge-icon/device/outline/location */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 16px;
+top: 131px;
+
+
+
+/* Ellipse 885 */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 33.33%;
+bottom: 41.67%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 884 */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* 2 */
+
+width: 301px;
+height: 171px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Rectangle 3463276 */
+
+position: absolute;
+width: 301px;
+height: 171px;
+left: 0px;
+top: 187px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 10px;
+
+
+/* Rectangle 3463324 */
+
+position: absolute;
+width: 45px;
+height: 45px;
+left: 16px;
+top: 203px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 5px;
+
+
+/* Huge-icon/business/outline/briefcase 04 */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 26px;
+top: 214px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Vector */
+
+position: absolute;
+left: 41.67%;
+right: 41.67%;
+top: 46.5%;
+bottom: 36.83%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 24px;
+left: 73px;
+top: 202px;
+
+/* Body-1 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 99px;
+height: 22px;
+left: 45px;
+top: 319px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 112px;
+height: 26px;
+left: 174px;
+top: 316px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 26px;
+/* identical to box height, or 144% */
+display: flex;
+align-items: center;
+text-align: right;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 22px;
+left: 73px;
+top: 228px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Gray-500 */
+color: #A2A1A8;
+
+
+
+/* Frame 427320642 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 139px;
+height: 34px;
+left: 16px;
+top: 264px;
+
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 59px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 39px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 70px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 50px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Huge-icon/device/outline/location */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 16px;
+top: 318px;
+
+
+
+/* Ellipse 885 */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 33.33%;
+bottom: 41.67%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 884 */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* 3 */
+
+width: 301px;
+height: 171px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Rectangle 3463276 */
+
+position: absolute;
+width: 301px;
+height: 171px;
+left: 0px;
+top: 374px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 10px;
+
+
+/* Rectangle 3463324 */
+
+position: absolute;
+width: 45px;
+height: 45px;
+left: 16px;
+top: 390px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 5px;
+
+
+/* Huge-icon/business/outline/briefcase 04 */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 26px;
+top: 401px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Vector */
+
+position: absolute;
+left: 41.67%;
+right: 41.67%;
+top: 46.5%;
+bottom: 36.83%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 24px;
+left: 73px;
+top: 389px;
+
+/* Body-1 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 99px;
+height: 22px;
+left: 45px;
+top: 506px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 114px;
+height: 26px;
+left: 172px;
+top: 503px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 26px;
+/* identical to box height, or 144% */
+display: flex;
+align-items: center;
+text-align: right;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 22px;
+left: 73px;
+top: 415px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Gray-500 */
+color: #A2A1A8;
+
+
+
+/* Frame 427320642 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 130px;
+height: 34px;
+left: 16px;
+top: 451px;
+
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 50px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 30px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 70px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 50px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Huge-icon/device/outline/location */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 16px;
+top: 505px;
+
+
+
+/* Ellipse 885 */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 33.33%;
+bottom: 41.67%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 884 */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* 4 */
+
+width: 301px;
+height: 171px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Rectangle 3463276 */
+
+position: absolute;
+width: 301px;
+height: 171px;
+left: 0px;
+top: 561px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 10px;
+
+
+/* Rectangle 3463324 */
+
+position: absolute;
+width: 45px;
+height: 45px;
+left: 16px;
+top: 577px;
+
+/* Gray/Gray-5% */
+background: rgba(162, 161, 168, 0.05);
+border-radius: 5px;
+
+
+/* Huge-icon/business/outline/briefcase 04 */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 26px;
+top: 588px;
+
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Vector */
+
+position: absolute;
+left: 41.67%;
+right: 41.67%;
+top: 46.5%;
+bottom: 36.83%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 24px;
+left: 73px;
+top: 576px;
+
+/* Body-1 Bold */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 100px;
+height: 22px;
+left: 45px;
+top: 693px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 114px;
+height: 26px;
+left: 172px;
+top: 690px;
+
+/* Body-1 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 600;
+font-size: 18px;
+line-height: 26px;
+/* identical to box height, or 144% */
+display: flex;
+align-items: center;
+text-align: right;
+
+/* Dark-500 */
+color: #16151C;
+
+
+
+/* Already have an account? Sign in */
+
+position: absolute;
+width: 174px;
+height: 22px;
+left: 73px;
+top: 602px;
+
+/* Body-2 Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 22px;
+/* identical to box height, or 157% */
+display: flex;
+align-items: center;
+
+/* Gray-500 */
+color: #A2A1A8;
+
+
+
+/* Frame 427320642 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 158px;
+height: 34px;
+left: 16px;
+top: 638px;
+
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 78px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 58px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Button */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px;
+gap: 10px;
+
+width: 70px;
+height: 34px;
+
+/* Primary-500 */
+background: #7152F3;
+border-radius: 5px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Button */
+
+width: 50px;
+height: 18px;
+
+/* Caption Regular */
+font-family: 'Lexend';
+font-style: normal;
+font-weight: 300;
+font-size: 12px;
+line-height: 18px;
+/* identical to box height, or 150% */
+
+/* White-500 */
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Huge-icon/device/outline/location */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 16px;
+top: 692px;
+
+
+
+/* Ellipse 885 */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 33.33%;
+bottom: 41.67%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;
+
+
+/* Ellipse 884 */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+/* Dark-500 */
+border: 1.5px solid #16151C;

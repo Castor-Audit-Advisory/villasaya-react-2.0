@@ -1,0 +1,45 @@
+The project contains a sophisticated React front end and a Supabase Edge Function backend, but several foundational gaps remain. 
+
+Environment configuration is incomplete, some backend routes are still development-grade, core infrastructure such as the KV table has not been provisioned, documentation does not describe this app, and there is essentially no automated testing. 
+
+As it stands, the codebase is not ready for deployment for the following reasons:
+
+---
+
+## Deployment blockers
+
+- Missing runtime configuration – both the frontend client and apiRequest helper expect populated VITE_SUPABASE_PROJECT_ID and VITE_SUPABASE_ANON_KEY values; when they are absent the app will assemble requests against https://.supabase.co, guaranteeing authentication and networking failures in production.
+
+- Backend relies on unpublished infrastructure – the Edge Function uses the Supabase service-role key at runtime and assumes the presence of a kv_store_41a1615d table, neither of which are provisioned or documented here, so the API layer will fail after deployment unless that infrastructure is created separately.
+
+- Development-only endpoints are exposed – /seed-test-users creates seeded accounts with hard-coded passwords and is left enabled; publishing this route would be a critical security issue.
+
+- Repository documentation is incorrect – the root README still describes the upstream Supabase CLI instead of this application, leaving future operators without deployment instructions or environment requirements.
+
+---
+
+## Additional readiness gaps
+
+- Incomplete product polish – the mobile dashboard still contains TODO placeholders (e.g., notifications handler), signalling unfinished UX flows.
+
+- Heavy client responsibilities – AppProvider coordinates authentication and many data loads without fallbacks (e.g., no retry/backoff or offline defaults), which increases the risk of runtime failure once real data is introduced.
+
+- Dependency hygiene needs work – both @jsr/supabase__supabase-js and @supabase/supabase-js are declared, inflating bundle size and complicating supply-chain tracking; a cleanup pass is warranted.
+
+- No automated verification – aside from a testing-library setup hook, there are no unit or integration tests backing the build, despite npm scripts advertising vitest runs.
+
+- Duplicated server code – the Edge Function source is duplicated under src/supabase/functions/server/, suggesting ongoing refactors and the risk of drift between copies.
+
+---
+
+## Next steps
+
+Please do the following:
+
+1. Document required environment variables, provision the Supabase KV table, and add deployment/run books so that operators can reproduce your stack.
+
+2. Lock down or remove development-only endpoints (especially /seed-test-users) before shipping, and replace them with secure onboarding flows.
+
+3. Decide on a single Supabase client package, prune unused dependencies, and introduce linting/formatting to catch issues like the duplicated server sources.
+
+4. Flesh out incomplete UI flows (e.g., notifications, error states) and add automated tests that exercise authentication, data fetching, and key workflows before deployment.

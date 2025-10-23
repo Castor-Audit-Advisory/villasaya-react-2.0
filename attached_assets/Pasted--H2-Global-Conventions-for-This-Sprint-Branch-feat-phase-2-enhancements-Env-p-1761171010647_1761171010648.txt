@@ -1,0 +1,608 @@
+## H2: Global Conventions for This Sprint
+
+* **Branch**: `feat/phase-2-enhancements`
+* **Env**: preserve existing Supabase + PWA config
+* **Tech guardrails**:
+
+  * Types first (strict TypeScript, Zod for schema validation)
+  * Feature flags via a simple config (e.g., `src/config/flags.ts`) where appropriate
+  * Unit tests (Jest) for pure logic; Vitest if that’s what you’re using; Playwright for critical flows
+
+---
+
+## H2: 1) Messaging
+
+**Goal:** Upgrade chat to enterprise-quality: read receipts, reactions, pinned messages, searchable history, optional E2EE (scoped), and groundwork for voice/video later.
+
+### **MSG-1 Read Receipts (Per-Message, Per-Recipient)**
+
+* **Frontend**
+
+  * Likely files:
+
+    * `src/features/messaging/MobileThreadView.tsx`
+    * `src/features/messaging/DesktopMessagesView.tsx`
+    * `src/features/messaging/hooks/useChatThread.ts`
+  * Add checkmarks (sent/delivered/read) and recipient avatar dots in the thread view.
+* **Backend**
+
+  * Add `message_receipts` table: `{message_id, user_id, status: 'delivered'|'read', timestamp}`.
+  * Endpoint: `POST /api/messages/:id/read` (bulk mark for a thread).
+* **Acceptance**
+
+  * When User A opens a thread with unread messages from User B, B sees read ticks update in ≤2s.
+* **Tests**
+
+  * Unit: receipt reducer/hook logic; e2e: open thread → read ticks flip.
+* **Effort**: M
+
+### **MSG-2 Emoji Reactions & Pinning**
+
+* **Frontend**
+
+  * Add reaction bar (long-press mobile; hover desktop).
+  * Add “Pin” contextual action; show a pinned banner atop thread.
+* **Backend**
+
+  * `message_reactions` table: `{message_id, user_id, emoji, created_at}`
+  * `pinned_messages` table: `{conversation_id, message_id, pinned_by, pinned_at}`
+  * Endpoints: `POST /api/messages/:id/react`, `DELETE /api/messages/:id/react`, `POST /api/conversations/:id/pin`, `DELETE /api/conversations/:id/pin`
+* **Acceptance**
+
+  * Multiple users can react concurrently; counts aggregate; pinned state persists across reload.
+* **Tests**
+
+  * Race conditions for rapid reactions; pin/unpin idempotency.
+* **Effort**: M
+
+### **MSG-3 Search & Filters**
+
+* **Frontend**
+
+  * A search input + filters (sender, date range, has:files).
+  * Likely file: `src/features/messaging/components/MessageSearchBar.tsx`
+* **Backend**
+
+  * Full-text index on `messages.content`, indexed columns for `sender_id`, `has_attachment`.
+  * Endpoint: `GET /api/messages/search?q=&sender=&from=&to=&has=files`
+* **Acceptance**
+
+  * Search returns results under 300ms for ≤50k messages; filters combine (AND) correctly.
+* **Tests**
+
+  * Index coverage; multi-filter combinations; pagination.
+* **Effort**: M
+
+### **MSG-4 Optional End-to-End Encryption (Scope: DM only)**
+
+* **Frontend**
+
+  * Key management UI (per-DM): generate/store device keys; warn on multi-device.
+  * Encrypt on send, decrypt on read. Consider `libsodium` or `WebCrypto` API.
+* **Backend**
+
+  * Store ciphertext only for E2EE rooms; store E2EE metadata (protocol version, sender public key fingerprint).
+  * No server-side search for E2EE threads (flag results).
+* **Acceptance**
+
+  * Messages in E2EE DMs are unreadable in DB; clients decrypt successfully across reloads.
+* **Tests**
+
+  * Golden ciphertext fixtures; key rotation; fallback if keys missing.
+* **Effort**: L (phase-gateable — can ship behind a feature flag)
+
+---
+
+## H2: 2) Calendar & Scheduling
+
+**Goal:** Power features required for team scheduling: recurrence, conflict detection, resource booking, external sync groundwork.
+
+### **CAL-1 Advanced Recurrence (RRULE)**
+
+* **Frontend**
+
+  * Event editor supports RRULE patterns: daily/weekly/monthly, “every 2nd Thu”, until count/date.
+  * Likely file: `src/features/calendar/components/EventEditor.tsx`
+* **Backend**
+
+  * Store RRULE string on events (RFC 5545).
+  * Expand events server-side for range queries with caching.
+  * Endpoint: `GET /api/calendar/events?from=&to=` returns expanded set.
+* **Acceptance**
+
+  * Recurring events render correctly across month/week views; edits update all or single instance.
+* **Tests**
+
+  * RRULE parser; expansion boundaries (DST, end dates).
+* **Effort**: M–L
+
+### **CAL-2 Conflict Detection**
+
+* **Backend**
+
+  * On create/update, check overlaps for attendees/resources; return conflict list.
+* **Frontend**
+
+  * UI warnings with “Add anyway” override (role-gated).
+* **Acceptance**
+
+  * Creating overlapping event flags conflicts instantly; override logged.
+* **Tests**
+
+  * Overlaps within same user; cross-team; resource conflicts.
+* **Effort**: M
+
+### **CAL-3 Resource Booking (Rooms/Equipment)**
+
+* **Backend**
+
+  * `resources` table; `event_resources` join.
+  * Endpoint: `GET /api/resources?type=room|equipment`
+* **Frontend**
+
+  * Resource picker in EventEditor; resource chips in event cards.
+* **Acceptance**
+
+  * Events can reserve resources; conflicts prevented (see CAL-2).
+* **Tests**
+
+  * Double-book attempts blocked unless admin override.
+* **Effort**: M
+
+### **CAL-4 External Sync Groundwork (Google/Outlook)**
+
+* **Backend**
+
+  * OAuth per user; token store; job to push/pull events; map to internal schema.
+* **Frontend**
+
+  * In Settings → Integrations: “Connect Google / Outlook”.
+* **Acceptance**
+
+  * Toggleable per-calendar sync status shown; no duplicate loops (use external IDs).
+* **Tests**
+
+  * Dry-run mapping; duplicate detection.
+* **Effort**: L (staged: auth + one-way push first)
+
+---
+
+## H2: 3) Document Uploads
+
+**Goal:** Make documents enterprise-ready: queue/batch uploads, OCR (optional), versioning, tagging, search, previews.
+
+### **DOC-1 Batch Uploads & Queuing**
+
+* **Frontend**
+
+  * Dropzone with batch list, progress per file, retry failed; pause/cancel.
+  * Likely files:
+
+    * `src/features/documents/UploadDialog.tsx`
+    * `src/features/documents/hooks/useUploadQueue.ts`
+* **Backend**
+
+  * Chunked upload with resumable support (if feasible now) or at least multi-part S3/Supabase storage.
+  * Endpoint accepts metadata per file.
+* **Acceptance**
+
+  * 20 files upload concurrently with controlled concurrency; failures retry; UI never blocks.
+* **Tests**
+
+  * Simulated network errors; recover on reload (persist queue).
+* **Effort**: M
+
+### **DOC-2 Tagging & Full-Text Search**
+
+* **Backend**
+
+  * `document_tags` table; full-text index on `documents.name`, `documents.extracted_text`.
+* **Frontend**
+
+  * Tag editor; search bar with filters (tag, type, date, owner).
+* **Acceptance**
+
+  * Filter by multiple tags; search < 300ms at 10k docs.
+* **Tests**
+
+  * Tag CRUD; AND/OR tag filters (choose AND first release).
+* **Effort**: M
+
+### **DOC-3 Versioning & Diffs (Text/PDF)**
+
+* **Backend**
+
+  * `document_versions`: `{document_id, version_no, storage_key, created_by, created_at, checksum}`
+* **Frontend**
+
+  * Version history panel; diff view for text (side-by-side).
+* **Acceptance**
+
+  * Uploading a file with same name prompts “new version?”; users can restore older.
+* **Tests**
+
+  * Checksum prevents duplicate version increments; restore flow.
+* **Effort**: M–L
+
+### **DOC-4 OCR (Optional Phase-Flag)**
+
+* **Backend**
+
+  * OCR worker (serverless/edge or queue-based); store `extracted_text`.
+* **Acceptance**
+
+  * Scanned PDFs/images become searchable within 1–3 minutes; status indicator visible.
+* **Tests**
+
+  * OCR pipeline with sample images; error queues.
+* **Effort**: L (flagged)
+
+### **DOC-5 Inline PDF Preview & (Phase-Next) Annotations**
+
+* **Frontend**
+
+  * Viewer using `pdf.js`; annotation toolbar scaffold (comment pins only this release).
+* **Acceptance**
+
+  * PDFs open inline; images open inline; basic pin-comment works.
+* **Tests**
+
+  * Large PDF performance; mobile scroll.
+* **Effort**: M
+
+---
+
+## H2: 4) Expense Templates
+
+**Goal:** Power-user features: template sharing, bulk ops, multi-currency, exports, and (optionally later) OCR for receipts.
+
+### **EXP-1 Template Sharing (Team-Scoped)**
+
+* **Backend**
+
+  * `expense_templates`: add `scope: 'personal'|'team'|'org'`, `team_id`.
+* **Frontend**
+
+  * Filter templates by scope; share toggle in TemplateEditor.
+* **Acceptance**
+
+  * Managers can share to their team; employees see team + org templates.
+* **Tests**
+
+  * Permission checks; scope precedence (org > team > personal).
+* **Effort**: M
+
+### **EXP-2 CSV Import/Export of Claims**
+
+* **Frontend**
+
+  * Export button (replace placeholder alerts); Import wizard with mapping.
+* **Backend**
+
+  * `GET /api/expenses/export.csv?from=&to=&status=`
+  * `POST /api/expenses/import.csv`
+* **Acceptance**
+
+  * Finance can export a date range; import with validation summary.
+* **Tests**
+
+  * Malformed files; idempotent re-import.
+* **Effort**: M
+
+### **EXP-3 Multi-Currency with Auto FX (Phase-Flag)**
+
+* **Backend**
+
+  * Add currency, fx_rate_at_submit fields; daily FX cache table.
+* **Frontend**
+
+  * Currency picker; show local + converted totals.
+* **Acceptance**
+
+  * Totals convert using fx rate on submit date; finance can override rate.
+* **Tests**
+
+  * Rounding; re-valuation rules.
+* **Effort**: M–L (flagged)
+
+### **EXP-4 (Later) OCR Receipts → Autofill**
+
+* **Depends** on DOC-4 OCR pipeline
+* **Effort**: L (flagged)
+
+---
+
+## H2: 5) Attendance (Clock-In/Out)
+
+**Goal:** Add GPS/geofencing, offline capture, export that actually works, and calculated overtime.
+
+### **ATT-1 GPS + Geofencing**
+
+* **Frontend**
+
+  * On clock-in/out, prompt for location; display geofence status.
+  * Likely files: `src/features/attendance/MobileAttendanceView.tsx`
+* **Backend**
+
+  * Store `lat,lng,accuracy`; geofence zones per site; server validates.
+* **Acceptance**
+
+  * Clock-in blocked if outside geofence (configurable roles may override).
+* **Tests**
+
+  * Spoofed coordinates handling; accuracy thresholds.
+* **Effort**: M
+
+### **ATT-2 Offline Capture & Sync**
+
+* **Frontend**
+
+  * Save clock events offline (IndexedDB); sync on reconnect.
+* **Backend**
+
+  * Accept backdated clock events with signed client timestamp.
+* **Acceptance**
+
+  * Airplane-mode flow: clock-in/out then syncs cleanly later.
+* **Tests**
+
+  * Conflicts (duplicate clock-ins) resolved deterministically.
+* **Effort**: M–L
+
+### **ATT-3 CSV Export (Replace Placeholder)**
+
+* **Frontend**
+
+  * Wire Export button to real endpoint with filters (user/team/date).
+* **Backend**
+
+  * `GET /api/attendance/export.csv?from=&to=&user=&team=`
+* **Acceptance**
+
+  * File downloads with correct totals; UTF-8 with headers.
+* **Tests**
+
+  * Large ranges; multi-user.
+* **Effort**: S
+
+### **ATT-4 Overtime Calculation & Approval**
+
+* **Backend**
+
+  * Policy table: daily/weekly thresholds; public holidays.
+* **Frontend**
+
+  * Show calculated overtime; manager approve flow.
+* **Acceptance**
+
+  * Approved overtime appears on export.
+* **Tests**
+
+  * Policy permutations; daylight savings edge.
+* **Effort**: M
+
+---
+
+## H2: 6) Leave Requests
+
+**Goal:** Bring in the brains — balances, custom types, multi-step approvals, conflict visibility in calendar.
+
+### **LEV-1 Leave Balances & Accrual**
+
+* **Backend**
+
+  * `leave_balances`: per user per type; monthly accrual job.
+* **Frontend**
+
+  * Balances shown when applying; insufficient balance blocked (configurable).
+* **Acceptance**
+
+  * Accrual runs; balances deduct/add on approve/reject.
+* **Tests**
+
+  * Backdated approvals; financial year crossover.
+* **Effort**: M–L
+
+### **LEV-2 Configurable Leave Types**
+
+* **Backend**
+
+  * `leave_types` table with policy flags (requires certificate, paid/unpaid).
+* **Frontend**
+
+  * Admin UI to add/edit types.
+* **Acceptance**
+
+  * New type visible in apply form; rules enforced.
+* **Tests**
+
+  * Validation per type; migration safety.
+* **Effort**: M
+
+### **LEV-3 Multi-Level Approval Chains**
+
+* **Backend**
+
+  * Workflow engine: sequence of approvers per team/role.
+* **Frontend**
+
+  * Timeline of approvals; escalate on SLA breach.
+* **Acceptance**
+
+  * Requests route correctly; reassign approver works.
+* **Tests**
+
+  * Circular chains prevented; delegation.
+* **Effort**: L
+
+### **LEV-4 Team Calendar Conflicts**
+
+* **Backend**
+
+  * On leave apply, detect overlapping approved/pending within team.
+* **Frontend**
+
+  * Conflict banner with names/dates; manager can allow anyway.
+* **Acceptance**
+
+  * Visible before submit; appears also in Calendar views.
+* **Tests**
+
+  * Team boundary cases; part-day leave.
+* **Effort**: M
+
+---
+
+## H2: 7) Invite Codes & Onboarding
+
+**Goal:** Make invites operationally robust: revocation, analytics, bulk generation, villa scoping.
+
+### **INV-1 Revocation UI + Audit**
+
+* **Backend**
+
+  * `invite_codes` table with `status`, `max_uses`, `uses`, `expires_at`, audit.
+* **Frontend**
+
+  * Admin grid: revoke, extend expiry, adjust uses; view audit log.
+* **Acceptance**
+
+  * Revoked codes blocked instantly; actions logged.
+* **Tests**
+
+  * Race on last-use; expiry boundary.
+* **Effort**: M
+
+### **INV-2 Analytics (Acceptance & Conversion)**
+
+* **Backend**
+
+  * Events: created → sent → redeemed → first_login; aggregate daily.
+* **Frontend**
+
+  * Charts: acceptance rate by cohort; best-performing sources.
+* **Acceptance**
+
+  * Time-series visible; filters by role/villa.
+* **Tests**
+
+  * Data correctness over backfills.
+* **Effort**: M
+
+### **INV-3 Bulk Generation & Email Send**
+
+* **Frontend**
+
+  * CSV upload of recipients; per-row role/villa; preview before send.
+* **Backend**
+
+  * Bulk create codes; email via provider; status per row.
+* **Acceptance**
+
+  * Partial failures clearly reported; retry per recipient.
+* **Tests**
+
+  * Bounce handling; dedupe recipients.
+* **Effort**: M
+
+---
+
+## H2: 8) System-Wide
+
+**Goal:** Solidify enterprise foundations: exports, notifications centre, audit, performance.
+
+### **SYS-1 Real CSV/PDF Exports (Replace Placeholders)**
+
+* **Scope**
+
+  * Attendance, Expenses, Leave Requests, Messages (CSV only)
+* **Backend**
+
+  * Export endpoints with streaming; server-side CSV/PDF generation.
+* **Frontend**
+
+  * Date/user/status filters; progress toast; download link.
+* **Acceptance**
+
+  * Files open correctly; locale-aware dates.
+* **Tests**
+
+  * Large reports; odd characters.
+* **Effort**: M
+
+### **SYS-2 Unified Notification Centre**
+
+* **Frontend**
+
+  * Single Notifications screen across modules; “mark all read”.
+* **Backend**
+
+  * Normalised `notifications` table; fan-out on events (leave approved, message mention, calendar invite).
+* **Acceptance**
+
+  * Notifications consistent across desktop/mobile; badge counts accurate.
+* **Tests**
+
+  * Read/unread state sync; cross-device.
+* **Effort**: M
+
+### **SYS-3 Audit Trail Dashboard**
+
+* **Backend**
+
+  * Append-only `audit_log` with actor, target, action, before/after snapshot hash.
+* **Frontend**
+
+  * Admin Audit screen with filters (user, action, module, date).
+* **Acceptance**
+
+  * Sensitive actions visible within seconds; tamper-evident hashes.
+* **Tests**
+
+  * Volume tests; redaction rules for PII.
+* **Effort**: M
+
+### **SYS-4 Performance Pass on Large Lists**
+
+* **Frontend**
+
+  * Virtualised tables for documents/messages; skeleton loaders; cache with SWR/TanStack Query.
+* **Acceptance**
+
+  * 10k row lists scroll smoothly; filter in <300ms (client-side with server pagination).
+* **Tests**
+
+  * Slow network simulation; pagination integrity.
+* **Effort**: M
+
+---
+
+## H2: Suggested File Map (Guesses)
+
+* `src/features/messaging/…`
+
+  * `MobileThreadView.tsx`, `DesktopMessagesView.tsx`, `hooks/useChatThread.ts`, `components/MessageSearchBar.tsx`
+* `src/features/calendar/…`
+
+  * `components/EventEditor.tsx`, `hooks/useCalendarIntegration.ts`
+* `src/features/documents/…`
+
+  * `UploadDialog.tsx`, `hooks/useUploadQueue.ts`, `DocumentList.tsx`, `DocumentViewer.tsx`
+* `src/features/expenses/…`
+
+  * `hooks/useExpenseTemplates.ts`, `hooks/useExpenseSubmit.ts`, `TemplateEditor.tsx`
+* `src/features/attendance/…`
+
+  * `MobileAttendanceView.tsx`, `DesktopAttendanceView.tsx`
+* `src/features/leave/…`
+
+  * `LeaveApplyForm.tsx`, `LeaveApprovalsView.tsx`
+* `src/features/invites/…`
+
+  * `InviteCodeManager.tsx`
+* `src/core/…`
+
+  * `apiRequest.ts`, `permissions.ts`, `AppContext.tsx`, `utils/validation.ts`
+* `src/config/…`
+
+  * `flags.ts`, `routes.ts`

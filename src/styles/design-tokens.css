@@ -1,0 +1,157 @@
+/**
+ * VillaSaya Design System
+ * Centralized design tokens for consistent theming
+ */
+
+:root {
+  /* ===== Brand Colors ===== */
+  /* Apple HIG: Adjusted for WCAG AA contrast (4.5:1 white text) */
+  --vs-primary: #6B4FDB; /* Darkened from #7B5FEB for 5.58:1 contrast */
+  --vs-primary-dark: #5B3FCB;
+  --vs-primary-light: #9B8DF5;
+  
+  /* ===== Semantic Colors ===== */
+  /* Apple HIG: Adjusted for WCAG AA contrast requirements */
+  --vs-success: #1FA85F; /* Darkened from #28C76F for 3:1 contrast */
+  --vs-success-dark: #1A9551;
+  --vs-warning: #C77A15; /* Darkened further for 3:1 contrast */
+  --vs-warning-dark: #B56912;
+  --vs-error: #EA5455; /* Already passes 3.56:1 */
+  --vs-error-dark: #DC4546;
+  --vs-info: #0099AD; /* Darkened further for 3:1 contrast */
+  
+  /* ===== Neutral Colors ===== */
+  --vs-black: #1F1F1F;
+  --vs-gray-900: #2E3152;
+  --vs-gray-800: #3E3E54;
+  --vs-gray-700: #5E5873;
+  --vs-gray-600: #6E6B7B;
+  --vs-gray-500: #6E6E78; /* Darkened to achieve 4.5:1 contrast */
+  --vs-gray-400: #949499; /* Darkened further for 3:1 minimum */
+  --vs-gray-300: #E8E8E8;
+  --vs-gray-200: #F3F2F7;
+  --vs-gray-100: #F8F8F8;
+  --vs-white: #FFFFFF;
+  
+  /* ===== Background Colors ===== */
+  --vs-bg-primary: #F8F8F8;
+  --vs-bg-secondary: #FFFFFF;
+  --vs-bg-tertiary: #F3F2F7;
+  
+  /* ===== Text Colors ===== */
+  /* Apple HIG: All text colors meet WCAG AA (4.5:1) on white */
+  --vs-text-primary: #1F1F1F;
+  --vs-text-secondary: #5E5873;
+  --vs-text-tertiary: #6E6B7B;
+  --vs-text-muted: #6E6E78; /* Darkened to achieve 4.5:1 contrast */
+  --vs-text-disabled: #949499; /* Darkened for 3:1 minimum on white */
+  
+  /* ===== Border Colors ===== */
+  /* Note: Decorative borders don't require 3:1 contrast per WCAG 2.1 */
+  /* Only borders conveying UI state need 3:1 (handled by focus states) */
+  --vs-border-primary: #E8E8E8;
+  --vs-border-secondary: #F3F2F7;
+  --vs-border-focus: #6B4FDB; /* Updated to match new primary */
+  
+  /* ===== Spacing Scale (4px base) ===== */
+  --vs-space-0: 0;
+  --vs-space-1: 0.25rem;  /* 4px */
+  --vs-space-2: 0.5rem;   /* 8px */
+  --vs-space-3: 0.75rem;  /* 12px */
+  --vs-space-4: 1rem;     /* 16px */
+  --vs-space-5: 1.25rem;  /* 20px */
+  --vs-space-6: 1.5rem;   /* 24px */
+  --vs-space-8: 2rem;     /* 32px */
+  --vs-space-10: 2.5rem;  /* 40px */
+  --vs-space-12: 3rem;    /* 48px */
+  --vs-space-16: 4rem;    /* 64px */
+  --vs-space-20: 5rem;    /* 80px */
+  
+  /* ===== Typography Scale ===== */
+  /* Apple HIG: Minimum 11pt font size (14.67px) - removed xs (11px) */
+  --vs-text-sm: 0.875rem;    /* 14px - New minimum (11pt) */
+  --vs-text-base: 1rem;      /* 16px */
+  --vs-text-md: 1.125rem;    /* 18px */
+  --vs-text-lg: 1.25rem;     /* 20px */
+  --vs-text-xl: 1.5rem;      /* 24px */
+  --vs-text-2xl: 1.875rem;   /* 30px */
+  --vs-text-3xl: 2.25rem;    /* 36px */
+  --vs-text-4xl: 2.625rem;   /* 42px */
+  --vs-text-5xl: 3rem;       /* 48px */
+  --vs-text-6xl: 3.5rem;     /* 56px */
+  --vs-text-7xl: 4rem;       /* 64px */
+  
+  /* ===== Font Weights ===== */
+  --vs-font-normal: 400;
+  --vs-font-medium: 500;
+  --vs-font-semibold: 600;
+  --vs-font-bold: 700;
+  
+  /* ===== Border Radius ===== */
+  --vs-radius-sm: 0.5rem;   /* 8px */
+  --vs-radius-md: 0.75rem;  /* 12px */
+  --vs-radius-lg: 1rem;     /* 16px */
+  --vs-radius-xl: 1.25rem;  /* 20px */
+  --vs-radius-2xl: 1.5rem;  /* 24px */
+  --vs-radius-full: 9999px;
+  
+  /* ===== Shadows ===== */
+  --vs-shadow-sm: 0 1px 2px 0 rgba(123, 95, 235, 0.05);
+  --vs-shadow-md: 0 4px 6px -1px rgba(123, 95, 235, 0.1), 0 2px 4px -1px rgba(123, 95, 235, 0.06);
+  --vs-shadow-lg: 0 10px 15px -3px rgba(123, 95, 235, 0.1), 0 4px 6px -2px rgba(123, 95, 235, 0.05);
+  --vs-shadow-xl: 0 20px 25px -5px rgba(123, 95, 235, 0.1), 0 10px 10px -5px rgba(123, 95, 235, 0.04);
+  --vs-shadow-2xl: 0 25px 50px -12px rgba(123, 95, 235, 0.25);
+  
+  /* ===== Z-Index Scale ===== */
+  --vs-z-base: 0;
+  --vs-z-dropdown: 10;
+  --vs-z-sticky: 20;
+  --vs-z-fixed: 30;
+  --vs-z-modal-backdrop: 40;
+  --vs-z-modal: 50;
+  --vs-z-popover: 60;
+  --vs-z-tooltip: 70;
+  --vs-z-toast: 80;
+  --vs-z-top: 100;
+  
+  /* ===== Component Specific ===== */
+  --vs-input-height: 3.5rem;      /* 56px */
+  --vs-input-height-sm: 3rem;     /* 48px */
+  --vs-button-height: 3.5rem;     /* 56px */
+  --vs-button-height-sm: 3rem;    /* 48px */
+  --vs-card-padding: 1rem;        /* 16px */
+  --vs-mobile-bottom-nav: 5.25rem; /* 84px */
+  
+  /* ===== Transitions ===== */
+  --vs-transition-fast: 150ms ease;
+  --vs-transition-base: 200ms ease;
+  --vs-transition-slow: 300ms ease;
+  
+  /* ===== Gradients ===== */
+  /* Apple HIG: Updated to use accessible color values */
+  --vs-gradient-primary: linear-gradient(135deg, #6B4FDB 0%, #5B3FCB 100%);
+  --vs-gradient-success: linear-gradient(135deg, #1FA85F 0%, #1A9551 100%);
+  --vs-gradient-warning: linear-gradient(135deg, #C77A15 0%, #B56912 100%);
+  --vs-gradient-error: linear-gradient(135deg, #EA5455 0%, #DC4546 100%);
+  
+  /* ===== Status Colors ===== */
+  --vs-status-pending: var(--vs-warning);
+  --vs-status-approved: var(--vs-success);
+  --vs-status-rejected: var(--vs-error);
+  --vs-status-active: var(--vs-success);
+  --vs-status-inactive: var(--vs-gray-500);
+  --vs-status-clocked-in: var(--vs-primary);
+  --vs-status-clocked-out: var(--vs-gray-500);
+  --vs-status-on-leave: var(--vs-warning);
+}
+
+/* Dark Mode (Future Enhancement) */
+.dark {
+  --vs-bg-primary: #1A1A1A;
+  --vs-bg-secondary: #2E2E2E;
+  --vs-bg-tertiary: #3A3A3A;
+  --vs-text-primary: #FFFFFF;
+  --vs-text-secondary: #E0E0E0;
+  --vs-text-tertiary: #B0B0B0;
+  --vs-text-muted: #808080;
+}
