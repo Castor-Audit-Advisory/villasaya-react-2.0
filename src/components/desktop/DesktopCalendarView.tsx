@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import { apiRequest } from '../../utils/api';
+import { useApp } from '../../contexts/AppContext';
 
 interface CalendarEvent {
   id: string;
@@ -14,22 +15,52 @@ export const DesktopCalendarView: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const { selectedVilla } = useApp();
+
+  const [startOfMonth, endOfMonth] = useMemo(() => {
+    const start = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    const end = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+    return [start, end];
+  }, [currentDate]);
 
   useEffect(() => {
     fetchEvents();
-  }, [currentDate]);
+  }, [currentDate, selectedVilla?.id]);
 
   const fetchEvents = async () => {
     try {
-      const data = await apiRequest<any[]>('/calendar/events');
-      const formatted = (data || []).map((evt) => ({
-        id: evt.id,
-        title: evt.title || 'Event',
-        date: evt.date || new Date().toISOString(),
-        time: evt.time,
-        type: evt.type || 'other',
-      }));
-      setEvents(Array.isArray(formatted) ? formatted : []);
+      const params = new URLSearchParams({
+        startDate: startOfMonth.toISOString().split('T')[0],
+        endDate: endOfMonth.toISOString().split('T')[0],
+      });
+
+      if (selectedVilla?.id) {
+        params.set('villaId', selectedVilla.id);
+      } else {
+        params.set('includeAll', 'true');
+      }
+
+      const response = await apiRequest<{ events?: any[] }>(`/events?${params.toString()}`);
+      const rawEvents = Array.isArray(response) ? response : response?.events || [];
+      const allowedTypes: CalendarEvent['type'][] = ['meeting', 'maintenance', 'inspection', 'other'];
+
+      const formatted = rawEvents.map((evt: any) => {
+        const startDate = evt?.startDate || evt?.date || new Date().toISOString();
+        const rawType = typeof evt?.type === 'string' ? evt.type.toLowerCase() : 'other';
+        const normalizedType = allowedTypes.includes(rawType as CalendarEvent['type'])
+          ? (rawType as CalendarEvent['type'])
+          : 'other';
+
+        return {
+          id: evt?.id || Math.random().toString(36).slice(2),
+          title: evt?.title || 'Event',
+          date: startDate,
+          time: evt?.time || evt?.startTime || undefined,
+          type: normalizedType,
+        } satisfies CalendarEvent;
+      });
+
+      setEvents(formatted);
     } catch (error) {
       console.error('Error fetching events:', error);
     }

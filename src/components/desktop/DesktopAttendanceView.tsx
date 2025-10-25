@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Calendar as CalendarIcon, Download, Filter } from 'lucide-react';
 import { DataTable, Column } from './DataTable';
 import { apiRequest } from '../../utils/api';
+import { useApp } from '../../contexts/AppContext';
 
 interface AttendanceRecord {
   id: string;
@@ -14,25 +15,122 @@ interface AttendanceRecord {
   location?: string;
 }
 
+interface ClockRecord {
+  id: string;
+  timestamp: string;
+  action: 'in' | 'out';
+  date?: string;
+  location?: string | null;
+  villaId?: string | null;
+}
+
 export const DesktopAttendanceView: React.FC = () => {
   const [attendance, setAttendance] = useState<AttendanceRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split('T')[0]
   );
+  const { currentUser, selectedVilla } = useApp();
+
+  const staffDisplayName = useMemo(() => {
+    if (currentUser?.name) {
+      return currentUser.name;
+    }
+    if (currentUser?.email) {
+      return currentUser.email.split('@')[0];
+    }
+    return 'Team Member';
+  }, [currentUser]);
 
   useEffect(() => {
+    setLoading(true);
     fetchAttendance();
-  }, [selectedDate]);
+  }, [selectedDate, selectedVilla?.id]);
 
   const fetchAttendance = async () => {
     try {
-      const data = await apiRequest<AttendanceRecord[]>(
-        `/attendance?date=${selectedDate}`
+      const params = new URLSearchParams({
+        startDate: selectedDate,
+        endDate: selectedDate,
+      });
+
+      if (selectedVilla?.id) {
+        params.set('villaId', selectedVilla.id);
+      }
+
+      const response = await apiRequest<{ clockRecords?: ClockRecord[] }>(
+        `/staff/clock?${params.toString()}`
       );
-      setAttendance(Array.isArray(data) ? data : []);
+      const clockRecords = Array.isArray(response)
+        ? (response as unknown as ClockRecord[])
+        : response?.clockRecords || [];
+
+      const grouped = new Map<string, ClockRecord[]>();
+
+      clockRecords.forEach((record) => {
+        const recordDate = record.date || record.timestamp.split('T')[0];
+        if (!grouped.has(recordDate)) {
+          grouped.set(recordDate, []);
+        }
+        grouped.get(recordDate)!.push(record);
+      });
+
+      const records: AttendanceRecord[] = Array.from(grouped.entries()).map(
+        ([date, recordsForDate]) => {
+          const sortedRecords = [...recordsForDate].sort(
+            (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+          );
+
+          let totalMs = 0;
+          let lastClockIn: Date | null = null;
+
+          sortedRecords.forEach((record) => {
+            const timestamp = new Date(record.timestamp);
+            if (record.action === 'in') {
+              lastClockIn = timestamp;
+              return;
+            }
+
+            if (record.action === 'out' && lastClockIn) {
+              totalMs += Math.max(0, timestamp.getTime() - lastClockIn.getTime());
+              lastClockIn = null;
+            }
+          });
+
+          const firstIn = sortedRecords.find((record) => record.action === 'in');
+          const lastOut = [...sortedRecords]
+            .reverse()
+            .find((record) => record.action === 'out');
+
+          const totalHours = totalMs / (1000 * 60 * 60);
+
+          const status: AttendanceRecord['status'] = firstIn
+            ? lastOut
+              ? 'present'
+              : 'present'
+            : 'absent';
+
+          return {
+            id: `${date}-${firstIn?.id || lastOut?.id || Math.random().toString(36).slice(2)}`,
+            staffName: staffDisplayName,
+            date,
+            clockIn: firstIn ? firstIn.timestamp : '',
+            clockOut: lastOut ? lastOut.timestamp : '',
+            totalHours: Number.isFinite(totalHours) ? totalHours : 0,
+            status,
+            location: firstIn?.location || lastOut?.location || undefined,
+          };
+        },
+      );
+
+      setAttendance(
+        records.sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+        ),
+      );
     } catch (error) {
       console.error('Error fetching attendance:', error);
+      setAttendance([]);
     } finally {
       setLoading(false);
     }

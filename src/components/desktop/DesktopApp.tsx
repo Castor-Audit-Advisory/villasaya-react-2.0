@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { DesktopLayout } from './DesktopLayout';
 import { DesktopSidebar } from './DesktopSidebar';
 import { DesktopHeader } from './DesktopHeader';
@@ -14,9 +14,27 @@ import { DesktopTenantsView } from './DesktopTenantsView';
 import { DesktopLeavesView } from './DesktopLeavesView';
 import { DesktopSettingsView } from './DesktopSettingsView';
 import { DesktopPreferencesView } from './DesktopPreferencesView';
+import { useApp } from '../../contexts/AppContext';
 
 export const DesktopApp: React.FC = () => {
-  const [currentView, setCurrentView] = useState('dashboard');
+  const {
+    currentView,
+    setCurrentView,
+    isAuthenticated,
+    villas,
+    villasLoading,
+    loadVillas,
+  } = useApp();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      return;
+    }
+
+    if (!villasLoading && villas.length === 0) {
+      void loadVillas();
+    }
+  }, [isAuthenticated, loadVillas, villas, villasLoading]);
 
   const getHeaderProps = () => {
     switch (currentView) {

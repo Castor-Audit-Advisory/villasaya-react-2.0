@@ -17,8 +17,9 @@ export const DesktopStaffView: React.FC = () => {
 
   const fetchStaff = async () => {
     try {
-      const data = await apiRequest<StaffMember[]>('/staff');
-      setStaff(Array.isArray(data) ? data : []);
+      const response = await apiRequest<{ staff?: StaffMember[] }>('/staff');
+      const staffList = Array.isArray(response) ? response : response?.staff;
+      setStaff(Array.isArray(staffList) ? staffList : []);
     } catch (error) {
       console.error('Error fetching staff:', error);
       setStaff([]);

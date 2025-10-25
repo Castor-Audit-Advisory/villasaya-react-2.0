@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { Search, Bell, ChevronDown, User, Settings, LogOut } from 'lucide-react';
+import { useApp } from '../../contexts/AppContext';
 
 interface DesktopHeaderProps {
   title: string;
@@ -10,6 +11,42 @@ interface DesktopHeaderProps {
 export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ title, subtitle, onNavigate }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { currentUser, logout } = useApp();
+
+  const userDisplayName = useMemo(() => {
+    if (currentUser?.name) {
+      return currentUser.name;
+    }
+    if (currentUser?.email) {
+      return currentUser.email.split('@')[0];
+    }
+    return 'Team Member';
+  }, [currentUser]);
+
+  const userInitials = useMemo(() => {
+    if (!currentUser) {
+      return 'VS';
+    }
+
+    const name = currentUser.name || currentUser.email;
+    return name
+      .split(' ')
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(part => part[0]?.toUpperCase() ?? '')
+      .join('') || 'VS';
+  }, [currentUser]);
+
+  const userRoleLabel = useMemo(() => {
+    if (!currentUser?.role) {
+      return 'Staff Member';
+    }
+
+    return currentUser.role
+      .split('_')
+      .map(segment => segment.charAt(0).toUpperCase() + segment.slice(1))
+      .join(' ');
+  }, [currentUser]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -34,9 +71,11 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ title, subtitle, o
   };
 
   const handleLogout = () => {
-    if (confirm('Are you sure you want to log out?')) {
-      console.log('Logging out...');
+    if (!confirm('Are you sure you want to log out?')) {
+      return;
     }
+
+    void logout();
   };
 
   return (
@@ -44,6 +83,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ title, subtitle, o
       <div className="header-content">
         <div className="header-title-section">
           <h1 className="header-title">{title}</h1>
+          {subtitle && <p className="header-subtitle">{subtitle}</p>}
         </div>
 
         <div className="header-actions">
@@ -62,13 +102,13 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ title, subtitle, o
               onClick={() => setShowDropdown(!showDropdown)}
             >
               <div className="user-avatar">
-                RA
+                {userInitials}
               </div>
               <div className="user-info">
                 <span className="user-name">
-                  Robert Allen
+                  {userDisplayName}
                 </span>
-                <span className="user-role">HR Manager</span>
+                <span className="user-role">{userRoleLabel}</span>
               </div>
               <ChevronDown size={16} className={showDropdown ? 'chevron-rotated' : ''} />
             </div>

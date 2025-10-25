@@ -45,8 +45,9 @@ export const DesktopTasksView: React.FC = () => {
 
   const fetchTasks = async () => {
     try {
-      const data = await apiRequest<Task[]>('/tasks');
-      setTasks(Array.isArray(data) ? data : []);
+      const response = await apiRequest<{ tasks?: Task[] }>('/tasks');
+      const taskList = Array.isArray(response) ? response : response?.tasks;
+      setTasks(Array.isArray(taskList) ? taskList : []);
     } catch (error) {
       console.error('Error fetching tasks:', error);
     } finally {

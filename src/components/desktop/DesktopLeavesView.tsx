@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Plus, Filter, Calendar } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Filter, Calendar } from 'lucide-react';
 import { DataTable, Column } from './DataTable';
 import { apiRequest } from '../../utils/api';
+import { useApp } from '../../contexts/AppContext';
 
 interface LeaveRequest {
   id: string;
@@ -19,17 +20,84 @@ export const DesktopLeavesView: React.FC = () => {
   const [leaves, setLeaves] = useState<LeaveRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const { selectedVilla, villas, loadVillas, villasLoading } = useApp();
+  const [activeVillaId, setActiveVillaId] = useState<string | null>(null);
+  const profileCache = useRef(new Map<string, { id: string; name: string; email?: string }>());
 
   useEffect(() => {
-    fetchLeaves();
-  }, []);
+    if (!villasLoading && villas.length === 0) {
+      void loadVillas();
+    }
+  }, [loadVillas, villas.length, villasLoading]);
 
-  const fetchLeaves = async () => {
+  useEffect(() => {
+    if (selectedVilla?.id) {
+      setActiveVillaId(selectedVilla.id);
+      return;
+    }
+
+    if (villas.length > 0) {
+      setActiveVillaId(villas[0].id);
+    }
+  }, [selectedVilla, villas]);
+
+  useEffect(() => {
+    const targetVillaId = activeVillaId || null;
+    void fetchLeaves(targetVillaId);
+  }, [activeVillaId]);
+
+  const fetchLeaves = async (villaId: string | null) => {
+    setLoading(true);
     try {
-      const data = await apiRequest<LeaveRequest[]>('/leaves');
-      setLeaves(Array.isArray(data) ? data : []);
+      const endpoint = villaId ? `/villas/${villaId}/leave` : '/staff/leave';
+      const response = await apiRequest<{ leaves?: any[] }>(endpoint);
+      const rawLeaves = Array.isArray(response) ? response : response?.leaves || [];
+
+      const userIds = Array.from(new Set(rawLeaves.map((leave: any) => leave?.userId).filter(Boolean)));
+
+      await Promise.all(
+        userIds.map(async (userId) => {
+          if (profileCache.current.has(userId)) {
+            return;
+          }
+
+          try {
+            const profile = await apiRequest<{ id: string; name: string; email?: string }>(`/users/${userId}`);
+            if (profile?.id) {
+              profileCache.current.set(userId, profile);
+            }
+          } catch (error) {
+            console.error('Failed to load leave requester profile', userId, error);
+            profileCache.current.set(userId, { id: userId, name: 'Team Member' });
+          }
+        }),
+      );
+
+      const mappedLeaves: LeaveRequest[] = rawLeaves.map((leave: any) => {
+        const profile = leave?.userId ? profileCache.current.get(leave.userId) : null;
+        const startDate = leave?.startDate || leave?.createdAt || new Date().toISOString();
+        const endDate = leave?.endDate || startDate;
+        const days = typeof leave?.days === 'number'
+          ? leave.days
+          : Math.max(1, Math.ceil((new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24)) + 1);
+
+        return {
+          id: leave?.id || Math.random().toString(36).slice(2),
+          staffName: profile?.name || 'Team Member',
+          leaveType: (leave?.type || 'Vacation') as string,
+          startDate,
+          endDate,
+          days,
+          reason: leave?.reason || '—',
+          status: (leave?.status || 'pending') as LeaveRequest['status'],
+          submittedDate: leave?.createdAt || startDate,
+        };
+      });
+
+      setLeaves(mappedLeaves);
     } catch (error) {
       console.error('Error fetching leaves:', error);
+      setLeaves([]);
     } finally {
       setLoading(false);
     }
@@ -37,8 +105,11 @@ export const DesktopLeavesView: React.FC = () => {
 
   const handleApprove = async (id: string) => {
     try {
-      await apiRequest(`/leaves/${id}/approve`, { method: 'POST' });
-      fetchLeaves();
+      await apiRequest(`/staff/leave/${id}/status`, {
+        method: 'PUT',
+        body: JSON.stringify({ status: 'approved' }),
+      });
+      void fetchLeaves(activeVillaId);
     } catch (error) {
       console.error('Error approving leave:', error);
     }
@@ -46,8 +117,11 @@ export const DesktopLeavesView: React.FC = () => {
 
   const handleReject = async (id: string) => {
     try {
-      await apiRequest(`/leaves/${id}/reject`, { method: 'POST' });
-      fetchLeaves();
+      await apiRequest(`/staff/leave/${id}/status`, {
+        method: 'PUT',
+        body: JSON.stringify({ status: 'rejected' }),
+      });
+      void fetchLeaves(activeVillaId);
     } catch (error) {
       console.error('Error rejecting leave:', error);
     }
