@@ -38,6 +38,36 @@ const createAnonClient = (accessToken?: string) => {
   return createClient(getEnvVar('SUPABASE_URL'), getEnvVar('SUPABASE_ANON_KEY'), headers);
 };
 
+const parseAllowedOrigins = () => {
+  const explicitOrigins = (Deno.env.get('ALLOWED_ORIGINS') ?? '')
+    .split(',')
+    .map(origin => origin.trim())
+    .filter(Boolean);
+
+  if (explicitOrigins.length > 0) {
+    return explicitOrigins;
+  }
+
+  const isProduction = Deno.env.get('NODE_ENV') === 'production';
+
+  if (!isProduction) {
+    return ['http://localhost:5173', 'http://127.0.0.1:5173'];
+  }
+
+  console.warn('CORS configuration warning: no ALLOWED_ORIGINS set; rejecting cross-origin requests.');
+  return [];
+};
+
+const ALLOWED_ORIGINS = parseAllowedOrigins();
+
+const isOriginAllowed = (origin?: string | null) => {
+  if (!origin) {
+    return true;
+  }
+
+  return ALLOWED_ORIGINS.includes(origin);
+};
+
 const app = new Hono();
 
 // Enable logger
@@ -54,14 +84,31 @@ app.use('*', async (c, next) => {
   return next();
 });
 
+// Enforce origin allow-list before applying CORS headers
+app.use('*', async (c, next) => {
+  const origin = c.req.header('origin');
+  if (origin && !isOriginAllowed(origin)) {
+    console.warn(`Blocked cross-origin request from disallowed origin: ${origin}`);
+    return c.json({ error: 'Origin not allowed' }, 403);
+  }
+
+  return next();
+});
+
 // Enable CORS for all routes and methods
 app.use(
   "/*",
   cors({
-    origin: "*",
+    origin: (origin) => {
+      if (!origin) {
+        return ALLOWED_ORIGINS[0] ?? '';
+      }
+
+      return isOriginAllowed(origin) ? origin : '';
+    },
     allowHeaders: [
-      "Content-Type", 
-      "Authorization", 
+      "Content-Type",
+      "Authorization",
       "x-csrf-token",
       "X-CSRF-Token",
       "apikey",
@@ -70,7 +117,7 @@ app.use(
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     exposeHeaders: ["Content-Length"],
     maxAge: 600,
-    credentials: true,
+    credentials: ALLOWED_ORIGINS.length > 0,
   }),
 );
 

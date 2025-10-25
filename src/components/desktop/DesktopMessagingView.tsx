@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Search, Send, MoreVertical } from 'lucide-react';
 import { apiRequest } from '../../utils/api';
+import { useApp } from '../../contexts/AppContext';
 
 interface Thread {
   id: string;
@@ -9,6 +10,7 @@ interface Thread {
   lastMessageTime: string;
   unreadCount: number;
   avatar?: string;
+  participants?: string[];
 }
 
 interface Message {
@@ -25,10 +27,12 @@ export const DesktopMessagingView: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const { selectedVilla, currentUser } = useApp();
+  const profileCache = useRef(new Map<string, { id: string; name: string }>());
 
   useEffect(() => {
     fetchThreads();
-  }, []);
+  }, [selectedVilla?.id]);
 
   useEffect(() => {
     if (selectedThread) {
@@ -38,14 +42,19 @@ export const DesktopMessagingView: React.FC = () => {
 
   const fetchThreads = async () => {
     try {
-      const data = await apiRequest<any[]>('/messages/threads');
-      const formatted = (data || []).map((thread) => ({
-        id: thread.id,
-        name: thread.name || 'Unknown',
-        lastMessage: thread.lastMessage || '',
-        lastMessageTime: thread.lastMessageTime || new Date().toISOString(),
-        unreadCount: thread.unreadCount || 0,
-      }));
+      const endpoint = selectedVilla?.id ? `/villas/${selectedVilla.id}/chats` : '/chats';
+      const response = await apiRequest<{ chats?: any[] }>(endpoint);
+      const rawThreads = Array.isArray(response) ? response : response?.chats || [];
+
+      const formatted = rawThreads.map((thread: any) => ({
+        id: thread?.id,
+        name: thread?.subject || 'Conversation',
+        lastMessage: thread?.lastMessage || '',
+        lastMessageTime: thread?.lastMessageAt || thread?.createdAt || new Date().toISOString(),
+        unreadCount: thread?.unreadCount || 0,
+        participants: thread?.participants || [],
+      })) as Thread[];
+
       setThreads(Array.isArray(formatted) ? formatted : []);
       if (formatted.length > 0 && !selectedThread) {
         setSelectedThread(formatted[0]);
@@ -57,14 +66,42 @@ export const DesktopMessagingView: React.FC = () => {
 
   const fetchMessages = async (threadId: string) => {
     try {
-      const data = await apiRequest<any[]>(`/messages/threads/${threadId}`);
-      const formatted = (data || []).map((msg) => ({
-        id: msg.id,
-        sender: msg.sender || 'Unknown',
-        content: msg.content || '',
-        timestamp: msg.timestamp || new Date().toISOString(),
-        isOwn: msg.isOwn || false,
-      }));
+      const response = await apiRequest<{ messages?: any[] }>(`/chats/${threadId}/messages`);
+      const rawMessages = Array.isArray(response) ? response : response?.messages || [];
+
+      await Promise.all(
+        rawMessages
+          .map((msg: any) => msg?.senderId)
+          .filter(Boolean)
+          .map(async (senderId: string) => {
+            if (profileCache.current.has(senderId)) {
+              return;
+            }
+
+            try {
+              const profile = await apiRequest<{ id: string; name: string }>(`/users/${senderId}`);
+              if (profile?.id) {
+                profileCache.current.set(senderId, profile);
+              }
+            } catch (error) {
+              console.error('Failed to load message sender profile', senderId, error);
+              profileCache.current.set(senderId, { id: senderId, name: 'Member' });
+            }
+          }),
+      );
+
+      const formatted = rawMessages.map((msg: any) => {
+        const senderProfile = msg?.senderId ? profileCache.current.get(msg.senderId) : null;
+        const timestamp = msg?.createdAt || new Date().toISOString();
+        return {
+          id: msg?.id || Math.random().toString(36).slice(2),
+          sender: senderProfile?.name || 'Member',
+          content: msg?.content || '',
+          timestamp,
+          isOwn: Boolean(currentUser && msg?.senderId === currentUser.id),
+        } satisfies Message;
+      });
+
       setMessages(formatted);
     } catch (error) {
       console.error('Error fetching messages:', error);
@@ -73,7 +110,21 @@ export const DesktopMessagingView: React.FC = () => {
 
   const handleSendMessage = () => {
     if (!newMessage.trim() || !selectedThread) return;
+
+    const messageContent = newMessage.trim();
     setNewMessage('');
+
+    apiRequest(`/chats/${selectedThread.id}/messages`, {
+      method: 'POST',
+      body: JSON.stringify({ content: messageContent }),
+    })
+      .then(() => {
+        fetchMessages(selectedThread.id);
+        fetchThreads();
+      })
+      .catch((error) => {
+        console.error('Error sending message:', error);
+      });
   };
 
   const filteredThreads = threads.filter((t) =>

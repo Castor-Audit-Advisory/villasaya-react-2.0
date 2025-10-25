@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Plus, Filter, Search, Phone, Mail } from 'lucide-react';
 import { DataTable, Column } from './DataTable';
 import { apiRequest } from '../../utils/api';
+import { useApp } from '../../contexts/AppContext';
+import { Villa, VillaUser } from '../../types';
 
 interface Tenant {
   id: string;
@@ -19,21 +21,102 @@ export const DesktopTenantsView: React.FC = () => {
   const [tenants, setTenants] = useState<Tenant[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const { villas, loadVillas, villasLoading } = useApp();
+  const profileCache = useRef(new Map<string, { id: string; name: string; email: string }>());
 
   useEffect(() => {
-    fetchTenants();
-  }, []);
-
-  const fetchTenants = async () => {
-    try {
-      const data = await apiRequest<Tenant[]>('/tenants');
-      setTenants(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.error('Error fetching tenants:', error);
-    } finally {
-      setLoading(false);
+    if (!villasLoading && villas.length === 0) {
+      void loadVillas();
     }
-  };
+  }, [loadVillas, villas.length, villasLoading]);
+
+  useEffect(() => {
+    const buildTenants = async () => {
+      if (villasLoading) {
+        setLoading(true);
+        return;
+      }
+
+      setLoading(true);
+
+      try {
+        const tenantUsers: Array<{ villa: Villa; membership: VillaUser }> = [];
+
+        villas.forEach((villa) => {
+          if (!villa?.users) return;
+
+          villa.users
+            .filter((member) => member.role === 'tenant')
+            .forEach((membership) => tenantUsers.push({ villa, membership }));
+        });
+
+        const uniqueTenantIds = Array.from(new Set(tenantUsers.map(({ membership }) => membership.userId)));
+
+        await Promise.all(
+          uniqueTenantIds.map(async (userId) => {
+            if (profileCache.current.has(userId)) {
+              return;
+            }
+
+            try {
+              const profile = await apiRequest<{ id: string; name: string; email: string }>(`/users/${userId}`);
+              if (profile?.id) {
+                profileCache.current.set(userId, profile);
+              }
+            } catch (error) {
+              console.error('Failed to load tenant profile', userId, error);
+              profileCache.current.set(userId, {
+                id: userId,
+                name: 'Tenant',
+                email: '—',
+              });
+            }
+          }),
+        );
+
+        const computedTenants = tenantUsers.map(({ villa, membership }) => {
+          const profile = profileCache.current.get(membership.userId);
+          const lease = villa.leaseDetails || {};
+          const leaseStart = lease.startDate || membership.joinedAt || new Date().toISOString();
+          const leaseEnd = lease.endDate || leaseStart;
+
+          let status: Tenant['status'] = 'active';
+          const today = new Date();
+          const endDate = new Date(leaseEnd);
+
+          if (endDate.getTime() < today.getTime()) {
+            status = 'expired';
+          } else {
+            const daysUntilEnd = Math.floor((endDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+            if (daysUntilEnd <= 30) {
+              status = 'expiring';
+            }
+          }
+
+          return {
+            id: `${villa.id}-${membership.userId}`,
+            name: profile?.name || 'Tenant',
+            email: profile?.email || '—',
+            phone: '—',
+            villaName: villa.name || 'Villa',
+            leaseStart,
+            leaseEnd,
+            monthlyRent: typeof lease.rent === 'number' ? lease.rent : 0,
+            status,
+          } satisfies Tenant;
+        });
+
+        setTenants(computedTenants);
+      } catch (error) {
+        console.error('Error building tenant list:', error);
+        setTenants([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    void buildTenants();
+  }, [villas, villasLoading]);
 
   const columns: Column<Tenant>[] = [
     { key: 'name', label: 'Tenant Name', width: 180, sortable: true },

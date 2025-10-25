@@ -2,6 +2,138 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Filter, Search, MapPin } from 'lucide-react';
 import { DataTable, Column } from './DataTable';
 import { apiRequest } from '../../utils/api';
+import { useStaticStyles } from '../../hooks/useStaticStyles';
+
+const VILLAS_VIEW_STYLES = `
+        .desktop-villas-view {
+          width: 100%;
+          height: 100%;
+        }
+
+        .villas-content {
+          padding: 0 20px 20px 20px;
+        }
+
+        .villas-toolbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: var(--desktop-gap-lg);
+          margin-bottom: var(--desktop-gap-2xl);
+        }
+
+        .search-box {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px var(--desktop-gap-lg);
+          width: 400px;
+          height: 38px;
+          background: var(--desktop-white-500);
+          border: 1px solid var(--desktop-gray-10);
+          border-radius: var(--desktop-radius-lg);
+        }
+
+        .search-box input {
+          flex: 1;
+          border: none;
+          outline: none;
+          font-family: var(--desktop-font-family);
+          font-size: var(--desktop-body-1);
+          font-weight: var(--desktop-weight-light);
+          color: var(--desktop-dark-500);
+          background: transparent;
+        }
+
+        .search-box input::placeholder {
+          color: var(--desktop-dark-20);
+        }
+
+        .toolbar-actions {
+          display: flex;
+          gap: var(--desktop-gap-lg);
+        }
+
+        .filter-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: var(--desktop-gap-lg);
+          height: 38px;
+          background: var(--desktop-white-500);
+          border: 1px solid var(--desktop-gray-20);
+          border-radius: var(--desktop-radius-lg);
+          font-family: var(--desktop-font-family);
+          font-size: var(--desktop-body-1);
+          font-weight: var(--desktop-weight-light);
+          color: var(--desktop-dark-500);
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+          border-color: var(--desktop-gray-500);
+        }
+
+        .add-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: var(--desktop-gap-lg);
+          height: 38px;
+          background: var(--desktop-primary-500);
+          border: none;
+          border-radius: var(--desktop-radius-lg);
+          font-family: var(--desktop-font-family);
+          font-size: var(--desktop-body-1);
+          font-weight: var(--desktop-weight-medium);
+          color: var(--desktop-white-500);
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .add-btn:hover {
+          background: var(--desktop-primary-400);
+        }
+
+        .villas-table-container {
+          background: var(--desktop-gray-5);
+          border-radius: var(--desktop-radius-lg);
+          padding: var(--desktop-gap-lg);
+        }
+
+        .loading-state {
+          padding: 60px;
+          text-align: center;
+          color: var(--desktop-gray-500);
+        }
+
+        .status-badge {
+          display: inline-block;
+          padding: 6px 12px;
+          border-radius: var(--desktop-radius-md);
+          font-size: var(--desktop-caption);
+          font-weight: var(--desktop-weight-semibold);
+          text-transform: capitalize;
+        }
+
+        .status-badge.status-available {
+          background: #E3FCEC;
+          color: #0F9D58;
+        }
+
+        .status-badge.status-occupied {
+          background: #FFF4E5;
+          color: #F2994A;
+        }
+
+        .status-badge.status-maintenance {
+          background: #FEEAEA;
+          color: #EB5757;
+        }
+      `;
 
 interface Villa {
   id: string;
@@ -18,14 +150,17 @@ export const DesktopVillasView: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
+  useStaticStyles('desktop-villas-view-styles', VILLAS_VIEW_STYLES);
+
   useEffect(() => {
     fetchVillas();
   }, []);
 
   const fetchVillas = async () => {
     try {
-      const data = await apiRequest<Villa[]>('/villas');
-      setVillas(Array.isArray(data) ? data : []);
+      const response = await apiRequest<{ villas?: Villa[] }>('/villas');
+      const villaList = Array.isArray(response) ? response : response?.villas;
+      setVillas(Array.isArray(villaList) ? villaList : []);
     } catch (error) {
       console.error('Error fetching villas:', error);
     } finally {
@@ -137,136 +272,7 @@ export const DesktopVillasView: React.FC = () => {
         </div>
       </div>
 
-      <style>{`
-        .desktop-villas-view {
-          width: 100%;
-          height: 100%;
-        }
 
-        .villas-content {
-          padding: 0 20px 20px 20px;
-        }
-
-        .villas-toolbar {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: var(--desktop-gap-lg);
-          margin-bottom: var(--desktop-gap-2xl);
-        }
-
-        .search-box {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 10px var(--desktop-gap-lg);
-          width: 400px;
-          height: 38px;
-          background: var(--desktop-white-500);
-          border: 1px solid var(--desktop-gray-10);
-          border-radius: var(--desktop-radius-lg);
-        }
-
-        .search-box input {
-          flex: 1;
-          border: none;
-          outline: none;
-          font-family: var(--desktop-font-family);
-          font-size: var(--desktop-body-1);
-          font-weight: var(--desktop-weight-light);
-          color: var(--desktop-dark-500);
-          background: transparent;
-        }
-
-        .search-box input::placeholder {
-          color: var(--desktop-dark-20);
-        }
-
-        .toolbar-actions {
-          display: flex;
-          gap: var(--desktop-gap-lg);
-        }
-
-        .filter-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          padding: var(--desktop-gap-lg);
-          height: 38px;
-          background: var(--desktop-white-500);
-          border: 1px solid var(--desktop-gray-20);
-          border-radius: var(--desktop-radius-lg);
-          font-family: var(--desktop-font-family);
-          font-size: var(--desktop-body-1);
-          font-weight: var(--desktop-weight-light);
-          color: var(--desktop-dark-500);
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-
-        .filter-btn:hover {
-          border-color: var(--desktop-gray-500);
-        }
-
-        .add-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          padding: var(--desktop-gap-lg);
-          height: 38px;
-          background: var(--desktop-primary-500);
-          border: none;
-          border-radius: var(--desktop-radius-lg);
-          font-family: var(--desktop-font-family);
-          font-size: var(--desktop-body-1);
-          font-weight: var(--desktop-weight-light);
-          color: var(--desktop-white-500);
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-
-        .add-btn:hover {
-          background: var(--desktop-primary-400);
-        }
-
-        .villas-table-container {
-          background: var(--desktop-gray-5);
-          border-radius: var(--desktop-radius-lg);
-          overflow: hidden;
-        }
-
-        .loading-state {
-          padding: 60px;
-          text-align: center;
-          color: var(--desktop-gray-500);
-        }
-
-        .status-badge {
-          display: inline-block;
-          padding: 6px 12px;
-          border-radius: var(--desktop-radius-md);
-          font-size: var(--desktop-caption);
-          font-weight: var(--desktop-weight-semibold);
-          text-transform: capitalize;
-        }
-
-        .status-available {
-          background: #E8F5E9;
-          color: #2E7D32;
-        }
-
-        .status-occupied {
-          background: var(--desktop-primary-5);
-          color: var(--desktop-primary-500);
-        }
-
-        .status-maintenance {
-          background: #FFF3E0;
-          color: #F57C00;
-        }
-      `}</style>
     </div>
   );
 };

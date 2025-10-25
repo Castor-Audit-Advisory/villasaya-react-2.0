@@ -2,6 +2,135 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Filter, Search } from 'lucide-react';
 import { DataTable, Column } from './DataTable';
 import { apiRequest } from '../../utils/api';
+import { useStaticStyles } from '../../hooks/useStaticStyles';
+
+const EXPENSES_VIEW_STYLES = `
+        .desktop-expenses-view {
+          width: 100%;
+          height: 100%;
+        }
+
+        .expenses-toolbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: var(--desktop-gap-lg);
+          padding: var(--desktop-gap-lg);
+          margin-bottom: 20px;
+        }
+
+        .search-box {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 10px var(--desktop-gap-lg);
+          width: 330px;
+          height: 38px;
+          background: var(--desktop-white-500);
+          border: 1px solid var(--desktop-gray-10);
+          border-radius: var(--desktop-radius-lg);
+        }
+
+        .search-box input {
+          flex: 1;
+          border: none;
+          outline: none;
+          font-family: var(--desktop-font-family);
+          font-size: var(--desktop-body-1);
+          font-weight: var(--desktop-weight-light);
+          color: var(--desktop-dark-500);
+          background: transparent;
+        }
+
+        .search-box input::placeholder {
+          color: var(--desktop-dark-20);
+        }
+
+        .toolbar-actions {
+          display: flex;
+          gap: var(--desktop-gap-lg);
+        }
+
+        .filter-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: var(--desktop-gap-lg);
+          height: 38px;
+          background: var(--desktop-white-500);
+          border: 1px solid var(--desktop-gray-20);
+          border-radius: var(--desktop-radius-lg);
+          font-family: var(--desktop-font-family);
+          font-size: var(--desktop-body-1);
+          font-weight: var(--desktop-weight-light);
+          color: var(--desktop-dark-500);
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+          border-color: var(--desktop-gray-500);
+        }
+
+        .add-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: var(--desktop-gap-lg);
+          height: 38px;
+          background: var(--desktop-primary-500);
+          border: none;
+          border-radius: var(--desktop-radius-lg);
+          font-family: var(--desktop-font-family);
+          font-size: var(--desktop-body-1);
+          font-weight: var(--desktop-weight-medium);
+          color: var(--desktop-white-500);
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .add-btn:hover {
+          background: var(--desktop-primary-400);
+        }
+
+        .expenses-table-container {
+          background: var(--desktop-gray-5);
+          border-radius: var(--desktop-radius-lg);
+          padding: var(--desktop-gap-lg);
+        }
+
+        .loading-state {
+          padding: 60px;
+          text-align: center;
+          color: var(--desktop-gray-500);
+        }
+
+        .status-badge {
+          display: inline-block;
+          padding: 6px 12px;
+          border-radius: var(--desktop-radius-md);
+          font-size: var(--desktop-caption);
+          font-weight: var(--desktop-weight-semibold);
+          text-transform: capitalize;
+        }
+
+        .status-badge.status-approved {
+          background: #E3FCEC;
+          color: #0F9D58;
+        }
+
+        .status-badge.status-pending {
+          background: #FFF4E5;
+          color: #F2994A;
+        }
+
+        .status-badge.status-rejected {
+          background: #FEEAEA;
+          color: #EB5757;
+        }
+      `;
 
 interface Expense {
   id: string;
@@ -20,14 +149,17 @@ export const DesktopExpensesView: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showFilter, setShowFilter] = useState(false);
 
+  useStaticStyles('desktop-expenses-view-styles', EXPENSES_VIEW_STYLES);
+
   useEffect(() => {
     fetchExpenses();
   }, []);
 
   const fetchExpenses = async () => {
     try {
-      const data = await apiRequest<any[]>('/expenses');
-      const formatted = (data || []).map((exp) => ({
+      const response = await apiRequest<{ expenses?: any[] }>('/expenses');
+      const rawExpenses = Array.isArray(response) ? response : response?.expenses;
+      const formatted = (rawExpenses || []).map((exp) => ({
         id: exp.id,
         description: exp.description || 'Expense',
         amount: exp.amount || 0,
@@ -148,139 +280,7 @@ export const DesktopExpensesView: React.FC = () => {
         )}
       </div>
 
-      <style>{`
-        .desktop-expenses-view {
-          width: 100%;
-          height: 100%;
-        }
 
-        .expenses-toolbar {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: var(--desktop-gap-lg);
-          padding: var(--desktop-gap-lg);
-          margin-bottom: 20px;
-        }
-
-        .search-box {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 10px var(--desktop-gap-lg);
-          width: 330px;
-          height: 38px;
-          background: var(--desktop-white-500);
-          border: 1px solid var(--desktop-gray-10);
-          border-radius: var(--desktop-radius-lg);
-        }
-
-        .search-box input {
-          flex: 1;
-          border: none;
-          outline: none;
-          font-family: var(--desktop-font-family);
-          font-size: var(--desktop-body-1);
-          font-weight: var(--desktop-weight-light);
-          color: var(--desktop-dark-500);
-          background: transparent;
-        }
-
-        .search-box input::placeholder {
-          color: var(--desktop-dark-20);
-        }
-
-        .toolbar-actions {
-          display: flex;
-          gap: var(--desktop-gap-lg);
-        }
-
-        .filter-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          padding: var(--desktop-gap-lg);
-          height: 38px;
-          background: var(--desktop-white-500);
-          border: 1px solid var(--desktop-gray-20);
-          border-radius: var(--desktop-radius-lg);
-          font-family: var(--desktop-font-family);
-          font-size: var(--desktop-body-1);
-          font-weight: var(--desktop-weight-light);
-          color: var(--desktop-dark-500);
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-
-        .filter-btn:hover {
-          border-color: var(--desktop-gray-500);
-        }
-
-        .add-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          padding: var(--desktop-gap-lg);
-          height: 38px;
-          background: var(--desktop-primary-500);
-          border: none;
-          border-radius: var(--desktop-radius-lg);
-          font-family: var(--desktop-font-family);
-          font-size: var(--desktop-body-1);
-          font-weight: var(--desktop-weight-light);
-          color: var(--desktop-white-500);
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-
-        .add-btn:hover {
-          background: var(--desktop-primary-400);
-        }
-
-        .expenses-table-container {
-          background: var(--desktop-gray-5);
-          border: none;
-          border-radius: var(--desktop-radius-lg);
-          padding: var(--desktop-gap-lg);
-          margin: 0 20px 20px 20px;
-        }
-
-        .status-badge {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          padding: 3px 8px;
-          border-radius: var(--desktop-radius-sm);
-          font-size: var(--desktop-caption);
-          font-weight: var(--desktop-weight-light);
-          line-height: 18px;
-          text-transform: capitalize;
-        }
-
-        .status-badge.status-pending {
-          background: #FFF3E0;
-          color: #F57C00;
-        }
-
-        .status-badge.status-approved {
-          background: #E8F5E9;
-          color: #2E7D32;
-        }
-
-        .status-badge.status-rejected {
-          background: #FFEBEE;
-          color: #C62828;
-        }
-
-        .loading-state {
-          padding: 40px;
-          text-align: center;
-          color: var(--desktop-gray-500);
-          font-family: var(--desktop-font-family);
-        }
-      `}</style>
     </div>
   );
 };

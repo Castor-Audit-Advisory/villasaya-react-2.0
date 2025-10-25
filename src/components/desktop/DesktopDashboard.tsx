@@ -18,119 +18,10 @@ import { Plus, RotateCcw } from 'lucide-react';
 import { useDashboardLayout } from '../../hooks/useDashboardLayout';
 import { DashboardWidget } from './widgets/DashboardWidget';
 import { AddWidgetDialog } from './widgets/AddWidgetDialog';
+import { useStaticStyles } from '../../hooks/useStaticStyles';
 import { WidgetType } from '../../types/dashboard';
 
-export const DesktopDashboard: React.FC = () => {
-  const {
-    widgets,
-    addWidget,
-    removeWidget,
-    resizeWidget,
-    reorderWidgets,
-    resetLayout,
-  } = useDashboardLayout();
-
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8,
-      },
-    }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-
-    if (over && active.id !== over.id) {
-      const oldIndex = widgets.findIndex((w) => w.id === active.id);
-      const newIndex = widgets.findIndex((w) => w.id === over.id);
-      
-      const reorderedWidgets = arrayMove([...widgets], oldIndex, newIndex);
-      reorderWidgets(reorderedWidgets);
-    }
-  };
-
-  const handleAddWidget = (type: WidgetType) => {
-    addWidget(type);
-  };
-
-  const handleResetLayout = () => {
-    if (confirm('Are you sure you want to reset the dashboard to default layout? This will remove all customizations.')) {
-      resetLayout();
-    }
-  };
-
-  const existingWidgetTypes = widgets.map(w => w.type);
-
-  return (
-    <div className="desktop-dashboard">
-      <div className="dashboard-toolbar">
-        <div className="toolbar-info">
-          <h2 className="toolbar-title">My Dashboard</h2>
-          <p className="toolbar-subtitle">
-            {widgets.length} widget{widgets.length !== 1 ? 's' : ''} active
-          </p>
-        </div>
-        <div className="toolbar-actions">
-          <button className="btn-secondary" onClick={handleResetLayout}>
-            <RotateCcw size={16} />
-            Reset Layout
-          </button>
-          <button className="btn-primary" onClick={() => setIsAddDialogOpen(true)}>
-            <Plus size={16} />
-            Add Widget
-          </button>
-        </div>
-      </div>
-
-      <div className="dashboard-content">
-        {widgets.length === 0 ? (
-          <div className="empty-state">
-            <div className="empty-state-icon">📊</div>
-            <h3 className="empty-state-title">No Widgets Added</h3>
-            <p className="empty-state-text">
-              Get started by adding widgets to customize your dashboard
-            </p>
-            <button className="btn-primary" onClick={() => setIsAddDialogOpen(true)}>
-              <Plus size={16} />
-              Add Your First Widget
-            </button>
-          </div>
-        ) : (
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-          >
-            <SortableContext items={widgets.map(w => w.id)} strategy={rectSortingStrategy}>
-              <div className="widgets-grid">
-                {widgets.map((widget) => (
-                  <DashboardWidget
-                    key={widget.id}
-                    widget={widget}
-                    onRemove={removeWidget}
-                    onResize={resizeWidget}
-                  />
-                ))}
-              </div>
-            </SortableContext>
-          </DndContext>
-        )}
-      </div>
-
-      <AddWidgetDialog
-        isOpen={isAddDialogOpen}
-        onClose={() => setIsAddDialogOpen(false)}
-        onAdd={handleAddWidget}
-        existingWidgetTypes={existingWidgetTypes}
-      />
-
-      <style>{`
+const DASHBOARD_STYLES = `
         .desktop-dashboard {
           width: 100%;
           height: 100%;
@@ -250,7 +141,122 @@ export const DesktopDashboard: React.FC = () => {
           margin: 0 0 var(--desktop-gap-xl) 0;
           max-width: 400px;
         }
-      `}</style>
+
+      `;
+
+export const DesktopDashboard: React.FC = () => {
+  useStaticStyles('desktop-dashboard-styles', DASHBOARD_STYLES);
+
+  const {
+    widgets,
+    addWidget,
+    removeWidget,
+    resizeWidget,
+    reorderWidgets,
+    resetLayout,
+  } = useDashboardLayout();
+
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = widgets.findIndex((w) => w.id === active.id);
+      const newIndex = widgets.findIndex((w) => w.id === over.id);
+      
+      const reorderedWidgets = arrayMove([...widgets], oldIndex, newIndex);
+      reorderWidgets(reorderedWidgets);
+    }
+  };
+
+  const handleAddWidget = (type: WidgetType) => {
+    addWidget(type);
+  };
+
+  const handleResetLayout = () => {
+    if (confirm('Are you sure you want to reset the dashboard to default layout? This will remove all customizations.')) {
+      resetLayout();
+    }
+  };
+
+  const existingWidgetTypes = widgets.map(w => w.type);
+
+  return (
+    <div className="desktop-dashboard">
+      <div className="dashboard-toolbar">
+        <div className="toolbar-info">
+          <h2 className="toolbar-title">My Dashboard</h2>
+          <p className="toolbar-subtitle">
+            {widgets.length} widget{widgets.length !== 1 ? 's' : ''} active
+          </p>
+        </div>
+        <div className="toolbar-actions">
+          <button className="btn-secondary" onClick={handleResetLayout}>
+            <RotateCcw size={16} />
+            Reset Layout
+          </button>
+          <button className="btn-primary" onClick={() => setIsAddDialogOpen(true)}>
+            <Plus size={16} />
+            Add Widget
+          </button>
+        </div>
+      </div>
+
+      <div className="dashboard-content">
+        {widgets.length === 0 ? (
+          <div className="empty-state">
+            <div className="empty-state-icon">📊</div>
+            <h3 className="empty-state-title">No Widgets Added</h3>
+            <p className="empty-state-text">
+              Get started by adding widgets to customize your dashboard
+            </p>
+            <button className="btn-primary" onClick={() => setIsAddDialogOpen(true)}>
+              <Plus size={16} />
+              Add Your First Widget
+            </button>
+          </div>
+        ) : (
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext items={widgets.map(w => w.id)} strategy={rectSortingStrategy}>
+              <div className="widgets-grid">
+                {widgets.map((widget) => (
+                  <DashboardWidget
+                    key={widget.id}
+                    widget={widget}
+                    onRemove={removeWidget}
+                    onResize={resizeWidget}
+                  />
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
+        )}
+      </div>
+
+      <AddWidgetDialog
+        isOpen={isAddDialogOpen}
+        onClose={() => setIsAddDialogOpen(false)}
+        onAdd={handleAddWidget}
+        existingWidgetTypes={existingWidgetTypes}
+      />
+
+
     </div>
   );
 };
