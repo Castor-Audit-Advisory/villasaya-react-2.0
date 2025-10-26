@@ -3,7 +3,7 @@ import { supabase } from '../utils/supabase-client';
 import { apiRequest } from '../utils/api';
 import { Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
-import villaSayaLogo from '@assets/villasaya.png';
+import villaSayaLogo from '@assets/villasaya.svg';
 import { Button } from './ui/button';
 import { validateField } from '../utils/formValidation';
 

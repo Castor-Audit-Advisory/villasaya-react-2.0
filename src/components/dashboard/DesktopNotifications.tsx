@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { AlertTriangle, Bell, Info, RefreshCcw } from 'lucide-react';
 import { apiRequest } from '../../utils/api';
 import { Card } from '../ui/card';
@@ -27,7 +27,7 @@ const severityStyles: Record<NonNullable<NotificationItem['severity']>, string> 
   critical: 'bg-[#FFE5E5] text-[#B11A1A]',
 };
 
-const severityIcons: Record<NonNullable<NotificationItem['severity']>, JSX.Element> = {
+const severityIcons: Record<NonNullable<NotificationItem['severity']>, React.ReactElement> = {
   info: <Info className="w-4 h-4" />,
   warning: <AlertTriangle className="w-4 h-4" />,
   critical: <AlertTriangle className="w-4 h-4" />,

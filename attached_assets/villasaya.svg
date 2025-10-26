@@ -1,0 +1,31 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circular background -->
+  <circle cx="64" cy="64" r="64" fill="#4ABEC7"/>
+  
+  <!-- House/Villa icon -->
+  <g transform="translate(24, 32)">
+    <!-- Roof -->
+    <path d="M40 24L60 8L80 24V28H40V24Z" fill="white"/>
+    
+    <!-- Main building -->
+    <rect x="36" y="24" width="48" height="40" fill="white"/>
+    
+    <!-- Door -->
+    <rect x="54" y="44" width="12" height="20" fill="#4ABEC7"/>
+    
+    <!-- Windows -->
+    <rect x="42" y="32" width="8" height="8" fill="#4ABEC7"/>
+    <rect x="70" y="32" width="8" height="8" fill="#4ABEC7"/>
+    
+    <!-- Palm tree -->
+    <g transform="translate(8, 20)">
+      <!-- Trunk -->
+      <rect x="6" y="24" width="4" height="20" fill="#8B4513"/>
+      
+      <!-- Leaves -->
+      <ellipse cx="4" cy="20" rx="8" ry="4" fill="#228B22" transform="rotate(-30 4 20)"/>
+      <ellipse cx="12" cy="20" rx="8" ry="4" fill="#228B22" transform="rotate(30 12 20)"/>
+      <ellipse cx="8" cy="16" rx="8" ry="4" fill="#228B22"/>
+    </g>
+  </g>
+</svg>

@@ -72,7 +72,7 @@ export function MobileExpenseManager({ villas, onNavigate }: MobileExpenseManage
 
   // Filter expenses by selected villa
   const villaExpenses = selectedVilla 
-    ? expenses.filter(e => e.villaId === selectedVilla.id || e.villa_id === selectedVilla.id)
+    ? expenses.filter(e => e.villaId === selectedVilla.id)
     : expenses;
 
   if (!selectedVilla) {

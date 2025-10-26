@@ -31,7 +31,7 @@ import {
   Bell,
 } from 'lucide-react';
 import { toast } from 'sonner';
-import villaSayaLogo from '@assets/villasaya.png';
+import villaSayaLogo from '@assets/villasaya.svg';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
