@@ -4,6 +4,8 @@ import { DataTable, Column } from './DataTable';
 import { apiRequest } from '../../utils/api';
 import { useApp } from '../../contexts/AppContext';
 
+type AttendanceStatus = 'present' | 'in-progress' | 'absent' | 'incomplete';
+
 interface AttendanceRecord {
   id: string;
   staffName: string;
@@ -11,7 +13,7 @@ interface AttendanceRecord {
   clockIn: string;
   clockOut: string;
   totalHours: number;
-  status: 'present' | 'late' | 'absent' | 'leave';
+  status: AttendanceStatus;
   location?: string;
 }
 
@@ -23,6 +25,96 @@ interface ClockRecord {
   location?: string | null;
   villaId?: string | null;
 }
+
+const createDeterministicId = (date: string, records: ClockRecord[]) => {
+  if (!records.length) {
+    return `attendance-${date}`;
+  }
+
+  const key = `${date}|${records
+    .map((record) => `${record.action}:${record.timestamp}`)
+    .join('|')}`;
+
+  let hash = 0;
+  for (let i = 0; i < key.length; i += 1) {
+    hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
+  }
+
+  return `attendance-${hash.toString(36)}`;
+};
+
+const buildAttendanceRecord = (
+  date: string,
+  recordsForDate: ClockRecord[],
+  staffName: string,
+): AttendanceRecord => {
+  const sortedRecords = [...recordsForDate].sort(
+    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime(),
+  );
+
+  const sessions: Array<{ in: ClockRecord; out: ClockRecord }> = [];
+  let pendingIn: ClockRecord | null = null;
+  let hasUnpairedOut = false;
+  let hasExtraIn = false;
+
+  sortedRecords.forEach((record) => {
+    if (record.action === 'in') {
+      if (pendingIn) {
+        hasExtraIn = true;
+      }
+      pendingIn = record;
+      return;
+    }
+
+    if (pendingIn) {
+      sessions.push({ in: pendingIn, out: record });
+      pendingIn = null;
+    } else {
+      hasUnpairedOut = true;
+    }
+  });
+
+  const totalMs = sessions.reduce((sum, session) => {
+    const clockInTime = new Date(session.in.timestamp).getTime();
+    const clockOutTime = new Date(session.out.timestamp).getTime();
+    return sum + Math.max(0, clockOutTime - clockInTime);
+  }, 0);
+
+  const hasClockIn = sortedRecords.some((record) => record.action === 'in');
+  const hasClockOut = sortedRecords.some((record) => record.action === 'out');
+
+  let status: AttendanceStatus;
+  if (!hasClockIn && !hasClockOut) {
+    status = 'absent';
+  } else if (!hasClockIn && hasClockOut) {
+    status = 'incomplete';
+  } else if (pendingIn) {
+    status = 'in-progress';
+  } else if (hasUnpairedOut || hasExtraIn) {
+    status = 'incomplete';
+  } else {
+    status = 'present';
+  }
+
+  const firstClockIn = sortedRecords.find((record) => record.action === 'in');
+  const lastClockOut = [...sortedRecords]
+    .reverse()
+    .find((record) => record.action === 'out');
+
+  const hours = totalMs / (1000 * 60 * 60);
+  const totalHours = Number.isFinite(hours) ? hours : 0;
+
+  return {
+    id: createDeterministicId(date, sortedRecords),
+    staffName,
+    date,
+    clockIn: firstClockIn ? firstClockIn.timestamp : '',
+    clockOut: lastClockOut ? lastClockOut.timestamp : '',
+    totalHours,
+    status,
+    location: firstClockIn?.location ?? lastClockOut?.location ?? undefined,
+  };
+};
 
 export const DesktopAttendanceView: React.FC = () => {
   const [attendance, setAttendance] = useState<AttendanceRecord[]>([]);
@@ -76,51 +168,8 @@ export const DesktopAttendanceView: React.FC = () => {
       });
 
       const records: AttendanceRecord[] = Array.from(grouped.entries()).map(
-        ([date, recordsForDate]) => {
-          const sortedRecords = [...recordsForDate].sort(
-            (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
-          );
-
-          let totalMs = 0;
-          let lastClockIn: Date | null = null;
-
-          sortedRecords.forEach((record) => {
-            const timestamp = new Date(record.timestamp);
-            if (record.action === 'in') {
-              lastClockIn = timestamp;
-              return;
-            }
-
-            if (record.action === 'out' && lastClockIn) {
-              totalMs += Math.max(0, timestamp.getTime() - lastClockIn.getTime());
-              lastClockIn = null;
-            }
-          });
-
-          const firstIn = sortedRecords.find((record) => record.action === 'in');
-          const lastOut = [...sortedRecords]
-            .reverse()
-            .find((record) => record.action === 'out');
-
-          const totalHours = totalMs / (1000 * 60 * 60);
-
-          const status: AttendanceRecord['status'] = firstIn
-            ? lastOut
-              ? 'present'
-              : 'present'
-            : 'absent';
-
-          return {
-            id: `${date}-${firstIn?.id || lastOut?.id || Math.random().toString(36).slice(2)}`,
-            staffName: staffDisplayName,
-            date,
-            clockIn: firstIn ? firstIn.timestamp : '',
-            clockOut: lastOut ? lastOut.timestamp : '',
-            totalHours: Number.isFinite(totalHours) ? totalHours : 0,
-            status,
-            location: firstIn?.location || lastOut?.location || undefined,
-          };
-        },
+        ([date, recordsForDate]) =>
+          buildAttendanceRecord(date, recordsForDate, staffDisplayName),
       );
 
       setAttendance(
@@ -323,9 +372,9 @@ export const DesktopAttendanceView: React.FC = () => {
           color: #2E7D32;
         }
 
-        .status-late {
-          background: #FFF3E0;
-          color: #F57C00;
+        .status-in-progress {
+          background: #FFF8E1;
+          color: #F9A825;
         }
 
         .status-absent {
@@ -333,9 +382,9 @@ export const DesktopAttendanceView: React.FC = () => {
           color: #C62828;
         }
 
-        .status-leave {
-          background: var(--desktop-primary-5);
-          color: var(--desktop-primary-500);
+        .status-incomplete {
+          background: #E3F2FD;
+          color: #1565C0;
         }
       `}</style>
     </div>
