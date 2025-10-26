@@ -6,7 +6,7 @@ const CACHE_NAME = `villasaya-${CACHE_VERSION}`;
 const urlsToCache = [
   '/',
   '/index.html',
-  '/generated-icon.png',
+  '/villasaya.svg',
   '/manifest.json'
 ];
 

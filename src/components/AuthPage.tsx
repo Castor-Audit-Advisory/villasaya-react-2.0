@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { supabase } from "../utils/supabase-client";
 import { apiRequest } from "../utils/api";
 import { toast } from "sonner";
-import villaSayaLogo from "@assets/villasaya.png";
+import villaSayaLogo from "@assets/villasaya.svg";
 import { Button } from "./ui/button";
 
 interface AuthPageProps {
