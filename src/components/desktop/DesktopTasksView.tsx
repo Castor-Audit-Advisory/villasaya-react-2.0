@@ -88,7 +88,7 @@ export const DesktopTasksView: React.FC = () => {
 
   const filteredTasks = tasks.filter((task) => {
     if (filters.priority && task.priority !== filters.priority) return false;
-    if (filters.assignee && task.assignedTo !== filters.assignee) return false;
+    if (filters.assignee && !task.assignedTo.includes(filters.assignee)) return false;
     return true;
   });
 
@@ -102,7 +102,7 @@ export const DesktopTasksView: React.FC = () => {
     new Set(tasks.map((t) => t.priority).filter(Boolean))
   );
   const uniqueAssignees = Array.from(
-    new Set(tasks.map((t) => t.assignedTo).filter(Boolean))
+    new Set(tasks.flatMap((t) => t.assignedTo).filter(Boolean))
   );
 
   const TaskCard: React.FC<{ task: Task; isDragging?: boolean }> = ({

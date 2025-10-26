@@ -86,6 +86,7 @@ export interface Expense {
   amount: number;
   category: ExpenseCategory;
   description: string;
+  date?: string; // Add date field for compatibility
   taskIds?: string[];
   receipts?: string[];
   createdBy: string;
@@ -105,10 +106,13 @@ export interface Chat {
   id: string;
   villaId: string;
   title: string;
+  subject?: string; // Add subject field for compatibility
   participants: string[];
   createdBy: string;
   createdAt: string;
   lastMessageAt?: string;
+  lastMessage?: string; // Add for compatibility
+  lastMessageBy?: string; // Add for compatibility
 }
 
 export interface Message {
@@ -139,7 +143,7 @@ export interface CalendarEvent {
   updatedAt?: string;
 }
 
-export type EventType = 'personal' | 'villa' | 'maintenance' | 'inspection' | 'meeting' | 'deadline';
+export type EventType = 'personal' | 'villa' | 'maintenance' | 'inspection' | 'meeting' | 'deadline' | 'leave' | 'task';
 
 export interface RecurringPattern {
   frequency: 'daily' | 'weekly' | 'monthly' | 'yearly';
