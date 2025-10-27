@@ -25,9 +25,9 @@ export function MobileBottomNav({ activeTab = 'home', onTabChange }: MobileBotto
       aria-label="Main navigation"
       className={`
         bg-gradient-primary fixed z-[var(--vs-z-fixed)]
-        ${isLandscape 
-          ? 'left-0 top-0 bottom-0 w-20 flex flex-col justify-center gap-2 py-4' 
-          : 'bottom-0 left-0 right-0 flex items-center justify-around px-2'
+        ${isLandscape
+          ? 'left-0 top-0 bottom-0 w-20 flex flex-col justify-center gap-2 py-4'
+          : 'bottom-0 left-0 right-0 flex items-center justify-between gap-1 px-2'
         }
       `}
       style={isLandscape ? { 
@@ -51,7 +51,7 @@ export function MobileBottomNav({ activeTab = 'home', onTabChange }: MobileBotto
           }}
           className={`
             flex flex-col items-center justify-center gap-0.5 
-            ${isLandscape ? 'w-full min-h-[64px] py-3' : 'min-w-[56px] min-h-[56px] px-2 py-2'}
+            ${isLandscape ? 'w-full min-h-[64px] py-3' : 'flex-1 min-h-[56px] px-2 py-2'}
             transition-all duration-200
             ${activeTab === tab.id ? 'text-white' : 'text-white/70'}
             bg-transparent border-0
