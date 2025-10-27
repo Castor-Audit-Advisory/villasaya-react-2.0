@@ -58,14 +58,14 @@ export function MobileExpenseSubmit({ onBack, onSubmit, villaId }: MobileExpense
       <div className="bg-white px-6 sm:px-8 py-4 flex items-center gap-4 border-b border-[#E8E8E8]">
         <button
           onClick={onBack}
-          className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 active:bg-gray-200 transition-colors"
+          className="w-11 h-11 flex items-center justify-center rounded-full hover:bg-gray-100 active:bg-gray-200 transition-colors"
         >
           <ChevronLeft className="w-6 h-6 text-[#5E5873]" />
         </button>
         <h1 className="text-[#1F1F1F] text-[18px] font-semibold flex-1">Submit Expense</h1>
         <button
           onClick={() => setShowTemplates(true)}
-          className="w-10 h-10 flex items-center justify-center rounded-full bg-[#F3F2F7] hover:bg-[#E8E7F0]"
+          className="w-11 h-11 flex items-center justify-center rounded-full bg-[#F3F2F7] hover:bg-[#E8E7F0]"
           title="Use Template"
         >
           <Bookmark className="w-5 h-5 text-[#7B5FEB]" />

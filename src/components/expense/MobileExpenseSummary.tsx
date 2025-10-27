@@ -3,6 +3,7 @@ import { ExpenseStatCard } from './ExpenseStatCard';
 import { ExpenseListItem } from './ExpenseListItem';
 import { MobileBottomNav } from '../mobile/MobileBottomNav';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { useIsLandscape } from '../../utils/orientation';
 
 interface MobileExpenseSummaryProps {
   expenses: any[];
@@ -13,6 +14,7 @@ interface MobileExpenseSummaryProps {
 
 export function MobileExpenseSummary({ expenses, onSubmit, onNavigate, onViewHistory }: MobileExpenseSummaryProps) {
   const [activeFilter, setActiveFilter] = useState<'review' | 'approved' | 'rejected'>('review');
+  const isLandscape = useIsLandscape();
 
   // Calculate totals
   const total = expenses.reduce((sum, exp) => sum + exp.amount, 0);
@@ -34,7 +36,11 @@ export function MobileExpenseSummary({ expenses, onSubmit, onNavigate, onViewHis
   };
 
   return (
-    <div className="min-h-dvh bg-[#F8F8F8] pb-[calc(84px+2rem+env(safe-area-inset-bottom))]">
+    <div
+      className={`min-h-dvh bg-[#F8F8F8] ${
+        isLandscape ? 'pl-[calc(80px+env(safe-area-inset-left))] pb-8' : 'pb-[calc(84px+2rem+env(safe-area-inset-bottom))]'
+      }`}
+    >
       {/* Status Bar */}
       <div className="bg-gradient-to-br from-[#7B5FEB] to-[#6B4FDB] px-6 sm:px-8 pt-[calc(0.75rem+env(safe-area-inset-top))] pb-2">
         <div className="text-white text-[15px]">{new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false })}</div>
@@ -86,7 +92,7 @@ export function MobileExpenseSummary({ expenses, onSubmit, onNavigate, onViewHis
         <div className="flex items-center gap-3 overflow-x-auto flex-1 scrollbar-hide">
         <button
           onClick={() => setActiveFilter('review')}
-          className={`px-5 h-[36px] rounded-full text-[14px] font-medium transition-all ${
+          className={`px-5 h-11 rounded-full text-[14px] font-medium transition-all ${
             activeFilter === 'review'
               ? 'bg-[#7B5FEB] text-white shadow-lg shadow-[#7B5FEB]/25'
               : 'bg-white text-[#6E6B7B] border border-[#E8E8E8]'
@@ -102,7 +108,7 @@ export function MobileExpenseSummary({ expenses, onSubmit, onNavigate, onViewHis
         </button>
         <button
           onClick={() => setActiveFilter('approved')}
-          className={`px-5 h-[36px] rounded-full text-[14px] font-medium transition-all ${
+          className={`px-5 h-11 rounded-full text-[14px] font-medium transition-all ${
             activeFilter === 'approved'
               ? 'bg-[#7B5FEB] text-white shadow-lg shadow-[#7B5FEB]/25'
               : 'bg-white text-[#6E6B7B] border border-[#E8E8E8]'
@@ -118,7 +124,7 @@ export function MobileExpenseSummary({ expenses, onSubmit, onNavigate, onViewHis
         </button>
         <button
           onClick={() => setActiveFilter('rejected')}
-          className={`px-5 h-[36px] rounded-full text-[14px] font-medium transition-all ${
+          className={`px-5 h-11 rounded-full text-[14px] font-medium transition-all ${
             activeFilter === 'rejected'
               ? 'bg-[#7B5FEB] text-white shadow-lg shadow-[#7B5FEB]/25'
               : 'bg-white text-[#6E6B7B] border border-[#E8E8E8]'
@@ -136,7 +142,7 @@ export function MobileExpenseSummary({ expenses, onSubmit, onNavigate, onViewHis
         {onViewHistory && (
           <button
             onClick={onViewHistory}
-            className="px-4 h-[36px] bg-white text-[#7B5FEB] border border-[#7B5FEB] rounded-full text-sm font-medium whitespace-nowrap hover:bg-[#7B5FEB] hover:text-white transition-all"
+            className="px-5 h-11 bg-white text-[#7B5FEB] border border-[#7B5FEB] rounded-full text-sm font-medium whitespace-nowrap hover:bg-[#7B5FEB] hover:text-white transition-all"
           >
             View All
           </button>
@@ -169,9 +175,12 @@ export function MobileExpenseSummary({ expenses, onSubmit, onNavigate, onViewHis
       </div>
 
       {/* Submit Button */}
-      <div 
-        className="fixed left-0 right-0 px-6 sm:px-8 pb-4 max-w-3xl mx-auto"
-        style={{ bottom: 'calc(84px + env(safe-area-inset-bottom) + 1rem)' }}
+      <div
+        className="fixed right-0 px-6 sm:px-8 pb-4 max-w-3xl mx-auto"
+        style={{
+          bottom: 'calc(84px + env(safe-area-inset-bottom) + 1rem)',
+          left: isLandscape ? 'calc(80px + env(safe-area-inset-left))' : '0',
+        }}
       >
         <button
           onClick={onSubmit}
