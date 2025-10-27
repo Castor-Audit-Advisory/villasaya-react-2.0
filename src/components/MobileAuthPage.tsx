@@ -18,6 +18,8 @@ export function MobileAuthPage({ onAuthSuccess }: MobileAuthPageProps) {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<{[key: string]: string}>({});
+  const [resettingPassword, setResettingPassword] = useState(false);
+  const [resetFeedback, setResetFeedback] = useState('');
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -185,6 +187,9 @@ export function MobileAuthPage({ onAuthSuccess }: MobileAuthPageProps) {
   const handleFieldChange = (field: string, value: string) => {
     setFormData({ ...formData, [field]: value });
     if (error) setError('');
+    if (field === 'email' && resetFeedback) {
+      setResetFeedback('');
+    }
     // Clear field error when user types
     if (fieldErrors[field]) {
       setFieldErrors(prev => ({ ...prev, [field]: '' }));
@@ -199,7 +204,7 @@ export function MobileAuthPage({ onAuthSuccess }: MobileAuthPageProps) {
     setLoading(true);
     try {
       let redirectUrl = window.location.origin;
-      
+
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: provider,
         options: {
@@ -214,6 +219,43 @@ export function MobileAuthPage({ onAuthSuccess }: MobileAuthPageProps) {
       console.error('OAuth error:', error);
       toast.error(error.message || `Failed to sign in with ${provider}`);
       setLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    setResetFeedback('');
+
+    if (!formData.email) {
+      const message = 'Enter the email associated with your account to reset your password.';
+      setFieldErrors(prev => ({ ...prev, email: message }));
+      toast.error(message);
+      return;
+    }
+
+    const inputType = validateEmailOrPhone(formData.email);
+    if (inputType !== 'email') {
+      const message = 'Password reset is only available with a valid email address.';
+      setFieldErrors(prev => ({ ...prev, email: message }));
+      toast.error(message);
+      return;
+    }
+
+    try {
+      setResettingPassword(true);
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(formData.email);
+
+      if (resetError) {
+        throw resetError;
+      }
+
+      toast.success('Check your email for a password reset link.');
+      setResetFeedback('Check your email inbox (and spam folder) for a reset link. The link expires after a short time.');
+    } catch (resetError) {
+      console.error('Password reset error:', resetError);
+      toast.error('We could not send the reset link. Please try again in a moment.');
+      setResetFeedback('We could not send the reset link. Please verify your email and try again.');
+    } finally {
+      setResettingPassword(false);
     }
   };
 
@@ -336,11 +378,18 @@ export function MobileAuthPage({ onAuthSuccess }: MobileAuthPageProps) {
               <div className="mt-2 text-right">
                 <button
                   type="button"
-                  className="text-sm text-[#7B5FEB] hover:text-[#6B4FDB] hover:underline"
+                  onClick={handleForgotPassword}
+                  disabled={resettingPassword}
+                  className="text-sm text-[#7B5FEB] hover:text-[#6B4FDB] hover:underline disabled:opacity-60 disabled:no-underline disabled:cursor-not-allowed"
                 >
-                  Forgot password?
+                  {resettingPassword ? 'Sending reset link…' : 'Forgot password?'}
                 </button>
               </div>
+            )}
+            {resetFeedback && (
+              <p className="mt-2 text-sm text-gray-600" role="status" aria-live="polite">
+                {resetFeedback}
+              </p>
             )}
           </div>
 
@@ -380,6 +429,7 @@ export function MobileAuthPage({ onAuthSuccess }: MobileAuthPageProps) {
             onClick={() => {
               setIsSignUp(!isSignUp);
               setError('');
+              setResetFeedback('');
             }}
             className="text-[#7B5FEB] hover:text-[#6B4FDB] font-medium hover:underline"
           >
