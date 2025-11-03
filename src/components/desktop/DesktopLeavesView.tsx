@@ -286,7 +286,7 @@ export const DesktopLeavesView: React.FC = () => {
         }
 
         .leaves-content {
-          padding: 0 20px 20px 20px;
+          padding: var(--desktop-gap-lg) 20px 0 20px;
         }
 
         .leaves-toolbar {

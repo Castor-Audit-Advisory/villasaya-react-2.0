@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Plus, Filter, Search, MapPin } from 'lucide-react';
-import { DataTable, Column } from './DataTable';
-import { apiRequest } from '../../utils/api';
-import { useStaticStyles } from '../../hooks/useStaticStyles';
+import React, { useState, useEffect } from "react";
+import { Plus, Filter, Search, MapPin } from "lucide-react";
+import { DataTable, Column } from "./DataTable";
+import { apiRequest } from "../../utils/api";
+import { useStaticStyles } from "../../hooks/useStaticStyles";
 
 const VILLAS_VIEW_STYLES = `
         .desktop-villas-view {
@@ -11,7 +11,7 @@ const VILLAS_VIEW_STYLES = `
         }
 
         .villas-content {
-          padding: 0 20px 20px 20px;
+          padding: var(--desktop-gap-lg) 20px 0 20px;
         }
 
         .villas-toolbar {
@@ -140,7 +140,7 @@ interface Villa {
   name: string;
   location: string;
   bedrooms: number;
-  status: 'available' | 'occupied' | 'maintenance';
+  status: "available" | "occupied" | "maintenance";
   monthlyRent: number;
   tenantName?: string;
 }
@@ -148,9 +148,9 @@ interface Villa {
 export const DesktopVillasView: React.FC = () => {
   const [villas, setVillas] = useState<Villa[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
-  useStaticStyles('desktop-villas-view-styles', VILLAS_VIEW_STYLES);
+  useStaticStyles("desktop-villas-view-styles", VILLAS_VIEW_STYLES);
 
   useEffect(() => {
     fetchVillas();
@@ -158,40 +158,40 @@ export const DesktopVillasView: React.FC = () => {
 
   const fetchVillas = async () => {
     try {
-      const response = await apiRequest<{ villas?: Villa[] }>('/villas');
+      const response = await apiRequest<{ villas?: Villa[] }>("/villas");
       const villaList = Array.isArray(response) ? response : response?.villas;
       setVillas(Array.isArray(villaList) ? villaList : []);
     } catch (error) {
-      console.error('Error fetching villas:', error);
+      console.error("Error fetching villas:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const columns: Column<Villa>[] = [
-    { key: 'name', label: 'Villa Name', width: 200, sortable: true },
+    { key: "name", label: "Villa Name", width: 200, sortable: true },
     {
-      key: 'location',
-      label: 'Location',
+      key: "location",
+      label: "Location",
       width: 200,
       sortable: true,
       render: (item) => (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <MapPin size={14} style={{ color: 'var(--desktop-gray-500)' }} />
+        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <MapPin size={14} style={{ color: "var(--desktop-gray-500)" }} />
           <span>{item.location}</span>
         </div>
       ),
     },
     {
-      key: 'bedrooms',
-      label: 'Bedrooms',
+      key: "bedrooms",
+      label: "Bedrooms",
       width: 110,
       sortable: true,
       render: (item) => `${item.bedrooms} BR`,
     },
     {
-      key: 'status',
-      label: 'Status',
+      key: "status",
+      label: "Status",
       width: 120,
       sortable: true,
       render: (item) => (
@@ -201,33 +201,33 @@ export const DesktopVillasView: React.FC = () => {
       ),
     },
     {
-      key: 'monthlyRent',
-      label: 'Monthly Rent',
+      key: "monthlyRent",
+      label: "Monthly Rent",
       width: 140,
       sortable: true,
       render: (item) => `$${item.monthlyRent.toLocaleString()}`,
     },
     {
-      key: 'tenantName',
-      label: 'Current Tenant',
+      key: "tenantName",
+      label: "Current Tenant",
       width: 160,
       sortable: true,
-      render: (item) => item.tenantName || '—',
+      render: (item) => item.tenantName || "—",
     },
   ];
 
   const filteredVillas = villas.filter(
     (v) =>
       v.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      v.location?.toLowerCase().includes(searchQuery.toLowerCase())
+      v.location?.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const handleAddVilla = () => {
-    alert('Add New Villa functionality will be implemented');
+    alert("Add New Villa functionality will be implemented");
   };
 
   const handleFilter = () => {
-    alert('Filter functionality will be implemented');
+    alert("Filter functionality will be implemented");
   };
 
   return (
@@ -264,15 +264,13 @@ export const DesktopVillasView: React.FC = () => {
               tableId="villas-table"
               columns={columns}
               data={filteredVillas}
-              onView={(item) => console.log('View', item)}
-              onEdit={(item) => console.log('Edit', item)}
-              onDelete={(item) => console.log('Delete', item)}
+              onView={(item) => console.log("View", item)}
+              onEdit={(item) => console.log("Edit", item)}
+              onDelete={(item) => console.log("Delete", item)}
             />
           )}
         </div>
       </div>
-
-
     </div>
   );
 };
