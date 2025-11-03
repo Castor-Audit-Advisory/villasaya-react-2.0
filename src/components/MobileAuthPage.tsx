@@ -131,53 +131,30 @@ export function MobileAuthPage({ onAuthSuccess }: MobileAuthPageProps) {
         setFormData({ email: formData.email, password: '', name: '', role: 'staff' });
         setFieldErrors({});
       } else {
-        // Sign in flow
-        const inputType = validateEmailOrPhone(formData.email);
-        
-        if (!inputType) {
-          setError('Please enter a valid email or phone number');
-          setLoading(false);
-          return;
-        }
-
-        let signInData;
-        let signInError;
-        
-        if (inputType === 'email') {
-          // Email authentication
-          const result = await supabase.auth.signInWithPassword({
+        // Sign in flow - use custom backend API
+        const response = await apiRequest('/signin', {
+          method: 'POST',
+          body: JSON.stringify({
             email: formData.email,
             password: formData.password,
-          });
-          signInData = result.data;
-          signInError = result.error;
-        } else {
-          // Phone authentication
-          const cleanPhone = formData.email.replace(/[\s\-\(\)]/g, '');
-          const result = await supabase.auth.signInWithPassword({
-            phone: cleanPhone,
-            password: formData.password,
-          });
-          signInData = result.data;
-          signInError = result.error;
-        }
+          }),
+        }, false);
 
-        if (signInError) {
-          setError('Invalid credentials or account not found');
-          throw signInError;
-        }
-
-        if (signInData.session?.access_token) {
-          sessionStorage.setItem('access_token', signInData.session.access_token);
-          sessionStorage.setItem('user_id', signInData.user.id);
+        if (response.access_token) {
+          sessionStorage.setItem('access_token', response.access_token);
+          sessionStorage.setItem('user_id', response.user.id);
           toast.success('Signed in successfully!');
           onAuthSuccess();
+        } else {
+          setError('Invalid credentials or account not found');
         }
       }
     } catch (error: any) {
       console.error('Auth error:', error);
-      if (!error) {
-        setError('Email doesn\'t registered to any account');
+      if (error?.message) {
+        setError(error.message);
+      } else {
+        setError('Invalid credentials or account not found');
       }
     } finally {
       setLoading(false);
