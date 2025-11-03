@@ -1,5 +1,5 @@
 import { serve } from '@hono/node-server';
-import { Hono } from 'hono';
+import { Hono, Context } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { db } from './db';
@@ -8,7 +8,15 @@ import { eq, and, desc, sql } from 'drizzle-orm';
 import bcrypt from 'bcryptjs';
 import { SignJWT, jwtVerify } from 'jose';
 
-const app = new Hono();
+type User = typeof users.$inferSelect;
+
+type AppContext = {
+  Variables: {
+    user: User;
+  };
+};
+
+const app = new Hono<AppContext>();
 
 // JWT Configuration
 const JWT_SECRET = new TextEncoder().encode(
@@ -50,7 +58,7 @@ async function verifyToken(token: string) {
 }
 
 // Auth Middleware
-async function authMiddleware(c: any, next: any) {
+async function authMiddleware(c: Context<AppContext>, next: () => Promise<void>) {
   const authHeader = c.req.header('Authorization');
   
   if (!authHeader) {
@@ -419,13 +427,15 @@ app.get('/api/villas/:villaId/messages', authMiddleware, async (c) => {
   const villaId = c.req.param('villaId');
   const threadId = c.req.query('threadId');
   
-  let messageQuery = db.select().from(messages).where(eq(messages.villaId, villaId));
+  const conditions = threadId 
+    ? and(eq(messages.villaId, villaId), eq(messages.threadId, threadId))
+    : eq(messages.villaId, villaId);
   
-  if (threadId) {
-    messageQuery = messageQuery.where(eq(messages.threadId, threadId));
-  }
-  
-  const messageList = await messageQuery.orderBy(desc(messages.createdAt));
+  const messageList = await db
+    .select()
+    .from(messages)
+    .where(conditions)
+    .orderBy(desc(messages.createdAt));
   
   return c.json({ messages: messageList });
 });
