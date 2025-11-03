@@ -1,10 +1,9 @@
-import { getSupabaseUrl, getPublicAnonKey } from './supabase/info';
 import { authManager, csrfManager } from './auth';
-import { ApiResponse } from '../types';
 import { z } from 'zod';
 import { validateRequest } from './validation';
 
-const API_BASE = `${getSupabaseUrl()}/functions/v1/make-server-41a1615d`;
+// Get the backend API URL
+const API_BASE = '/api';
 
 // Rate limiting implementation
 class RateLimiter {
@@ -62,18 +61,12 @@ export async function apiRequest<T = any>(
       if (accessToken) {
         headers['Authorization'] = `Bearer ${accessToken}`;
       } else {
-        // Only use public anon key for non-authenticated endpoints
-        // For protected endpoints, throw an error instead
         throw new Error('Authentication required. Please sign in.');
       }
     } catch (error) {
       console.error('Failed to get access token:', error);
-      // Don't fallback to public key for protected endpoints
       throw new Error('Authentication failed. Please sign in again.');
     }
-  } else {
-    // For public endpoints, use the anon key
-    headers['Authorization'] = `Bearer ${getPublicAnonKey()}`;
   }
 
   // Add CSRF token for state-changing operations
@@ -86,6 +79,7 @@ export async function apiRequest<T = any>(
     const response = await fetch(`${API_BASE}${endpoint}`, {
       ...options,
       headers,
+      credentials: 'include',
     });
 
     // Handle 401 Unauthorized - try to refresh token
@@ -97,6 +91,7 @@ export async function apiRequest<T = any>(
         const retryResponse = await fetch(`${API_BASE}${endpoint}`, {
           ...options,
           headers,
+          credentials: 'include',
         });
         
         const retryData = await retryResponse.json();
@@ -176,7 +171,7 @@ export interface CursorPaginatedResponse<T> {
   totalCount?: number;
 }
 
-// Cursor-based paginated API request helper (more efficient for large datasets)
+// Cursor-based paginated API request helper
 export async function cursorPaginatedApiRequest<T = any>(
   endpoint: string,
   params: CursorPaginationParams = {},
@@ -185,13 +180,11 @@ export async function cursorPaginatedApiRequest<T = any>(
 ): Promise<CursorPaginatedResponse<T>> {
   const queryParams = new URLSearchParams();
   
-  // Add pagination parameters
   if (params.limit) queryParams.append('limit', params.limit.toString());
   if (params.cursor) queryParams.append('cursor', params.cursor);
   if (params.sortBy) queryParams.append('sortBy', params.sortBy);
   if (params.sortOrder) queryParams.append('sortOrder', params.sortOrder);
   
-  // Add filters
   if (params.filters) {
     Object.entries(params.filters).forEach(([key, value]) => {
       if (value !== undefined && value !== null) {
@@ -211,7 +204,7 @@ export async function cursorPaginatedApiRequest<T = any>(
   );
 }
 
-// Pagination cache manager for optimized data fetching
+// Pagination cache manager
 class PaginationCache {
   private cache: Map<string, { data: any; timestamp: number }> = new Map();
   private readonly cacheTimeout = 5 * 60 * 1000; // 5 minutes
@@ -220,24 +213,18 @@ class PaginationCache {
     try {
       return `${endpoint}:${JSON.stringify(params)}`;
     } catch (error) {
-      // If JSON.stringify fails (circular reference, etc.), disable caching for this request
-      console.warn('Failed to stringify cache params, caching disabled for this request:', error);
-      // Return null to signal caching should be skipped
+      console.warn('Failed to stringify cache params:', error);
       return '';
     }
   }
   
   get(endpoint: string, params: CursorPaginationParams): any | null {
     const key = this.getCacheKey(endpoint, params);
-    
-    // Skip cache if key generation failed
     if (!key) return null;
     
     const cached = this.cache.get(key);
-    
     if (!cached) return null;
     
-    // Check if cache is still valid
     if (Date.now() - cached.timestamp > this.cacheTimeout) {
       this.cache.delete(key);
       return null;
@@ -248,13 +235,10 @@ class PaginationCache {
   
   set(endpoint: string, params: CursorPaginationParams, data: any): void {
     const key = this.getCacheKey(endpoint, params);
-    
-    // Skip caching if key generation failed
     if (!key) return;
     
     this.cache.set(key, { data, timestamp: Date.now() });
     
-    // Limit cache size
     if (this.cache.size > 100) {
       const oldestKey = this.cache.keys().next().value;
       this.cache.delete(oldestKey);
@@ -263,12 +247,10 @@ class PaginationCache {
   
   invalidate(endpoint?: string): void {
     if (endpoint) {
-      // Invalidate all entries for a specific endpoint
       Array.from(this.cache.keys())
         .filter(key => key.startsWith(endpoint))
         .forEach(key => this.cache.delete(key));
     } else {
-      // Clear entire cache
       this.cache.clear();
     }
   }
@@ -284,24 +266,14 @@ export async function cachedCursorPaginatedRequest<T = any>(
   useAuth: boolean = true,
   useCache: boolean = true
 ): Promise<CursorPaginatedResponse<T>> {
-  // Check cache first (only for GET requests)
   const method = options.method?.toUpperCase() || 'GET';
   if (useCache && method === 'GET') {
     const cached = paginationCache.get(endpoint, params);
-    if (cached) {
-      return cached;
-    }
+    if (cached) return cached;
   }
   
-  // Fetch fresh data
-  const response = await cursorPaginatedApiRequest<T>(
-    endpoint,
-    params,
-    options,
-    useAuth
-  );
+  const response = await cursorPaginatedApiRequest<T>(endpoint, params, options, useAuth);
   
-  // Cache the response
   if (useCache && method === 'GET') {
     paginationCache.set(endpoint, params, response);
   }
@@ -320,7 +292,6 @@ export async function validatedApiRequest<T>(
 ): Promise<T> {
   const { requestSchema, responseSchema, ...fetchOptions } = options;
   
-  // Validate request body if schema provided
   if (requestSchema && fetchOptions.body) {
     let bodyData;
     try {
@@ -328,7 +299,7 @@ export async function validatedApiRequest<T>(
         ? JSON.parse(fetchOptions.body)
         : fetchOptions.body;
     } catch (error) {
-      throw new Error(`Invalid JSON in request body: ${error instanceof Error ? error.message : 'Parse error'}`);
+      throw new Error(`Invalid JSON in request body`);
     }
     
     const validation = validateRequest(requestSchema, bodyData);
@@ -339,24 +310,17 @@ export async function validatedApiRequest<T>(
           .join(', ')}`
       );
     } else {
-      // Use validated data
       fetchOptions.body = JSON.stringify(validation.data);
     }
   }
   
-  // Make the API request
   const response = await apiRequest<T>(endpoint, fetchOptions, useAuth);
   
-  // Validate response if schema provided
   if (responseSchema) {
     const validation = validateRequest(responseSchema, response);
     if (validation.success === false) {
       console.error('Response validation failed:', validation.errors);
-      throw new Error(
-        `Response validation failed: ${validation.errors.issues
-          .map(err => `${err.path.join('.')}: ${err.message}`)
-          .join(', ')}`
-      );
+      throw new Error('Invalid response from server');
     } else {
       return validation.data;
     }
@@ -365,7 +329,7 @@ export async function validatedApiRequest<T>(
   return response;
 }
 
-// Batch request helper for fetching multiple resources
+// Batch request helper
 export async function batchApiRequest<T = any>(
   requests: Array<{
     endpoint: string;
