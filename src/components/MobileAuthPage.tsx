@@ -143,6 +143,10 @@ export function MobileAuthPage({ onAuthSuccess }: MobileAuthPageProps) {
         if (response.access_token) {
           sessionStorage.setItem('access_token', response.access_token);
           sessionStorage.setItem('user_id', response.user.id);
+          // Store expiry time in milliseconds for custom backend tokens
+          if (response.expires_at) {
+            sessionStorage.setItem('expires_at', (response.expires_at * 1000).toString());
+          }
           toast.success('Signed in successfully!');
           onAuthSuccess();
         } else {
