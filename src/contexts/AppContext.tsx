@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { apiRequest } from '../utils/api';
 import { authManager } from '../utils/auth';
+import * as supabaseHelpers from '../utils/supabase-helpers';
 import {
   User,
   Villa,
@@ -386,8 +387,17 @@ export function AppProvider({ children }: AppProviderProps) {
     }
 
     try {
-      const { villas } = await withRetry(() => apiRequest<{ villas: Villa[] }>('/villas'));
-      const loadedVillas = villas || [];
+      const { user } = await supabaseHelpers.getCurrentUser();
+      if (!user) {
+        throw new Error('User not authenticated');
+      }
+
+      const { data, error } = await supabaseHelpers.getVillas(user.id);
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      const loadedVillas = data || [];
 
       writeCache(cacheKey, loadedVillas);
 
@@ -496,18 +506,30 @@ export function AppProvider({ children }: AppProviderProps) {
 
   const createVilla = useCallback(async (data: Partial<Villa>): Promise<Villa | null> => {
     try {
-      const { villa } = await apiRequest<{ villa: Villa }>('/villas', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      });
+      const { user } = await supabaseHelpers.getCurrentUser();
+      if (!user) {
+        throw new Error('User not authenticated');
+      }
+
+      const { data: villa, error } = await supabaseHelpers.createVilla({
+        name: data.name || '',
+        address: data.address || '',
+        location: data.location,
+        description: data.description,
+        lease_details: data.leaseDetails,
+      }, user.id);
+
+      if (error || !villa) {
+        throw new Error(error?.message || 'Failed to create villa');
+      }
       
       setState(prev => ({ 
         ...prev, 
-        villas: [...prev.villas, villa],
+        villas: [...prev.villas, villa as Villa],
       }));
       
       toast.success('Villa created successfully');
-      return villa;
+      return villa as Villa;
     } catch (error) {
       console.error('Error creating villa:', error);
       toast.error('Failed to create villa');
@@ -517,15 +539,22 @@ export function AppProvider({ children }: AppProviderProps) {
 
   const updateVilla = useCallback(async (id: string, data: Partial<Villa>): Promise<boolean> => {
     try {
-      const { villa } = await apiRequest<{ villa: Villa }>(`/villas/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(data),
+      const { data: villa, error } = await supabaseHelpers.updateVilla(id, {
+        name: data.name,
+        address: data.address,
+        location: data.location,
+        description: data.description,
+        lease_details: data.leaseDetails,
       });
+
+      if (error || !villa) {
+        throw new Error(error?.message || 'Failed to update villa');
+      }
       
       setState(prev => ({ 
         ...prev, 
-        villas: prev.villas.map(v => v.id === id ? villa : v),
-        selectedVilla: prev.selectedVilla?.id === id ? villa : prev.selectedVilla,
+        villas: prev.villas.map(v => v.id === id ? villa as Villa : v),
+        selectedVilla: prev.selectedVilla?.id === id ? villa as Villa : prev.selectedVilla,
       }));
       
       toast.success('Villa updated successfully');
@@ -539,7 +568,13 @@ export function AppProvider({ children }: AppProviderProps) {
 
   const deleteVilla = useCallback(async (id: string): Promise<boolean> => {
     try {
-      await apiRequest(`/villas/${id}`, { method: 'DELETE' });
+      // NOTE: Villa deletion will cascade to related data via RLS policies
+      const { supabase } = await import('../utils/supabase-client');
+      const { error } = await supabase.from('villas').delete().eq('id', id);
+
+      if (error) {
+        throw new Error(error.message);
+      }
       
       let wasSelected = false;
       

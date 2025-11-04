@@ -32,6 +32,8 @@ export interface Villa {
   id: string;
   name: string;
   address: string;
+  location?: string;
+  description?: string;
   leaseDetails: LeaseDetails;
   createdBy: string;
   createdAt: string;
