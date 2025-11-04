@@ -1,0 +1,183 @@
+-- WARNING: This schema is for context only and is not meant to be run.
+-- Table order and constraints may not be valid for execution.
+
+CREATE TABLE public.calendar_events (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  villa_id uuid,
+  user_id uuid NOT NULL,
+  title text NOT NULL,
+  description text,
+  start_date timestamp with time zone NOT NULL,
+  end_date timestamp with time zone NOT NULL,
+  type text NOT NULL,
+  location text,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT calendar_events_pkey PRIMARY KEY (id),
+  CONSTRAINT calendar_events_villa_id_fkey FOREIGN KEY (villa_id) REFERENCES public.villas(id),
+  CONSTRAINT calendar_events_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id)
+);
+CREATE TABLE public.chats (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  villa_id uuid NOT NULL,
+  thread_id text NOT NULL UNIQUE,
+  title text,
+  participants jsonb DEFAULT '[]'::jsonb,
+  created_by uuid NOT NULL,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT chats_pkey PRIMARY KEY (id),
+  CONSTRAINT chats_villa_id_fkey FOREIGN KEY (villa_id) REFERENCES public.villas(id),
+  CONSTRAINT chats_created_by_fkey FOREIGN KEY (created_by) REFERENCES auth.users(id)
+);
+CREATE TABLE public.expense_templates (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  user_id uuid NOT NULL,
+  name text NOT NULL,
+  category text NOT NULL,
+  amount text,
+  description text,
+  usage_count integer DEFAULT 0,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT expense_templates_pkey PRIMARY KEY (id),
+  CONSTRAINT expense_templates_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id)
+);
+CREATE TABLE public.expenses (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  villa_id uuid NOT NULL,
+  category text NOT NULL,
+  amount text NOT NULL,
+  description text,
+  status text NOT NULL DEFAULT 'pending'::text CHECK (status = ANY (ARRAY['pending'::text, 'approved'::text, 'rejected'::text])),
+  receipt_url text,
+  submitted_by uuid NOT NULL,
+  approved_by uuid,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT expenses_pkey PRIMARY KEY (id),
+  CONSTRAINT expenses_villa_id_fkey FOREIGN KEY (villa_id) REFERENCES public.villas(id),
+  CONSTRAINT expenses_submitted_by_fkey FOREIGN KEY (submitted_by) REFERENCES auth.users(id),
+  CONSTRAINT expenses_approved_by_fkey FOREIGN KEY (approved_by) REFERENCES auth.users(id)
+);
+CREATE TABLE public.invite_codes (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  code text NOT NULL UNIQUE,
+  villa_id uuid NOT NULL,
+  role text NOT NULL,
+  created_by uuid NOT NULL,
+  expires_at timestamp with time zone,
+  max_uses text,
+  current_uses text DEFAULT '0'::text,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT invite_codes_pkey PRIMARY KEY (id),
+  CONSTRAINT invite_codes_villa_id_fkey FOREIGN KEY (villa_id) REFERENCES public.villas(id),
+  CONSTRAINT invite_codes_created_by_fkey FOREIGN KEY (created_by) REFERENCES auth.users(id)
+);
+CREATE TABLE public.leave_requests (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  villa_id uuid NOT NULL,
+  user_id uuid NOT NULL,
+  start_date timestamp with time zone NOT NULL,
+  end_date timestamp with time zone NOT NULL,
+  type text,
+  reason text,
+  status text NOT NULL DEFAULT 'pending'::text CHECK (status = ANY (ARRAY['pending'::text, 'approved'::text, 'rejected'::text])),
+  approved_by uuid,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT leave_requests_pkey PRIMARY KEY (id),
+  CONSTRAINT leave_requests_villa_id_fkey FOREIGN KEY (villa_id) REFERENCES public.villas(id),
+  CONSTRAINT leave_requests_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id),
+  CONSTRAINT leave_requests_approved_by_fkey FOREIGN KEY (approved_by) REFERENCES auth.users(id)
+);
+CREATE TABLE public.messages (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  villa_id uuid NOT NULL,
+  thread_id text NOT NULL,
+  sender_id uuid NOT NULL,
+  content text NOT NULL,
+  attachments jsonb DEFAULT '[]'::jsonb,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT messages_pkey PRIMARY KEY (id),
+  CONSTRAINT messages_villa_id_fkey FOREIGN KEY (villa_id) REFERENCES public.villas(id),
+  CONSTRAINT messages_sender_id_fkey FOREIGN KEY (sender_id) REFERENCES auth.users(id)
+);
+CREATE TABLE public.profiles (
+  id uuid NOT NULL,
+  name text NOT NULL,
+  role text NOT NULL CHECK (role = ANY (ARRAY['Landlord'::text, 'Property Agent'::text, 'Tenant'::text, 'Staff'::text])),
+  profile_data jsonb DEFAULT '{}'::jsonb,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT profiles_pkey PRIMARY KEY (id),
+  CONSTRAINT profiles_id_fkey FOREIGN KEY (id) REFERENCES auth.users(id)
+);
+CREATE TABLE public.staff_attendance (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  villa_id uuid NOT NULL,
+  user_id uuid NOT NULL,
+  clock_in timestamp with time zone NOT NULL,
+  clock_out timestamp with time zone,
+  status text DEFAULT 'clocked-in'::text CHECK (status = ANY (ARRAY['clocked-in'::text, 'clocked-out'::text])),
+  notes text,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT staff_attendance_pkey PRIMARY KEY (id),
+  CONSTRAINT staff_attendance_villa_id_fkey FOREIGN KEY (villa_id) REFERENCES public.villas(id),
+  CONSTRAINT staff_attendance_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id)
+);
+CREATE TABLE public.tasks (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  villa_id uuid NOT NULL,
+  title text NOT NULL,
+  description text,
+  status text NOT NULL DEFAULT 'pending'::text CHECK (status = ANY (ARRAY['pending'::text, 'in-progress'::text, 'completed'::text, 'cancelled'::text])),
+  priority text DEFAULT 'medium'::text CHECK (priority = ANY (ARRAY['low'::text, 'medium'::text, 'high'::text, 'urgent'::text])),
+  assigned_to uuid,
+  due_date timestamp with time zone,
+  created_by uuid NOT NULL,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT tasks_pkey PRIMARY KEY (id),
+  CONSTRAINT tasks_villa_id_fkey FOREIGN KEY (villa_id) REFERENCES public.villas(id),
+  CONSTRAINT tasks_assigned_to_fkey FOREIGN KEY (assigned_to) REFERENCES auth.users(id),
+  CONSTRAINT tasks_created_by_fkey FOREIGN KEY (created_by) REFERENCES auth.users(id)
+);
+CREATE TABLE public.user_settings (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  user_id uuid NOT NULL UNIQUE,
+  general jsonb DEFAULT '{}'::jsonb,
+  security jsonb DEFAULT '{}'::jsonb,
+  notifications jsonb DEFAULT '{}'::jsonb,
+  billing jsonb DEFAULT '{}'::jsonb,
+  integrations jsonb DEFAULT '{}'::jsonb,
+  data_retention jsonb DEFAULT '{}'::jsonb,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT user_settings_pkey PRIMARY KEY (id),
+  CONSTRAINT user_settings_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id)
+);
+CREATE TABLE public.villa_users (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  villa_id uuid NOT NULL,
+  user_id uuid NOT NULL,
+  role text NOT NULL,
+  permissions jsonb DEFAULT '[]'::jsonb,
+  joined_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT villa_users_pkey PRIMARY KEY (id),
+  CONSTRAINT villa_users_villa_id_fkey FOREIGN KEY (villa_id) REFERENCES public.villas(id),
+  CONSTRAINT villa_users_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id)
+);
+CREATE TABLE public.villas (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  name text NOT NULL,
+  address text NOT NULL,
+  location text,
+  description text,
+  lease_details jsonb DEFAULT '{}'::jsonb,
+  created_by uuid NOT NULL,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT villas_pkey PRIMARY KEY (id),
+  CONSTRAINT villas_created_by_fkey FOREIGN KEY (created_by) REFERENCES auth.users(id)
+);
