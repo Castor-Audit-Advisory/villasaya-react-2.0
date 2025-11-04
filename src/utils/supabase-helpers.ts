@@ -72,6 +72,43 @@ export function mapTaskFromSupabase(row: any): any {
   };
 }
 
+export function mapExpenseFromSupabase(row: any): any {
+  if (!row) return null;
+  
+  // Handle receipts - could be string, string[], or null
+  let receipts: string[] = [];
+  if (Array.isArray(row.receipt_url)) {
+    receipts = row.receipt_url;
+  } else if (row.receipt_url) {
+    receipts = [row.receipt_url];
+  }
+  
+  // Handle taskIds - could be string[], or null
+  let taskIds: string[] = [];
+  if (Array.isArray(row.task_ids)) {
+    taskIds = row.task_ids;
+  }
+  
+  return {
+    id: row.id,
+    villaId: row.villa_id,
+    title: row.title || '',
+    amount: parseFloat(row.amount) || 0,
+    category: row.category,
+    description: row.description || '',
+    date: row.date,
+    taskIds,
+    receipts,
+    createdBy: row.submitted_by || row.created_by,
+    status: row.status,
+    createdAt: row.created_at,
+    approvedBy: row.approved_by,
+    approvedAt: row.approved_at,
+    paidAt: row.paid_at,
+    notes: row.notes,
+  };
+}
+
 export async function getCurrentUser() {
   const { data: { user }, error } = await supabase.auth.getUser();
   
@@ -432,8 +469,10 @@ export async function getExpenses(villaId: string): Promise<SupabaseListResponse
     .eq('villa_id', villaId)
     .order('created_at', { ascending: false });
   
+  const mappedExpenses = data ? data.map(mapExpenseFromSupabase) : [];
+  
   return {
-    data: data || [],
+    data: mappedExpenses,
     error: formatSupabaseError(error),
     count: count || 0,
   };
@@ -454,7 +493,7 @@ export async function createExpense(data: {
     .single();
   
   return {
-    data: expense,
+    data: expense ? mapExpenseFromSupabase(expense) : null,
     error: formatSupabaseError(error),
   };
 }
@@ -467,6 +506,7 @@ export async function updateExpense(
     description?: string;
     status?: string;
     approved_by?: string;
+    approved_at?: string;
   }
 ): Promise<SupabaseResponse<any>> {
   const { data, error } = await supabase
@@ -480,7 +520,7 @@ export async function updateExpense(
     .single();
   
   return {
-    data,
+    data: data ? mapExpenseFromSupabase(data) : null,
     error: formatSupabaseError(error),
   };
 }

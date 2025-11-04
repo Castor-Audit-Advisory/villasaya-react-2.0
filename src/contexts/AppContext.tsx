@@ -772,7 +772,18 @@ export function AppProvider({ children }: AppProviderProps) {
     async (villaId?: string) => {
       setState(prev => ({ ...prev, expensesLoading: true, expensesError: null }));
 
-      const cacheKey = buildCacheKey('expenses', villaId ?? 'all');
+      const targetVillaId = villaId || state.selectedVilla?.id;
+      if (!targetVillaId) {
+        setState(prev => ({
+          ...prev,
+          expenses: [],
+          expensesLoading: false,
+          expensesError: 'No villa selected',
+        }));
+        return;
+      }
+
+      const cacheKey = buildCacheKey('expenses', targetVillaId);
       const cachedExpenses = readCache<Expense[]>(cacheKey);
 
       if (cachedExpenses && cachedExpenses.length > 0) {
@@ -780,10 +791,13 @@ export function AppProvider({ children }: AppProviderProps) {
       }
 
       try {
-        const endpoint = villaId ? `/villas/${villaId}/expenses` : '/expenses';
-        const { expenses } = await withRetry(() => apiRequest<{ expenses: Expense[] }>(endpoint));
-        const nextExpenses = expenses || [];
+        const { data, error } = await withRetry(() => supabaseHelpers.getExpenses(targetVillaId));
+        
+        if (error) {
+          throw new Error(String(error));
+        }
 
+        const nextExpenses = data || [];
         writeCache(cacheKey, nextExpenses);
 
         setState(prev => ({
@@ -811,15 +825,35 @@ export function AppProvider({ children }: AppProviderProps) {
         }
       }
     },
-    [buildCacheKey, readCache, withRetry, writeCache],
+    [buildCacheKey, readCache, withRetry, writeCache, state.selectedVilla],
   );
 
   const createExpense = useCallback(async (data: Partial<Expense>): Promise<Expense | null> => {
     try {
-      const { expense } = await apiRequest<{ expense: Expense }>('/expenses', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      });
+      const { user, error: userError } = await supabaseHelpers.getCurrentUser();
+      if (userError || !user) {
+        throw new Error('User not authenticated');
+      }
+
+      const villaId = data.villaId || state.selectedVilla?.id;
+      if (!villaId) {
+        throw new Error('No villa selected');
+      }
+
+      const expenseData = {
+        villa_id: villaId,
+        category: data.category || 'general',
+        amount: String(data.amount || 0),
+        description: data.description,
+        receipt_url: data.receipts?.[0],
+        submitted_by: user.id,
+      };
+
+      const { data: expense, error } = await supabaseHelpers.createExpense(expenseData);
+      
+      if (error) {
+        throw new Error(String(error));
+      }
       
       setState(prev => ({ 
         ...prev, 
@@ -833,14 +867,22 @@ export function AppProvider({ children }: AppProviderProps) {
       toast.error('Failed to create expense');
       return null;
     }
-  }, []);
+  }, [state.selectedVilla]);
 
   const updateExpense = useCallback(async (id: string, data: Partial<Expense>): Promise<boolean> => {
     try {
-      const { expense } = await apiRequest<{ expense: Expense }>(`/expenses/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(data),
-      });
+      const updates = {
+        category: data.category,
+        amount: data.amount ? String(data.amount) : undefined,
+        description: data.description,
+        status: data.status,
+      };
+
+      const { data: expense, error } = await supabaseHelpers.updateExpense(id, updates);
+      
+      if (error) {
+        throw new Error(String(error));
+      }
       
       setState(prev => ({ 
         ...prev, 
@@ -858,10 +900,22 @@ export function AppProvider({ children }: AppProviderProps) {
 
   const approveExpense = useCallback(async (id: string, approved: boolean): Promise<boolean> => {
     try {
-      const endpoint = `/expenses/${id}/${approved ? 'approve' : 'reject'}`;
-      const { expense } = await apiRequest<{ expense: Expense }>(endpoint, {
-        method: 'PUT',
-      });
+      const { user, error: userError } = await supabaseHelpers.getCurrentUser();
+      if (userError || !user) {
+        throw new Error('User not authenticated');
+      }
+
+      const updates = {
+        status: approved ? 'approved' : 'rejected',
+        approved_by: user.id,
+        approved_at: new Date().toISOString(),
+      };
+
+      const { data: expense, error } = await supabaseHelpers.updateExpense(id, updates);
+      
+      if (error) {
+        throw new Error(String(error));
+      }
       
       setState(prev => ({ 
         ...prev, 
