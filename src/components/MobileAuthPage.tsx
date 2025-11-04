@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabase-client';
-import { apiRequest } from '../utils/api';
 import { Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
 import villaSayaLogo from '@assets/villasaya.svg';
@@ -10,6 +9,17 @@ import { validateField } from '../utils/formValidation';
 interface MobileAuthPageProps {
   onAuthSuccess: () => void;
 }
+
+// Helper to capitalize role for Supabase schema
+const capitalizeRole = (role: string): string => {
+  const roleMap: Record<string, string> = {
+    'landlord': 'Landlord',
+    'property agent': 'Property Agent',
+    'tenant': 'Tenant',
+    'staff': 'Staff'
+  };
+  return roleMap[role.toLowerCase()] || 'Staff';
+};
 
 export function MobileAuthPage({ onAuthSuccess }: MobileAuthPageProps) {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -120,38 +130,114 @@ export function MobileAuthPage({ onAuthSuccess }: MobileAuthPageProps) {
     }
 
     try {
+      // Detect if input is email or phone
+      const identifierType = validateEmailOrPhone(formData.email);
+      
       if (isSignUp) {
-        await apiRequest('/signup', {
-          method: 'POST',
-          body: JSON.stringify(formData),
-        }, false);
+        // Sign up with Supabase Auth
+        const signUpOptions: any = {
+          password: formData.password,
+          options: {
+            data: {
+              name: formData.name,
+              role: capitalizeRole(formData.role)
+            }
+          }
+        };
 
-        toast.success('Account created successfully! Please sign in.');
+        // Add email or phone based on input type
+        if (identifierType === 'email') {
+          signUpOptions.email = formData.email;
+        } else if (identifierType === 'phone') {
+          signUpOptions.phone = formData.email; // formData.email contains phone number
+        } else {
+          throw new Error('Invalid email or phone number');
+        }
+
+        const { data, error: signUpError } = await supabase.auth.signUp(signUpOptions);
+
+        if (signUpError) {
+          throw new Error(signUpError.message);
+        }
+
+        if (!data.user) {
+          throw new Error('Failed to create account');
+        }
+
+        // Create profile for the new user
+        const { error: profileError } = await (supabase
+          .from('profiles') as any)
+          .insert({
+            id: data.user.id,
+            name: formData.name,
+            role: capitalizeRole(formData.role),
+            profile_data: {}
+          });
+
+        if (profileError) {
+          console.error('Profile creation error:', profileError);
+        }
+
+        // Create default user settings
+        const { error: settingsError } = await (supabase
+          .from('user_settings') as any)
+          .insert({
+            user_id: data.user.id,
+            general: {
+              companyName: 'VillaSaya Properties',
+              timezone: 'UTC+8',
+              language: 'English',
+              dateFormat: 'DD/MM/YYYY',
+              currency: 'USD'
+            },
+            security: {
+              twoFactorAuth: false,
+              sessionTimeout: '30',
+              passwordExpiry: '90'
+            },
+            notifications: {
+              emailNotifications: true,
+              taskReminders: true,
+              expenseAlerts: true
+            }
+          });
+
+        if (settingsError) {
+          console.error('Settings creation error:', settingsError);
+        }
+
+        toast.success('Account created successfully! Please check your email to verify your account.');
         setIsSignUp(false);
         setFormData({ email: formData.email, password: '', name: '', role: 'staff' });
         setFieldErrors({});
       } else {
-        // Sign in flow - use custom backend API
-        const response = await apiRequest('/signin', {
-          method: 'POST',
-          body: JSON.stringify({
-            email: formData.email,
-            password: formData.password,
-          }),
-        }, false);
+        // Sign in with Supabase Auth
+        const signInOptions: any = {
+          password: formData.password,
+        };
 
-        if (response.access_token) {
-          sessionStorage.setItem('access_token', response.access_token);
-          sessionStorage.setItem('user_id', response.user.id);
-          // Store expiry time in milliseconds for custom backend tokens
-          if (response.expires_at) {
-            sessionStorage.setItem('expires_at', (response.expires_at * 1000).toString());
-          }
-          toast.success('Signed in successfully!');
-          onAuthSuccess();
+        // Add email or phone based on input type
+        if (identifierType === 'email') {
+          signInOptions.email = formData.email;
+        } else if (identifierType === 'phone') {
+          signInOptions.phone = formData.email; // formData.email contains phone number
         } else {
-          setError('Invalid credentials or account not found');
+          throw new Error('Invalid email or phone number');
         }
+
+        const { data, error: signInError } = await supabase.auth.signInWithPassword(signInOptions);
+
+        if (signInError) {
+          throw new Error(signInError.message);
+        }
+
+        if (!data.session) {
+          throw new Error('No session created');
+        }
+
+        // Session is automatically stored by Supabase
+        toast.success('Signed in successfully!');
+        onAuthSuccess();
       }
     } catch (error: any) {
       console.error('Auth error:', error);
