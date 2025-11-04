@@ -42,6 +42,36 @@ function formatSupabaseError(error: PostgrestError | Error | null): SupabaseErro
   };
 }
 
+// Mapper functions to convert Supabase snake_case rows to domain camelCase models
+export function mapTaskFromSupabase(row: any): any {
+  if (!row) return null;
+  
+  // Handle assignedTo - could be string, string[], or null
+  let assignedTo: string[] = [];
+  if (Array.isArray(row.assigned_to)) {
+    assignedTo = row.assigned_to;
+  } else if (row.assigned_to) {
+    assignedTo = [row.assigned_to];
+  }
+  
+  return {
+    id: row.id,
+    villaId: row.villa_id,
+    title: row.title,
+    description: row.description || '',
+    assignedTo,
+    supervisorId: row.supervisor_id,
+    createdBy: row.created_by,
+    status: row.status,
+    priority: row.priority,
+    dueDate: row.due_date,
+    mandatory: row.mandatory || {},
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+    completedAt: row.completed_at,
+  };
+}
+
 export async function getCurrentUser() {
   const { data: { user }, error } = await supabase.auth.getUser();
   
@@ -313,8 +343,10 @@ export async function getTasks(villaId: string): Promise<SupabaseListResponse<an
     .eq('villa_id', villaId)
     .order('created_at', { ascending: false });
   
+  const mappedTasks = data ? data.map(mapTaskFromSupabase) : [];
+  
   return {
-    data: data || [],
+    data: mappedTasks,
     error: formatSupabaseError(error),
     count: count || 0,
   };
@@ -337,7 +369,7 @@ export async function createTask(data: {
     .single();
   
   return {
-    data: task,
+    data: task ? mapTaskFromSupabase(task) : null,
     error: formatSupabaseError(error),
   };
 }
@@ -364,7 +396,7 @@ export async function updateTask(
     .single();
   
   return {
-    data,
+    data: data ? mapTaskFromSupabase(data) : null,
     error: formatSupabaseError(error),
   };
 }

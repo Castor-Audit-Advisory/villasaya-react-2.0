@@ -615,7 +615,18 @@ export function AppProvider({ children }: AppProviderProps) {
     async (villaId?: string) => {
       setState(prev => ({ ...prev, tasksLoading: true, tasksError: null }));
 
-      const cacheKey = buildCacheKey('tasks', villaId ?? 'all');
+      const targetVillaId = villaId || state.selectedVilla?.id;
+      if (!targetVillaId) {
+        setState(prev => ({
+          ...prev,
+          tasks: [],
+          tasksLoading: false,
+          tasksError: 'No villa selected',
+        }));
+        return;
+      }
+
+      const cacheKey = buildCacheKey('tasks', targetVillaId);
       const cachedTasks = readCache<Task[]>(cacheKey);
 
       if (cachedTasks && cachedTasks.length > 0) {
@@ -623,10 +634,13 @@ export function AppProvider({ children }: AppProviderProps) {
       }
 
       try {
-        const endpoint = villaId ? `/villas/${villaId}/tasks` : '/tasks';
-        const { tasks } = await withRetry(() => apiRequest<{ tasks: Task[] }>(endpoint));
-        const nextTasks = tasks || [];
+        const { data, error } = await withRetry(() => supabaseHelpers.getTasks(targetVillaId));
+        
+        if (error) {
+          throw new Error(String(error));
+        }
 
+        const nextTasks = data || [];
         writeCache(cacheKey, nextTasks);
 
         setState(prev => ({
@@ -654,15 +668,37 @@ export function AppProvider({ children }: AppProviderProps) {
         }
       }
     },
-    [buildCacheKey, readCache, withRetry, writeCache],
+    [buildCacheKey, readCache, withRetry, writeCache, state.selectedVilla],
   );
 
   const createTask = useCallback(async (data: Partial<Task>): Promise<Task | null> => {
     try {
-      const { task } = await apiRequest<{ task: Task }>('/tasks', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      });
+      const { user, error: userError } = await supabaseHelpers.getCurrentUser();
+      if (userError || !user) {
+        throw new Error('User not authenticated');
+      }
+
+      const villaId = data.villaId || state.selectedVilla?.id;
+      if (!villaId) {
+        throw new Error('No villa selected');
+      }
+
+      const taskData = {
+        villa_id: villaId,
+        title: data.title || '',
+        description: data.description,
+        status: data.status || 'todo',
+        priority: data.priority || 'medium',
+        assigned_to: data.assignedTo?.[0],
+        due_date: data.dueDate,
+        created_by: user.id,
+      };
+
+      const { data: task, error } = await supabaseHelpers.createTask(taskData);
+      
+      if (error) {
+        throw new Error(String(error));
+      }
       
       setState(prev => ({ 
         ...prev, 
@@ -676,14 +712,24 @@ export function AppProvider({ children }: AppProviderProps) {
       toast.error('Failed to create task');
       return null;
     }
-  }, []);
+  }, [state.selectedVilla]);
 
   const updateTask = useCallback(async (id: string, data: Partial<Task>): Promise<boolean> => {
     try {
-      const { task } = await apiRequest<{ task: Task }>(`/tasks/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(data),
-      });
+      const updates = {
+        title: data.title,
+        description: data.description,
+        status: data.status,
+        priority: data.priority,
+        assigned_to: data.assignedTo?.[0],
+        due_date: data.dueDate,
+      };
+
+      const { data: task, error } = await supabaseHelpers.updateTask(id, updates);
+      
+      if (error) {
+        throw new Error(String(error));
+      }
       
       setState(prev => ({ 
         ...prev, 
@@ -701,10 +747,11 @@ export function AppProvider({ children }: AppProviderProps) {
 
   const updateTaskStatus = useCallback(async (id: string, status: string): Promise<boolean> => {
     try {
-      const { task } = await apiRequest<{ task: Task }>(`/tasks/${id}/status`, {
-        method: 'PUT',
-        body: JSON.stringify({ status }),
-      });
+      const { data: task, error } = await supabaseHelpers.updateTask(id, { status });
+      
+      if (error) {
+        throw new Error(String(error));
+      }
       
       setState(prev => ({ 
         ...prev, 
