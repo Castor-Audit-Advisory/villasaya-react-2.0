@@ -34,21 +34,7 @@ class AuthManager {
         return null;
       }
 
-      // Check if this is a custom backend token (not Supabase)
-      // Custom backend tokens don't need Supabase refresh
-      const isCustomBackendAuth = sessionStorage.getItem('user_id') && !sessionStorage.getItem('refresh_token');
-      
-      if (isCustomBackendAuth) {
-        // For custom backend, check if token is expired
-        if (this.isSessionExpired()) {
-          // Token expired - user needs to sign in again
-          this.clearSession();
-          return null;
-        }
-        return accessToken;
-      }
-
-      // For Supabase auth, handle token refresh
+      // Check if token is expired and refresh if necessary
       if (this.isSessionExpired()) {
         const session = await this.refreshSession();
         return session?.access_token || null;
@@ -56,13 +42,9 @@ class AuthManager {
 
       return accessToken;
     } catch (error) {
-      // For Supabase auth, try to refresh session
-      const isCustomBackendAuth = sessionStorage.getItem('user_id') && !sessionStorage.getItem('refresh_token');
-      if (!isCustomBackendAuth) {
-        const session = await this.refreshSession();
-        return session?.access_token || null;
-      }
-      return null;
+      // Try to refresh session on error
+      const session = await this.refreshSession();
+      return session?.access_token || null;
     }
   }
 
