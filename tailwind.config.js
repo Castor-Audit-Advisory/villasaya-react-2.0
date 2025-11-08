@@ -5,6 +5,10 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  // Disable Tailwind's base styles to avoid conflicts with Material UI
+  corePlugins: {
+    preflight: false,
+  },
   theme: {
     extend: {
       colors: {

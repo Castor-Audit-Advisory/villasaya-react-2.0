@@ -1,24 +1,17 @@
-"use client";
+// Material UI Label wrapper
+import React from 'react';
+import { FormLabel, FormLabelProps } from '@mui/material';
 
-import * as React from "react";
-import * as LabelPrimitive from "@radix-ui/react-label";
+export type LabelProps = FormLabelProps;
 
-import { cn } from "./utils";
+export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
+  ({ children, ...props }, ref) => {
+    return (
+      <FormLabel ref={ref} {...props}>
+        {children}
+      </FormLabel>
+    );
+  }
+);
 
-function Label({
-  className,
-  ...props
-}: React.ComponentProps<typeof LabelPrimitive.Root>) {
-  return (
-    <LabelPrimitive.Root
-      data-slot="label"
-      className={cn(
-        "flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
-export { Label };
+Label.displayName = 'Label';
