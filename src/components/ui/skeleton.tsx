@@ -1,98 +1,94 @@
-import { cn } from "./utils";
+// Material UI Skeleton wrapper
+import React from 'react';
+import { Skeleton as MuiSkeleton, SkeletonProps as MuiSkeletonProps, Box } from '@mui/material';
 
-function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="skeleton"
-      className={cn("bg-[#E8E8E8] animate-pulse rounded-xl", className)}
-      {...props}
-    />
-  );
-}
+export type SkeletonProps = MuiSkeletonProps;
+
+export const Skeleton = React.forwardRef<HTMLSpanElement, SkeletonProps>(
+  ({ ...props }, ref) => {
+    return <MuiSkeleton ref={ref} animation="wave" {...props} />;
+  }
+);
+
+Skeleton.displayName = 'Skeleton';
 
 /**
  * Skeleton variants for specific mobile components
  * Following Apple HIG for loading states
  */
 
-function SkeletonTaskCard() {
+export function SkeletonTaskCard() {
   return (
-    <div className="bg-white rounded-2xl p-4 mb-3">
-      {/* Header - matches MobileTaskCard title + description */}
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex-1 min-w-0 space-y-1.5">
-          <Skeleton className="h-[15px] w-3/4" />
-          <Skeleton className="h-[13px] w-full" />
-          <Skeleton className="h-[13px] w-5/6" />
-        </div>
-        {/* Status dot - exact size match */}
-        <Skeleton className="w-2 h-2 rounded-full ml-3 mt-1.5 flex-shrink-0" />
-      </div>
+    <Box sx={{ bgcolor: 'background.paper', borderRadius: '24px', p: 2, mb: 1.5 }}>
+      {/* Header */}
+      <Box sx={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between', mb: 1.5 }}>
+        <Box sx={{ flex: 1, minWidth: 0 }}>
+          <Skeleton height={15} width="75%" sx={{ mb: 0.5 }} />
+          <Skeleton height={13} width="100%" sx={{ mb: 0.5 }} />
+          <Skeleton height={13} width="85%" />
+        </Box>
+        <Skeleton variant="circular" width={8} height={8} sx={{ ml: 1.5, mt: 0.75, flexShrink: 0 }} />
+      </Box>
 
-      {/* Footer - matches assignee, date, and priority badge */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          {/* User icon placeholder */}
-          <div className="flex items-center gap-1.5">
-            <Skeleton className="w-6 h-6 rounded-full" />
-            <Skeleton className="h-[12px] w-16" />
-          </div>
-          {/* Calendar icon placeholder */}
-          <div className="flex items-center gap-1.5">
-            <Skeleton className="w-3.5 h-3.5 rounded" />
-            <Skeleton className="h-[12px] w-12" />
-          </div>
-        </div>
-        {/* Priority badge placeholder */}
-        <Skeleton className="h-[22px] w-16 rounded-full" />
-      </div>
-    </div>
+      {/* Footer */}
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+            <Skeleton variant="circular" width={24} height={24} />
+            <Skeleton height={12} width={64} />
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+            <Skeleton width={14} height={14} />
+            <Skeleton height={12} width={48} />
+          </Box>
+        </Box>
+        <Skeleton height={22} width={64} sx={{ borderRadius: '9999px' }} />
+      </Box>
+    </Box>
   );
 }
 
-function SkeletonExpenseCard() {
+export function SkeletonExpenseCard() {
   return (
-    <div className="bg-white rounded-2xl p-4 mb-3">
-      <div className="flex items-start justify-between mb-2">
-        <div className="flex-1 space-y-2">
-          <Skeleton className="h-5 w-3/4" />
-          <Skeleton className="h-4 w-1/2" />
-        </div>
-        <Skeleton className="h-6 w-20 rounded-full" />
-      </div>
-      <div className="flex items-center gap-2 mt-3">
-        <Skeleton className="w-5 h-5 rounded-lg" />
-        <Skeleton className="h-3 w-32" />
-      </div>
-    </div>
+    <Box sx={{ bgcolor: 'background.paper', borderRadius: '24px', p: 2, mb: 1.5 }}>
+      <Box sx={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between', mb: 1 }}>
+        <Box sx={{ flex: 1 }}>
+          <Skeleton height={20} width="75%" sx={{ mb: 1 }} />
+          <Skeleton height={16} width="50%" />
+        </Box>
+        <Skeleton height={24} width={80} sx={{ borderRadius: '9999px' }} />
+      </Box>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1.5 }}>
+        <Skeleton width={20} height={20} sx={{ borderRadius: '8px' }} />
+        <Skeleton height={12} width={128} />
+      </Box>
+    </Box>
   );
 }
 
-function SkeletonStatCard() {
+export function SkeletonStatCard() {
   return (
-    <div className="bg-white rounded-2xl p-6">
-      <div className="space-y-3">
-        <Skeleton className="h-4 w-24" />
-        <Skeleton className="h-8 w-16" />
-        <Skeleton className="h-3 w-32" />
-      </div>
-    </div>
+    <Box sx={{ bgcolor: 'background.paper', borderRadius: '24px', p: 3 }}>
+      <Skeleton height={16} width={96} sx={{ mb: 1.5 }} />
+      <Skeleton height={32} width={64} sx={{ mb: 1.5 }} />
+      <Skeleton height={12} width={128} />
+    </Box>
   );
 }
 
-function SkeletonActivityItem() {
+export function SkeletonActivityItem() {
   return (
-    <div className="flex items-start gap-3 mb-4">
-      <Skeleton className="w-10 h-10 rounded-lg flex-shrink-0" />
-      <div className="flex-1 space-y-2">
-        <Skeleton className="h-4 w-3/4" />
-        <Skeleton className="h-3 w-1/2" />
-      </div>
-    </div>
+    <Box sx={{ display: 'flex', alignItems: 'start', gap: 1.5, mb: 2 }}>
+      <Skeleton width={40} height={40} sx={{ borderRadius: '8px', flexShrink: 0 }} />
+      <Box sx={{ flex: 1 }}>
+        <Skeleton height={16} width="75%" sx={{ mb: 1 }} />
+        <Skeleton height={12} width="50%" />
+      </Box>
+    </Box>
   );
 }
 
-function SkeletonList({ count = 3, children }: { count?: number; children: React.ReactNode }) {
+export function SkeletonList({ count = 3, children }: { count?: number; children: React.ReactNode }) {
   return (
     <>
       {Array.from({ length: count }).map((_, i) => (
@@ -101,12 +97,3 @@ function SkeletonList({ count = 3, children }: { count?: number; children: React
     </>
   );
 }
-
-export { 
-  Skeleton,
-  SkeletonTaskCard,
-  SkeletonExpenseCard,
-  SkeletonStatCard,
-  SkeletonActivityItem,
-  SkeletonList,
-};

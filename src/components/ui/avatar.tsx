@@ -1,53 +1,33 @@
-"use client";
+// Material UI Avatar wrapper
+import React from 'react';
+import { Avatar as MuiAvatar, AvatarProps as MuiAvatarProps } from '@mui/material';
 
-import * as React from "react";
-import * as AvatarPrimitive from "@radix-ui/react-avatar";
+export type AvatarProps = MuiAvatarProps;
 
-import { cn } from "./utils";
+export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
+  ({ children, ...props }, ref) => {
+    return (
+      <MuiAvatar ref={ref} {...props}>
+        {children}
+      </MuiAvatar>
+    );
+  }
+);
 
-function Avatar({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Root>) {
-  return (
-    <AvatarPrimitive.Root
-      data-slot="avatar"
-      className={cn(
-        "relative flex size-10 shrink-0 overflow-hidden rounded-full",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
+Avatar.displayName = 'Avatar';
 
-function AvatarImage({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Image>) {
-  return (
-    <AvatarPrimitive.Image
-      data-slot="avatar-image"
-      className={cn("aspect-square size-full", className)}
-      {...props}
-    />
-  );
-}
+export const AvatarFallback = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ children, ...props }, ref) => {
+    return (
+      <div ref={ref} {...props}>
+        {children}
+      </div>
+    );
+  }
+);
 
-function AvatarFallback({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {
-  return (
-    <AvatarPrimitive.Fallback
-      data-slot="avatar-fallback"
-      className={cn(
-        "bg-muted flex size-full items-center justify-center rounded-full",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
+AvatarFallback.displayName = 'AvatarFallback';
 
-export { Avatar, AvatarImage, AvatarFallback };
+export const AvatarImage = ({ src, alt }: { src: string; alt?: string }) => {
+  return <img src={src} alt={alt} style={{ width: '100%', height: '100%' }} />;
+};

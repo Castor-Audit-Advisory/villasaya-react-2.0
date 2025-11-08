@@ -1,92 +1,94 @@
-import * as React from "react";
+// Material UI Card wrapper to match existing API
+import React from 'react';
+import {
+  Card as MuiCard,
+  CardContent as MuiCardContent,
+  CardActions as MuiCardActions,
+  Typography,
+  Box,
+  CardProps as MuiCardProps,
+} from '@mui/material';
 
-import { cn } from "./utils";
+export const Card = React.forwardRef<HTMLDivElement, MuiCardProps>(
+  ({ children, ...props }, ref) => {
+    return (
+      <MuiCard ref={ref} {...props}>
+        {children}
+      </MuiCard>
+    );
+  }
+);
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card"
-      className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
+Card.displayName = 'Card';
 
-function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-header"
-      className={cn(
-        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 pt-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
+export const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ children, ...props }, ref) => {
+    return (
+      <Box ref={ref} sx={{ p: 3, pb: 0 }} {...props}>
+        {children}
+      </Box>
+    );
+  }
+);
 
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <h4
-      data-slot="card-title"
-      className={cn("leading-none", className)}
-      {...props}
-    />
-  );
-}
+CardHeader.displayName = 'CardHeader';
 
-function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <p
-      data-slot="card-description"
-      className={cn("text-muted-foreground", className)}
-      {...props}
-    />
-  );
-}
+export const CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
+  ({ children, ...props }, ref) => {
+    return (
+      <Typography ref={ref} variant="h4" component="h4" {...props}>
+        {children}
+      </Typography>
+    );
+  }
+);
 
-function CardAction({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-action"
-      className={cn(
-        "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
+CardTitle.displayName = 'CardTitle';
 
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-content"
-      className={cn("px-6 [&:last-child]:pb-6", className)}
-      {...props}
-    />
-  );
-}
+export const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
+  ({ children, ...props }, ref) => {
+    return (
+      <Typography ref={ref} variant="body2" color="text.secondary" {...props}>
+        {children}
+      </Typography>
+    );
+  }
+);
 
-function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-footer"
-      className={cn("flex items-center px-6 pb-6 [.border-t]:pt-6", className)}
-      {...props}
-    />
-  );
-}
+CardDescription.displayName = 'CardDescription';
 
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardAction,
-  CardDescription,
-  CardContent,
-};
+export const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ children, ...props }, ref) => {
+    return (
+      <MuiCardContent ref={ref} {...props}>
+        {children}
+      </MuiCardContent>
+    );
+  }
+);
+
+CardContent.displayName = 'CardContent';
+
+export const CardFooter = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ children, ...props }, ref) => {
+    return (
+      <MuiCardActions ref={ref} {...props}>
+        {children}
+      </MuiCardActions>
+    );
+  }
+);
+
+CardFooter.displayName = 'CardFooter';
+
+export const CardAction = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ children, ...props }, ref) => {
+    return (
+      <Box ref={ref} {...props}>
+        {children}
+      </Box>
+    );
+  }
+);
+
+CardAction.displayName = 'CardAction';
