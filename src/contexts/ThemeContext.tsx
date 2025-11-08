@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
+import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
+import { lightTheme, darkTheme } from '../theme/muiTheme';
 
 type Theme = 'light' | 'dark' | 'system';
 
@@ -72,9 +74,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('theme', newTheme);
   };
 
+  // Select the appropriate MUI theme based on resolved theme
+  const muiTheme = useMemo(() => {
+    return resolvedTheme === 'dark' ? darkTheme : lightTheme;
+  }, [resolvedTheme]);
+
   return (
     <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>
-      {children}
+      <MuiThemeProvider theme={muiTheme}>
+        <CssBaseline />
+        {children}
+      </MuiThemeProvider>
     </ThemeContext.Provider>
   );
 }

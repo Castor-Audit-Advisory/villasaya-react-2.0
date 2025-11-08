@@ -29,7 +29,7 @@ import { CalendarView } from './components/CalendarView';
 import { StaffManager } from './components/StaffManager';
 import { MessagingInterface } from './components/MessagingInterface';
 import { UserPreferences } from './components/UserPreferences';
-import { Toaster } from './components/ui/sonner';
+import { Snackbar } from '@mui/material';
 import { TouchTargetDebugOverlay } from './utils/touchTargetAudit';
 import { DesktopApp } from './components/desktop/DesktopApp';
 
@@ -134,10 +134,7 @@ function AppContent() {
   // Show auth page if not authenticated
   if (!isAuthenticated) {
     return (
-      <>
-        <MobileAuthPage onAuthSuccess={handleAuthSuccess} />
-        <Toaster />
-      </>
+      <MobileAuthPage onAuthSuccess={handleAuthSuccess} />
     );
   }
 
@@ -205,10 +202,7 @@ function AppContent() {
   // Desktop layout with new HR Admin UI design
   if (isDesktop) {
     return (
-      <>
-        <DesktopApp />
-        <Toaster />
-      </>
+      <DesktopApp />
     );
   }
 
@@ -239,7 +233,6 @@ function AppContent() {
         activeTab={currentView === 'dashboard' ? 'home' : currentView}
         onTabChange={handleViewChange}
       />
-      <Toaster />
       
       {/* Development tool: Touch target audit overlay */}
       {import.meta.env.DEV && <TouchTargetDebugOverlay />}
