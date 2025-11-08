@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { AlertTriangle, Bell, Info, RefreshCw } from 'lucide-react';
+import { Box, Typography } from '@mui/material';
 import { apiRequest } from '../../utils/api';
 import { PullToRefresh } from './PullToRefresh';
 import { MobileBottomNav } from './MobileBottomNav';
 import { PageHeader } from '../shared/PageHeader';
 import { SkeletonActivityItem, SkeletonList } from '../ui/skeleton';
 import { Button } from '../ui/button';
-import { cn } from '../ui/utils';
 import { formatRelativeTime } from '../../utils/datetime';
 
 interface MobileNotificationsProps {
@@ -23,10 +23,10 @@ interface NotificationItem {
   villaName?: string;
 }
 
-const severityStyles: Record<NonNullable<NotificationItem['severity']>, string> = {
-  info: 'bg-[#E9E5FF] text-[#4634C4]',
-  warning: 'bg-[#FFF5E5] text-[#9A6200]',
-  critical: 'bg-[#FFE5E5] text-[#B11A1A]',
+const severityStyles: Record<NonNullable<NotificationItem['severity']>, { bgcolor: string; color: string }> = {
+  info: { bgcolor: '#E9E5FF', color: '#4634C4' },
+  warning: { bgcolor: '#FFF5E5', color: '#9A6200' },
+  critical: { bgcolor: '#FFE5E5', color: '#B11A1A' },
 };
 
 const severityIcons: Record<NonNullable<NotificationItem['severity']>, React.ReactElement> = {
@@ -78,105 +78,141 @@ export function MobileNotifications({ onNavigate }: MobileNotificationsProps) {
 
   if (isInitialLoad) {
     return (
-      <div className="min-h-dvh bg-[#F8F8F8] pb-[calc(84px+2rem+env(safe-area-inset-bottom))]">
-        <div className="bg-gradient-to-br from-[#7B5FEB] to-[#6B4FDB] px-6 sm:px-8 pt-[calc(0.75rem+env(safe-area-inset-top))] pb-6">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex-1 space-y-1.5">
-              <div className="h-[32px] w-32 bg-white/20 rounded-xl animate-pulse" />
-              <div className="h-[16px] w-48 bg-white/10 rounded-xl animate-pulse" />
-            </div>
-            <div className="w-12 h-12 bg-white/20 rounded-full animate-pulse" />
-          </div>
-          <div className="space-y-2">
+      <Box sx={{ 
+        minHeight: '100dvh', 
+        bgcolor: '#F8F8F8', 
+        pb: 'calc(84px + 2rem + env(safe-area-inset-bottom))' 
+      }}>
+        <Box sx={{ 
+          background: 'linear-gradient(135deg, #7B5FEB 0%, #6B4FDB 100%)', 
+          px: { xs: 3, sm: 4 }, 
+          pt: 'calc(0.75rem + env(safe-area-inset-top))', 
+          pb: 3 
+        }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
+            <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0.75 }}>
+              <Box sx={{ height: 32, width: 128, bgcolor: 'rgba(255,255,255,0.2)', borderRadius: '0.75rem', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
+              <Box sx={{ height: 16, width: 192, bgcolor: 'rgba(255,255,255,0.1)', borderRadius: '0.75rem', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
+            </Box>
+            <Box sx={{ width: 48, height: 48, bgcolor: 'rgba(255,255,255,0.2)', borderRadius: '50%', animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
+          </Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white/15 backdrop-blur-sm rounded-2xl p-4 animate-pulse">
-                <div className="h-4 w-24 bg-white/30 rounded mb-2" />
-                <div className="h-4 w-full bg-white/20 rounded mb-1" />
-                <div className="h-4 w-2/3 bg-white/10 rounded" />
-              </div>
+              <Box key={i} sx={{ bgcolor: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', borderRadius: '1rem', p: 2, animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }}>
+                <Box sx={{ height: 16, width: 96, bgcolor: 'rgba(255,255,255,0.3)', borderRadius: 1, mb: 1 }} />
+                <Box sx={{ height: 16, width: '100%', bgcolor: 'rgba(255,255,255,0.2)', borderRadius: 1, mb: 0.5 }} />
+                <Box sx={{ height: 16, width: '66.666667%', bgcolor: 'rgba(255,255,255,0.1)', borderRadius: 1 }} />
+              </Box>
             ))}
-          </div>
-        </div>
-        <div className="px-6 sm:px-8 -mt-6">
+          </Box>
+        </Box>
+        <Box sx={{ px: { xs: 3, sm: 4 }, mt: -3 }}>
           <SkeletonList count={4}>
             <SkeletonActivityItem />
           </SkeletonList>
-        </div>
+        </Box>
         <MobileBottomNav activeTab="home" onTabChange={handleNavigateTab} />
-      </div>
+      </Box>
     );
   }
 
   return (
-    <div className="min-h-dvh bg-[#F8F8F8] pb-[calc(84px+2rem+env(safe-area-inset-bottom))]">
+    <Box sx={{ 
+      minHeight: '100dvh', 
+      bgcolor: '#F8F8F8', 
+      pb: 'calc(84px + 2rem + env(safe-area-inset-bottom))' 
+    }}>
       <PullToRefresh onRefresh={loadNotifications}>
         <PageHeader
           title="Notifications"
           subtitle={notifications.length ? `${notifications.length} updates` : 'All caught up'}
           action={{
-            icon: <RefreshCw className="w-5 h-5" />,
+            icon: <RefreshCw style={{ width: '1.25rem', height: '1.25rem' }} />,
             onClick: loadNotifications,
             'aria-label': 'Refresh notifications',
           }}
           className="py-[32px]"
         />
 
-        <div className="px-6 sm:px-8 space-y-3">
+        <Box sx={{ px: { xs: 3, sm: 4 }, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
           {error && (
-            <div className="bg-[#FFE5E5] text-[#B11A1A] rounded-2xl p-4 text-sm">
+            <Box sx={{ bgcolor: '#FFE5E5', color: '#B11A1A', borderRadius: '1rem', p: 2, fontSize: '0.875rem' }}>
               {error}
-            </div>
+            </Box>
           )}
 
           {!sortedNotifications.length && !error && (
-            <div className="bg-white rounded-2xl p-6 text-center shadow-sm border border-[#E8E8E8]">
-              <Bell className="w-12 h-12 mx-auto text-[#6B4FDB] mb-3" />
-              <p className="text-[#1F1F1F] font-semibold text-lg">You're up to date</p>
-              <p className="text-[#8E8EA0] text-sm mt-1">
+            <Box sx={{ bgcolor: 'white', borderRadius: '1rem', p: 3, textAlign: 'center', boxShadow: '0 1px 2px rgba(0,0,0,0.05)', border: '1px solid #E8E8E8' }}>
+              <Bell style={{ width: '3rem', height: '3rem', margin: '0 auto', color: '#6B4FDB', marginBottom: '0.75rem' }} />
+              <Typography sx={{ color: '#1F1F1F', fontWeight: 600, fontSize: '1.125rem' }}>
+                You're up to date
+              </Typography>
+              <Typography variant="body2" sx={{ color: '#8E8EA0', fontSize: '0.875rem', mt: 0.5 }}>
                 We'll let you know when there's something new to review.
-              </p>
-              <Button className="mt-4" variant="outline" onClick={() => onNavigate?.('dashboard')}>
+              </Typography>
+              <Button sx={{ mt: 2 }} variant="outline" onClick={() => onNavigate?.('dashboard')}>
                 Back to dashboard
               </Button>
-            </div>
+            </Box>
           )}
 
           {sortedNotifications.map((notification) => {
             const severity = notification.severity ?? 'info';
-            const badgeClasses = severityStyles[severity];
+            const badgeStyles = severityStyles[severity];
             const icon = severityIcons[severity];
 
             return (
-              <div
+              <Box
                 key={notification.id}
-                className="bg-white rounded-2xl p-4 shadow-sm border border-[#E8E8E8]"
+                sx={{ bgcolor: 'white', borderRadius: '1rem', p: 2, boxShadow: '0 1px 2px rgba(0,0,0,0.05)', border: '1px solid #E8E8E8' }}
               >
-                <div className="flex items-start gap-3">
-                  <div className={cn('w-10 h-10 rounded-xl flex items-center justify-center', badgeClasses)}>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
+                  <Box sx={{ 
+                    width: 40, 
+                    height: 40, 
+                    borderRadius: '0.75rem', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    ...badgeStyles
+                  }}>
                     {icon}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-[#1F1F1F] font-semibold text-base line-clamp-1">
+                  </Box>
+                  <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography sx={{ 
+                        color: '#1F1F1F', 
+                        fontWeight: 600, 
+                        fontSize: '1rem',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 1,
+                        WebkitBoxOrient: 'vertical'
+                      }}>
                         {notification.title}
-                      </h3>
-                      <span className="text-xs text-[#8E8EA0]">{formatRelativeTime(notification.createdAt)}</span>
-                    </div>
-                    <p className="text-sm text-[#52525B] mt-1 whitespace-pre-line">
+                      </Typography>
+                      <Typography variant="caption" sx={{ fontSize: '0.75rem', color: '#8E8EA0' }}>
+                        {formatRelativeTime(notification.createdAt)}
+                      </Typography>
+                    </Box>
+                    <Typography variant="body2" sx={{ fontSize: '0.875rem', color: '#52525B', mt: 0.5, whiteSpace: 'pre-line' }}>
                       {notification.message}
-                    </p>
+                    </Typography>
                     {notification.villaName && (
-                      <p className="text-xs text-[#8E8EA0] mt-2">Villa: {notification.villaName}</p>
+                      <Typography variant="caption" sx={{ fontSize: '0.75rem', color: '#8E8EA0', mt: 1 }}>
+                        Villa: {notification.villaName}
+                      </Typography>
                     )}
-                  </div>
-                </div>
-              </div>
+                  </Box>
+                </Box>
+              </Box>
             );
           })}
-        </div>
+        </Box>
       </PullToRefresh>
 
       <MobileBottomNav activeTab="home" onTabChange={handleNavigateTab} />
-    </div>
+    </Box>
   );
 }

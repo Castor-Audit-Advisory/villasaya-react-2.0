@@ -21,16 +21,14 @@
             // Vendor chunks for better caching
             'react-vendor': ['react', 'react-dom'],
             'ui-vendor': [
-              '@radix-ui/react-dialog',
-              '@radix-ui/react-dropdown-menu',
-              '@radix-ui/react-select',
-              '@radix-ui/react-tooltip',
-              '@radix-ui/react-popover'
+              '@mui/material',
+              '@mui/icons-material',
+              '@emotion/react',
+              '@emotion/styled'
             ],
             'form-vendor': ['react-hook-form', 'zod'],
-            'date-vendor': ['react-day-picker'],
-            'chart-vendor': ['recharts'],
-            'utils': ['class-variance-authority', 'clsx', 'tailwind-merge']
+            'date-vendor': ['react-day-picker', '@mui/x-date-pickers'],
+            'chart-vendor': ['recharts']
           }
         }
       },
