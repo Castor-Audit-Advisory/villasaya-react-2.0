@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { AlertTriangle, Bell, Info, RefreshCcw } from 'lucide-react';
+import { Box, Typography } from '@mui/material';
 import { apiRequest } from '../../utils/api';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { formatRelativeTime } from '../../utils/datetime';
 import { Skeleton, SkeletonList } from '../ui/skeleton';
-import { cn } from '../ui/utils';
 
 interface NotificationItem {
   id: string;
@@ -21,10 +21,10 @@ interface DesktopNotificationsProps {
   className?: string;
 }
 
-const severityStyles: Record<NonNullable<NotificationItem['severity']>, string> = {
-  info: 'bg-[#E9E5FF] text-[#4634C4]',
-  warning: 'bg-[#FFF5E5] text-[#9A6200]',
-  critical: 'bg-[#FFE5E5] text-[#B11A1A]',
+const severityStyles: Record<NonNullable<NotificationItem['severity']>, { bgcolor: string; color: string }> = {
+  info: { bgcolor: '#E9E5FF', color: '#4634C4' },
+  warning: { bgcolor: '#FFF5E5', color: '#9A6200' },
+  critical: { bgcolor: '#FFE5E5', color: '#B11A1A' },
 };
 
 const severityIcons: Record<NonNullable<NotificationItem['severity']>, React.ReactElement> = {
@@ -64,85 +64,99 @@ export function DesktopNotifications({ className }: DesktopNotificationsProps) {
   }, []);
 
   return (
-    <div className={cn('flex flex-col gap-4 w-full', className)}>
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold text-[#1F1F1F]">Notifications</h1>
-          <p className="text-sm text-[#8E8EA0]">
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, width: '100%' }} className={className}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Box>
+          <Typography variant="h4" sx={{ fontSize: '1.5rem', fontWeight: 600, color: '#1F1F1F' }}>
+            Notifications
+          </Typography>
+          <Typography variant="body2" sx={{ fontSize: '0.875rem', color: '#8E8EA0' }}>
             {isLoading ? 'Checking for new updates…' : `${sortedNotifications.length} updates`}
-          </p>
-        </div>
+          </Typography>
+        </Box>
         <Button variant="outline" onClick={loadNotifications} disabled={isLoading}>
-          <RefreshCcw className="w-4 h-4 mr-2" /> Refresh
+          <RefreshCcw style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} /> Refresh
         </Button>
-      </div>
+      </Box>
 
       {error && (
-        <Card className="border-[#FEE2E2] bg-[#FEF2F2] text-[#B11A1A]">
-          <div className="p-4 text-sm">{error}</div>
+        <Card sx={{ borderColor: '#FEE2E2', bgcolor: '#FEF2F2', color: '#B11A1A' }}>
+          <Box sx={{ p: 2, fontSize: '0.875rem' }}>{error}</Box>
         </Card>
       )}
 
       {isLoading ? (
-        <Card className="p-6">
-          <Skeleton className="h-6 w-48 mb-4" />
+        <Card sx={{ p: 3 }}>
+          <Skeleton sx={{ height: 24, width: '12rem', mb: 2 }} />
           <SkeletonList count={3}>
-            <div className="flex gap-3">
-              <Skeleton className="w-12 h-12 rounded-xl" />
-              <div className="flex-1 space-y-2">
-                <Skeleton className="h-4 w-40" />
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-4 w-3/4" />
-              </div>
-            </div>
+            <Box sx={{ display: 'flex', gap: 1.5 }}>
+              <Skeleton sx={{ width: 48, height: 48, borderRadius: '0.75rem' }} />
+              <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Skeleton sx={{ height: 16, width: '10rem' }} />
+                <Skeleton sx={{ height: 16, width: '100%' }} />
+                <Skeleton sx={{ height: 16, width: '75%' }} />
+              </Box>
+            </Box>
           </SkeletonList>
         </Card>
       ) : !sortedNotifications.length ? (
-        <Card className="p-12 text-center flex flex-col items-center gap-3">
-          <Bell className="w-12 h-12 text-[#6B4FDB]" />
-          <h2 className="text-lg font-semibold text-[#1F1F1F]">You're up to date</h2>
-          <p className="text-sm text-[#8E8EA0]">
+        <Card sx={{ p: 6, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1.5 }}>
+          <Bell style={{ width: '3rem', height: '3rem', color: '#6B4FDB' }} />
+          <Typography variant="h6" sx={{ fontSize: '1.125rem', fontWeight: 600, color: '#1F1F1F' }}>
+            You're up to date
+          </Typography>
+          <Typography variant="body2" sx={{ fontSize: '0.875rem', color: '#8E8EA0' }}>
             We'll let you know when there's something new to review.
-          </p>
+          </Typography>
         </Card>
       ) : (
-        <div className="grid gap-3">
+        <Box sx={{ display: 'grid', gap: 1.5 }}>
           {sortedNotifications.map((notification) => {
             const severity = notification.severity ?? 'info';
-            const badgeClasses = severityStyles[severity];
+            const badgeStyles = severityStyles[severity];
             const icon = severityIcons[severity];
 
             return (
               <Card
                 key={notification.id}
-                className="p-5 border border-[#E8E8E8] bg-white shadow-sm"
+                sx={{ p: 2.5, border: '1px solid #E8E8E8', bgcolor: 'white', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}
               >
-                <div className="flex items-start gap-3">
-                  <div className={cn('w-12 h-12 rounded-xl flex items-center justify-center', badgeClasses)}>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
+                  <Box sx={{ 
+                    width: 48, 
+                    height: 48, 
+                    borderRadius: '0.75rem', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    ...badgeStyles
+                  }}>
                     {icon}
-                  </div>
-                  <div className="flex-1 space-y-1">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-semibold text-[#1F1F1F] text-base">
+                  </Box>
+                  <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, color: '#1F1F1F', fontSize: '1rem' }}>
                         {notification.title}
-                      </h3>
-                      <span className="text-xs text-[#8E8EA0]">
+                      </Typography>
+                      <Typography variant="caption" sx={{ fontSize: '0.75rem', color: '#8E8EA0' }}>
                         {formatRelativeTime(notification.createdAt)}
-                      </span>
-                    </div>
-                    <p className="text-sm text-[#52525B] whitespace-pre-line">
+                      </Typography>
+                    </Box>
+                    <Typography variant="body2" sx={{ fontSize: '0.875rem', color: '#52525B', whiteSpace: 'pre-line' }}>
                       {notification.message}
-                    </p>
+                    </Typography>
                     {notification.villaName && (
-                      <p className="text-xs text-[#8E8EA0]">Villa: {notification.villaName}</p>
+                      <Typography variant="caption" sx={{ fontSize: '0.75rem', color: '#8E8EA0' }}>
+                        Villa: {notification.villaName}
+                      </Typography>
                     )}
-                  </div>
-                </div>
+                  </Box>
+                </Box>
               </Card>
             );
           })}
-        </div>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 }
